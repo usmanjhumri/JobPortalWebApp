@@ -8,6 +8,9 @@ import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import LocationOn from "@mui/icons-material/LocationOn";
 import jobsStyle from "./JobsStyle";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { RiCalendar2Line } from "react-icons/ri";
+import DS from '../../assets/jobsIMGDataScience.jpg'
+import { VscLocation } from "react-icons/vsc";
 
 const Jobs = () => {
     return (
@@ -78,9 +81,48 @@ const Jobs = () => {
                     </Box>
                     <Grid container mt={6} spacing={3}>
                         <Grid item xs={12} md={6}>
-                            <Box sx={{ padding: "25px", border: "1px solid #ebebeb" }}>
-                                <Box>
-
+                            <Box sx={{ padding: "25px", border: "1px solid #ebebeb", background: "#FFF" }}>
+                                <Box sx={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                }}>
+                                    <Typography sx={jobsStyle.jobtime}>
+                                        PART TIME
+                                    </Typography>
+                                    <Box sx={jobsStyle.jobandcalendar}>
+                                        <RiCalendar2Line style={{ fontSize: "16px", color: "#26ae61" }} /> <Typography sx={jobsStyle.jobpostedDate}>
+                                            2 MONTHS AGO
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                                <Box mt={5}>
+                                    <Box>
+                                        <img src={DS} alt="job picutre" width={80} height={80} style={{ borderRadius: "50%" }} />
+                                    </Box>
+                                    <Box>
+                                        <Typography variant="h4" sx={{
+                                            fontSize: "18px",
+                                            fontWeight: 700,
+                                        }}>
+                                            UI/UX Designer
+                                        </Typography>
+                                        <a href="http://google.com" style={{
+                                            textDecoration: "none",
+                                            color: "#26ae61",
+                                            margin: "2px 0",
+                                            textTransform: "capitalize",
+                                            fontSize: "14px"
+                                        }}>Google</a>
+                                        <Box sx={{
+                                            display: "flex",
+                                            alignItems: "center"
+                                        }}>
+                                            <VscLocation /> <Typography sx={{
+                                                color: "#667488",
+                                                fontSize: "12px"
+                                            }}>Florida</Typography>
+                                        </Box>
+                                    </Box>
                                 </Box>
                             </Box>
                         </Grid>
