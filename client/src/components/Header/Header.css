@@ -6,6 +6,7 @@
   /* backdrop-filter: blur(15px); */
   animation: headerSlideDown 0.5s ease forwards;
   background-color: #f8f9fa;
+  box-shadow: 0 10px 15px rgba(25, 25, 25, 0.1);
 }
 
 .onScrollColor {
