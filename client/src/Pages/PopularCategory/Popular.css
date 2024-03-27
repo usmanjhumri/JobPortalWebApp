@@ -1,0 +1,16 @@
+.hoverBox:hover .icon {
+  color: aliceblue;
+  transition: all 0.5s ease;
+}
+.arrowicon:hover {
+  background: #fe9703;
+  transition: all 0.3s ease-in;
+  color: aliceblue;
+}
+.arrowicon {
+  color: black;
+}
+.hoverBox:hover {
+  background: url(https://care-job.vercel.app/_next/static/media/shape.db02af9b.png);
+  transition: all 0.6s ease-in;
+}

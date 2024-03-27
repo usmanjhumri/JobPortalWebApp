@@ -1,0 +1,30 @@
+.containerBox {
+  /* position: absolute; */
+  content: "";
+  /* top: -85px;
+  left: -120px; */
+  /* width: calc(100% + 240px); */
+  /* height: calc(100% + 145px); */
+  background: #fff;
+  border-top: 5px solid #fe9703;
+  z-index: 1;
+}
+/* .sendMessage::before {
+  top: 0 !important;
+  width: 0 !important;
+  left: auto !important;
+  right: 0 !important;
+  z-index: -1 !important;
+  bottom: 0 !important;
+  content: "" !important;
+  position: absolute !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+.greens::before {
+  background: #1c2733 !important;
+}
+.sendMessage {
+  margin: 1rem 0 !important;
+  background: #26ae61 !important;
+} */
