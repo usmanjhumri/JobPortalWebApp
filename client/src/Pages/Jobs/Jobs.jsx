@@ -89,7 +89,7 @@ const Jobs = () => {
                                                         {item.jobLastDate}
                                                     </Typography>
                                                     <Typography sx={jobsStyle.jobDetailAndIcon}>
-                                                        <Link to="/" style={jobsStyle.jobDetailLink}>
+                                                        <Link to="/jobdetail" style={jobsStyle.jobDetailLink}>
                                                             Job Details
                                                         </Link>
                                                         <BsArrowRightShort style={{ fontSize: "20px", color: "#26ae61" }} />
