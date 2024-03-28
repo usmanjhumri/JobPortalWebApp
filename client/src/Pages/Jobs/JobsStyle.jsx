@@ -16,7 +16,8 @@ const jobsStyle = {
     jobpostedDate: {
         fontSize: "12px",
         color: "#667488",
-        fontWeight: 400
+        fontWeight: 400,
+        textTransform: "uppercase"
     },
     jobandcalendar: {
         display: "flex",
@@ -29,7 +30,7 @@ const jobsStyle = {
         fontWeight: 400,
         background: "#f5f7fc",
         padding: "0 10px",
-
+        textTransform: "uppercase"
     },
     companyname: {
         textDecoration: "none",
@@ -47,7 +48,8 @@ const jobsStyle = {
     companycountry: {
         color: "#667488",
         fontSize: "12px",
-        margin: "3px 0"
+        margin: "3px 0",
+        textTransform: "capitalize"
 
     },
     jobname: {
@@ -68,7 +70,8 @@ const jobsStyle = {
         display: "flex",
         alignItems: "center",
         gap: 1,
-        fontSize: "13px"
+        textTransform: "capitalize",
+        fontSize: "13px",
     },
     jobSearchmainBox: {
         display: { md: "flex", xs: "wrap" },
@@ -84,7 +87,8 @@ const jobsStyle = {
         display: "flex",
         alignItems: "center",
         gap: 0.2,
-        marginLeft: "-6px"
+        marginLeft: "-6px",
+        textTransform: "capitalize",
     },
     jobDetailAndIcon: {
         display: "flex",
@@ -95,7 +99,7 @@ const jobsStyle = {
         fontSize: "14px",
         fontWeight: 700,
         color: "#26ae61",
-        textDecoration: "none"
+        textDecoration: "none",
     },
 
 }

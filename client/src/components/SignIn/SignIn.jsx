@@ -6,9 +6,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Logo from '../../assets/Logo1.png'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import styles from '../SignUp/SignUpStyle';
-import { Container } from '@mui/material';
+import CommonPage from '../commonPage/CommonPage';
 
 export default function SignIn() {
     const handleSubmit = (event) => {
@@ -22,27 +20,7 @@ export default function SignIn() {
 
     return (
         <>
-            <Box sx={styles.SingUp} className="sinupSingin">
-                <Container>
-                    <Grid container>
-                        <Box>
-                            <Box sx={styles.containerBox}>
-                                <Typography
-                                    variant="h1"
-                                    sx={styles.register}
-                                >
-                                    Login
-                                </Typography>
-                                <Box mt={1} sx={styles.signinsingup}>
-                                    <Link to='/' style={styles.singupsigninhome}>Home</Link>
-                                    <ArrowForwardIosIcon sx={styles.loginsinup} />
-                                    <Typography sx={styles.loginsinup}>Login</Typography>
-                                </Box>
-                            </Box>
-                        </Box>
-                    </Grid>
-                </Container>
-            </Box>
+            <CommonPage value="Login" />
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <Grid
                     item

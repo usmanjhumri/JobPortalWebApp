@@ -16,6 +16,7 @@ import { signupSchema } from './SingUpRegex';
 import styles from './SignUpStyle';
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import CommonPage from '../commonPage/CommonPage';
 const initialValues = {
     firstname: "",
     lastname: "",
@@ -75,27 +76,7 @@ export default function SignUp() {
 
     return (
         <>
-            <Box sx={styles.SingUp} className="sinupSingin">
-                <Container>
-                    <Grid container>
-                        <Box>
-                            <Box sx={styles.containerBox}>
-                                <Typography
-                                    variant="h1"
-                                    sx={styles.register}
-                                >
-                                    Register
-                                </Typography>
-                                <Box mt={1} sx={styles.signinsingup}>
-                                    <Link to='/' style={styles.singupsigninhome}>Home</Link>
-                                    <ArrowForwardIosIcon sx={styles.loginsinup} />
-                                    <Typography sx={styles.loginsinup}>Register</Typography>
-                                </Box>
-                            </Box>
-                        </Box>
-                    </Grid>
-                </Container>
-            </Box>
+            <CommonPage value="Register" />
             <Container component="main" maxWidth="xs">
                 <Box
                     sx={{
