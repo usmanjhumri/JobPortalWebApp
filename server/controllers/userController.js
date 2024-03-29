@@ -192,13 +192,11 @@ class UserController {
           coverletter: coverletter,
         });
         const userApplied = await userDoc.save();
-        res
-          .status(201)
-          .send({
-            status: "success",
-            message: "Applied Successfully",
-            userApplied: userApplied,
-          });
+        res.status(201).send({
+          status: "success",
+          message: "Applied Successfully",
+          userApplied: userApplied,
+        });
       } else {
         res
           .status(200)
@@ -207,6 +205,18 @@ class UserController {
     } catch (error) {
       console.log(error);
       res.send({ status: "failed", message: "something went wrong" });
+    }
+  };
+
+  static getuserAppliedData = async (req, res) => {
+    try {
+      const userAppliedData = await CandidateProfile.find();
+      res.status(201).send({
+        status: "success",
+        getuserAppliedData: userAppliedData,
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 }
