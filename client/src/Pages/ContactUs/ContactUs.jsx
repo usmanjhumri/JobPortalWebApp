@@ -59,31 +59,31 @@ const ContactUs = () => {
 
                         </Grid>
                         <Grid item xs={12} md={8}>
-                            <Box sx={contactStyle.fullNameEmail}>
-                                <Input fullWidth sx={{ margin: "1rem 0" }}
-                                    placeholder="Enter Your Full Name"
-                                    endDecorator={<FaRegUser style={contactStyle.inputicons} />}
+                            <Box component="form">
+                                <Box sx={contactStyle.fullNameEmail}>
+                                    <Input fullWidth sx={{ margin: "1rem 0" }}
+                                        placeholder="Enter Your Full Name"
+                                        endDecorator={<FaRegUser style={contactStyle.inputicons} />}
+                                    />
+                                    <Input fullWidth sx={{ margin: "1rem 0" }}
+                                        placeholder="Enter your Email Address"
+                                        endDecorator={<MdOutlineEmail style={contactStyle.inputicons} />}
+                                    />
+                                </Box>
+                                <Input
+                                    placeholder="Enter Your Phone Number"
+                                    endDecorator={<AiOutlinePhone style={contactStyle.inputicons} />}
+                                    sx={{ margin: "1rem 0" }}
                                 />
-                                <Input fullWidth sx={{ margin: "1rem 0" }}
-                                    placeholder="Enter your Email Address"
-                                    endDecorator={<MdOutlineEmail style={contactStyle.inputicons} />}
+                                <Textarea
+                                    placeholder="Write Your Message"
+                                    startDecorator={<LiaPenAltSolid style={contactStyle.textArea} />}
+                                    minRows={6}
                                 />
+                                <Button fullWidth sx={{ background: "#26ae61", margin: "1rem 0" }} type='submit' endDecorator={<MdKeyboardArrowRight />}  >
+                                    Send Message
+                                </Button>
                             </Box>
-                            <Input
-                                placeholder="Enter Your Phone Number"
-                                endDecorator={<AiOutlinePhone style={contactStyle.inputicons} />}
-                                sx={{ margin: "1rem 0" }}
-                            />
-                            <Textarea
-                                placeholder="Write Your Message"
-                                startDecorator={<LiaPenAltSolid style={contactStyle.textArea} />}
-                                minRows={6}
-                            />
-                            <Button fullWidth sx={{ background: "#26ae61", margin: "1rem 0" }} type='submit' endDecorator={<MdKeyboardArrowRight />}  >
-                                Send Message
-                            </Button>
-
-
                         </Grid>
                         <Grid item xs={12} md={12}>
                             <Box margin="1rem 0">
