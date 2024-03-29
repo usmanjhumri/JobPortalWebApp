@@ -43,7 +43,7 @@ const ApplicationForm = () => {
                                         placeholder="Enter Your Portfolio Link"
                                         endDecorator={<FaLink style={ApplicationFormStyle.inputicons} />}
                                     />
-                                    <Input fullWidth type="file" accept=".pdf" sx={{ margin: "1rem 0" }}
+                                    <Input fullWidth type="file" name="pdf" accept=".pdf" sx={{ margin: "1rem 0" }}
                                         placeholder="Upload Your Resume"
                                         endDecorator={<FaFilePdf style={ApplicationFormStyle.inputicons} />}
                                     />
