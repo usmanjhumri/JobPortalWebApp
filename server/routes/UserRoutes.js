@@ -6,6 +6,8 @@ const router = express.Router();
 // Private Route
 router.use("/userlogged", checkUserAuth);
 router.get("/userlogged", UserController.userLoggedData);
+router.use("/applied", checkUserAuth);
+router.post("/applied", UserController.appliedForJob);
 
 // Public Route
 router.post("/register", UserController.userRigerstration);

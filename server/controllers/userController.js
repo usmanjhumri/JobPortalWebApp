@@ -2,7 +2,7 @@ import UserModel from "../model/UserModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import transporter from "../config/emailConfig.js";
-
+import CandidateProfile from "../model/CandidateProfile.js";
 class UserController {
   //Rigestration code
   static userRigerstration = async (req, res) => {
@@ -161,6 +161,53 @@ class UserController {
 
   static userLoggedData = async (req, res) => {
     res.send({ user: req.user });
+  };
+
+  //multer code
+  static appliedForJob = async (req, res) => {
+    try {
+      const {
+        fullname,
+        email,
+        dob,
+        address,
+        portfolio,
+        phone,
+        salary,
+        hearaboutus,
+        coverletter,
+      } = req.body;
+      const rdoc = req.files["assets"][0].filename;
+      if (fullname && email && dob && address && phone && salary) {
+        const userDoc = new CandidateProfile({
+          name: fullname,
+          email: email,
+          dob: dob,
+          address: address,
+          portfolio: portfolio,
+          rdoc: rdoc,
+          phone: phone,
+          salary: salary,
+          hearabout: hearaboutus,
+          coverletter: coverletter,
+        });
+        const userApplied = await userDoc.save();
+        res
+          .status(201)
+          .send({
+            status: "success",
+            message: "Applied Successfully",
+            userApplied: userApplied,
+          });
+      } else {
+        res
+          .status(200)
+          .send({ status: "failed", message: "All Fields are Required" });
+      }
+    } catch (error) {
+      console.log(error);
+      res.send({ status: "failed", message: "something went wrong" });
+    }
   };
 }
 
