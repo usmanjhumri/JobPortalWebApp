@@ -6,6 +6,7 @@ import Jobs from '../Pages/Jobs/Jobs'
 import SignIn from '../components/SignIn/SignIn'
 import SignUp from '../components/SignUp/SignUp'
 import JobDetail from '../Pages/JobDetail/JobDetail'
+import ApplicationForm from '../Pages/ApplicationForm/ApplicationForm'
 export const Path = [
     {
         path: '/',
@@ -38,5 +39,9 @@ export const Path = [
     {
         path: '/jobdetail',
         component: <JobDetail />
+    },
+    {
+        path: '/appilcation-form',
+        component: <ApplicationForm />
     }
 ]
