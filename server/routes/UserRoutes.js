@@ -8,7 +8,7 @@ const router = express.Router();
 router.use("/userlogged", checkUserAuth);
 router.get("/userlogged", UserController.userLoggedData);
 router.use("/applied", checkUserAuth);
-router.use("/applied", upload.single([{ name: "rdoc", maxCount: 1 }]));
+router.use("/applied", upload.single([{ name: "assets", maxCount: 1 }]));
 router.post("/applied", UserController.appliedForJob);
 router.get("/userapplieddata", UserController.getuserAppliedData);
 // Public Route
