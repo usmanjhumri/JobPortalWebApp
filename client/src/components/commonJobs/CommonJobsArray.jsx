@@ -1,7 +1,7 @@
 import UIUX from '../../assets/uiuxDesigner.jpeg'
 import SE from '../../assets/jobsIMG.jpg'
 import DS from '../../assets/jobsIMGDataScience.jpg'
-const JobsArray = [
+const CommonJobsArray = [
     {
         timing: "part time",
         calendar: "2 months ago",
@@ -47,4 +47,4 @@ const JobsArray = [
         jobLastDate: "21 Days Left To Apply",
     },
 ]
-export default JobsArray
+export default CommonJobsArray

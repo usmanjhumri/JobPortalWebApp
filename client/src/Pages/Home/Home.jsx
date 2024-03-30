@@ -12,6 +12,8 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import SIDEIMG from '../../assets/homeSide.png'
 import TextImg from '../../assets/hometextBG.png'
 import './Home.css'
+import CommonJobs from '../../components/commonJobs/CommonJobs';
+import Text from '../../components/commonJobs/Text';
 const Home = () => {
     return (
         <>
@@ -68,6 +70,8 @@ const Home = () => {
 
             </Box >
             <Popular />
+            <Text />
+            <CommonJobs />
             <NewsandBlogs />
 
         </>
