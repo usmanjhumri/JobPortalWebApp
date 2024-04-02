@@ -130,14 +130,7 @@ const ResponsiveDrawer = ({ mobileOpen, setMobileOpen }) => {
                                 Login
                             </NavLink>
                         </Typography>
-                        <Typography sx={{ margin: "1rem 0px" }}
-                            onClick={() => handleCloseDrawer()}
-                        >
-                            <NavLink to={"/signup"}
-                                style={{ textDecoration: "none", color: "black" }}>
-                                SignUp
-                            </NavLink>
-                        </Typography>
+
                     </Box>
                 </Container>
 

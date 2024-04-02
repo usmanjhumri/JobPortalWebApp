@@ -73,12 +73,7 @@ const Header = () => {
                                         Login
                                     </NavLink>
                                 </Typography>
-                                <Typography>
-                                    <NavLink to={"/signup"}
-                                        style={{ textDecoration: "none", color: activeOffest ? "#000" : "#FFF" }}>
-                                        SignUp
-                                    </NavLink>
-                                </Typography>
+
                             </Box>
                         </Hidden>
                         <Hidden mdUp>
