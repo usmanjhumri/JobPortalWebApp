@@ -33,7 +33,7 @@ class UserController {
             });
             await userRigester.save();
             const saved_user = await UserModel.findOne({ email: email });
-            const token = await jwt.sign(
+            const token = jwt.sign(
               { userID: saved_user._id },
               process.env.JWT_SECRET_KEY,
               { expiresIn: "1d" }

@@ -7,8 +7,10 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Logo from '../../assets/Logo1.png'
 import CommonPage from '../commonPage/CommonPage';
-
+import { useDispatch } from 'react-redux'
+import { SignInNew } from '../../RTK/API/api'
 export default function SignIn() {
+    const dispatch = useDispatch()
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -16,6 +18,13 @@ export default function SignIn() {
             email: data.get('email'),
             password: data.get('password'),
         });
+        dispatch(SignInNew(data))
+            .then((response) => {
+                console.log("Sign in successful:", response);
+            })
+            .catch((error) => {
+                console.error("Sign in failed:", error);
+            });
     };
 
     return (

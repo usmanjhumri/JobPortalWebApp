@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, trim: true },
   phone: { type: String, required: true, trim: true },
   password: { type: String, required: true, trim: true },
+  // isAdmin: { type: Boolean, default: false },
 });
 
 const UserModel = mongoose.model("user", userSchema);

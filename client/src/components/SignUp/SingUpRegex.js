@@ -20,12 +20,11 @@ export const signupSchema = Yup.object({
   password: Yup.string()
     .min(8)
     .max(20)
-    .required("please enter password")
     .matches(
       /^.*[!@#$%^&*()_+\-=\]{};':"\\|,.<>?].*$/,
       "Need one special character"
     ),
   password_confirmation: Yup.string()
-    .required(`please enter confirm password`)
+    .required(`Password confirm is required`)
     .oneOf([Yup.ref("password"), null], "Password must matched"),
 });
