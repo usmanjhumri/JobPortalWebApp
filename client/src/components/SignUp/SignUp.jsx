@@ -76,14 +76,14 @@ const SignUp = () => {
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="given-name"
-                                    name="firstName"
+                                    name="firstname"
                                     required
                                     fullWidth
                                     id="firstName"
                                     label="First Name"
                                     autoFocus
-                                    error={errors.firstName}
-                                    {...register("firstName", {
+                                    error={errors.firstname}
+                                    {...register("firstname", {
                                         required: true,
                                         pattern: /^[A-Za-z]{1,}$/,
                                     })}
@@ -102,10 +102,10 @@ const SignUp = () => {
                                     fullWidth
                                     id="lastName"
                                     label="Last Name"
-                                    name="lastName"
+                                    name="lastname"
                                     autoComplete="family-name"
-                                    error={errors.lastName}
-                                    {...register("lastName", {
+                                    error={errors.lastname}
+                                    {...register("lastname", {
                                         required: true,
                                         pattern: /^[A-Za-z]{1,}$/,
                                     })}
@@ -146,13 +146,13 @@ const SignUp = () => {
                                 <TextField
                                     required
                                     fullWidth
-                                    name="phoneNumber"
+                                    name="phone"
                                     label="Phone-Number"
                                     type="phoneNumber"
                                     id="password"
                                     autoComplete="new-password"
-                                    error={errors.phoneNumber}
-                                    {...register("phoneNumber", {
+                                    error={errors.phone}
+                                    {...register("phone", {
                                         required: true,
                                         pattern:
                                             /([0-9\s-]{7,})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/,

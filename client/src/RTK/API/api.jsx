@@ -25,7 +25,7 @@ export const SignInNew = createAsyncThunk(
         try {
             const res = await axios.post('http://localhost:8000/user/login', data, {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 }
             })
             console.log(res);
