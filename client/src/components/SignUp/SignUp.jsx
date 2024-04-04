@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useForm } from "react-hook-form";
 import { ErrorText } from "../Helper/ErrorText";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CommonPage from "../commonPage/CommonPage";
 import Logo from '../../assets/Logo1.png'
 import { SignUpUser } from "../../RTK/API/api";
@@ -20,6 +20,8 @@ import { useState } from "react";
 const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
+    const signupSelector = useSelector((state) => state.userRegister.data)
+
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -38,8 +40,14 @@ const SignUp = () => {
 
     const onSubmit = (data) => {
         console.log(data, ' data');
-        const singupuser = dispatch(SignUpUser(data));
-        console.log(singupuser, ' signgsd');
+        dispatch(SignUpUser(data))
+            .then((result) => {
+                console.log("Sign up user request fulfilled with result:", result);
+            })
+            .catch((error) => {
+                console.error("Sign up user request rejected with error:", error);
+            });
+        console.log(signupSelector, 'slice data')
     }
     // reset();
 
