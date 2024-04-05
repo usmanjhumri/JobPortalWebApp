@@ -11,7 +11,8 @@ export const SignUpUser = createAsyncThunk(
                     'Content-Type': 'application/json'
                 }
             })
-            console.log(res);
+            console.log(res.data);
+            return res.data
         } catch (error) {
             console.log(error);
             return rejectWithValue(error)

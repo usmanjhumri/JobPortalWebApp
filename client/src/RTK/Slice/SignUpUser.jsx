@@ -4,27 +4,32 @@ import { SignUpUser } from "../API/api";
 const initialState = {
     isLoading: false,
     isError: false,
-    isLogedIn: false,
     success: false,
-    errorMessage: "",
-    data: []
+    message: "",
+    token: ""
 }
 
 const userRegister = createSlice({
     name: 'createUser',
     initialState,
     extraReducers: (builder) => {
-        builder.addCase(SignUpUser.pending, (state, action) => {
-            console.log(action.payload);
+        builder.addCase(SignUpUser.pending, (state) => {
             state.isLoading = true
             state.isError = false
-            state.errorMessage = action.payload
         })
             .addCase(SignUpUser.fulfilled, (state, action) => {
-                state.data = action.payload
-                console.log(state.data);
+                state.isLoading = false
+                state.isError = false
+                state.success = true
+                state.message = action.payload?.message
+                state.token = action.payload?.Token
+                console.log(state.message);
+                console.log(state.token)
             })
             .addCase(SignUpUser.rejected, (state, action) => {
+                state.isLoading = false
+                state.message = action.payload?.message
+                console.log(state.message)
                 console.log(action.payload);
             })
     }

@@ -16,11 +16,10 @@ import Logo from '../../assets/Logo1.png'
 import { SignUpUser } from "../../RTK/API/api";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { useState } from "react";
-
 const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
-    const signupSelector = useSelector((state) => state.userRegister.data)
+    const signupSelector = useSelector((state) => state.userRegister?.data)
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -38,19 +37,17 @@ const SignUp = () => {
         formState: { errors },
     } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data, ' data');
-        dispatch(SignUpUser(data))
-            .then((result) => {
-                console.log("Sign up user request fulfilled with result:", result);
-            })
-            .catch((error) => {
-                console.error("Sign up user request rejected with error:", error);
-            });
+    const onSubmit = async (data) => {
+        try {
+            console.log(data, ' data');
+            const result = await dispatch(SignUpUser(data))
+            console.log(result)
+        } catch (error) {
+            console.log(error, ' someting is wrong');
+        }
+
         console.log(signupSelector, 'slice data')
     }
-    // reset();
-
 
     return (
         <>
@@ -240,23 +237,13 @@ const SignUp = () => {
                         </Grid>
                         <Button
                             type="submit"
-                            variant="button"
                             fullWidth
-                            sx={{
-                                mt: 3,
-                                mb: 2,
-                                px: 10,
-                                py: 2,
-                                color: "#FFFFFF",
-                                clipPath:
-                                    "polygon(21% 0, 94% 0, 100% 20%, 79% 100%, 6% 100%, 0 80%)",
-                                background:
-                                    " radial-gradient(241.67% 3206.67% at -4.58% -26.67%, #AD00FF 8.51%, #0029FF 90%)",
-                                cursor: "pointer",
-                            }}
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign Up
+                            SignUp
                         </Button>
+
                         <Grid container justifyContent="space-between">
                             <Grid item md={12}>
                                 <Box>
