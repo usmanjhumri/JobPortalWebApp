@@ -43,7 +43,7 @@ const SignUp = () => {
             const result = await dispatch(SignUpUser(data))
             console.log(result)
         } catch (error) {
-            console.log(error, ' someting is wrong');
+            console.log(error, ' something is wrong');
         }
 
         console.log(signupSelector, 'slice data')
