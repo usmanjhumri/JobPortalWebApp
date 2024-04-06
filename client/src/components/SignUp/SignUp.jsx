@@ -3,7 +3,7 @@
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -16,10 +16,13 @@ import Logo from '../../assets/Logo1.png'
 import { SignUpUser } from "../../RTK/API/api";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { useState } from "react";
+import ToastMessage from "../../ToastMessage/ToastMessage";
 const SignUp = () => {
+    const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
-    const signupSelector = useSelector((state) => state.userRegister?.data)
+    const message = useSelector((state) => state.userRegister?.message)
+    const token = useSelector((state) => state.userRegister?.token)
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -37,17 +40,24 @@ const SignUp = () => {
         formState: { errors },
     } = useForm();
 
+
     const onSubmit = async (data) => {
         try {
             console.log(data, ' data');
-            const result = await dispatch(SignUpUser(data))
-            console.log(result)
+            const result = await dispatch(SignUpUser(data));
+            console.log(result.payload.status);
+
+            if (result.payload.status === "success") {
+                ToastMessage(message, "success");
+                navigate('/login');
+            } else {
+                ToastMessage(message, "error");
+            }
         } catch (error) {
             console.log(error, ' something is wrong');
         }
-
-        console.log(signupSelector, 'slice data')
     }
+
 
     return (
         <>

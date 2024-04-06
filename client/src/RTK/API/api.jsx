@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { storageKey } from '../../Const/Const';
 
 
 export const SignUpUser = createAsyncThunk(
@@ -15,7 +16,7 @@ export const SignUpUser = createAsyncThunk(
             return res.data
         } catch (error) {
             console.log(error);
-            return rejectWithValue(error)
+            return rejectWithValue(error.response.data)
         }
     }
 )
@@ -30,6 +31,13 @@ export const SignInNew = createAsyncThunk(
                 }
             })
             console.log(res);
+            if (res) {
+                const localStorageData = JSON.stringify({
+                    token: res?.data.Token
+                })
+                window.localStorage.setItem(storageKey, localStorageData)
+                res.data
+            }
         } catch (error) {
             console.log(error);
             return rejectWithValue(error)

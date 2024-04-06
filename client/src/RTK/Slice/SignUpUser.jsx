@@ -6,7 +6,8 @@ const initialState = {
     isError: false,
     success: false,
     message: "",
-    token: ""
+    token: "",
+    data: null
 }
 
 const userRegister = createSlice({
@@ -21,6 +22,8 @@ const userRegister = createSlice({
                 state.isLoading = false
                 state.isError = false
                 state.success = true
+                state.data = action.payload
+                console.log(state.data)
                 state.message = action.payload?.message
                 state.token = action.payload?.Token
                 console.log(state.message);
