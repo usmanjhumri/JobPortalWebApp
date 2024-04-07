@@ -10,7 +10,9 @@ class UserController {
       req.body;
     const user = await UserModel.findOne({ email: email });
     if (user) {
-      res.send({ status: "failed", message: "Email already exists" });
+      res
+        .status(400)
+        .send({ status: "failed", message: "Email already exists" });
     } else {
       if (
         firstname &&
@@ -45,7 +47,9 @@ class UserController {
             });
           } catch (error) {
             console.log(error);
-            res.send({ status: "failed", message: "Unable to Register" });
+            res
+              .status(500)
+              .send({ status: "failed", message: "Unable to Register" });
           }
         } else {
           res.send({
@@ -54,7 +58,9 @@ class UserController {
           });
         }
       } else {
-        res.send({ status: "failed", message: "All Feilds are Required" });
+        res
+          .status(400)
+          .send({ status: "failed", message: "All Feilds are Required" });
       }
     }
   };
