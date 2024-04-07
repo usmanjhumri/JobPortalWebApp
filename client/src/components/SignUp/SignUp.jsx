@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useForm } from "react-hook-form";
 import { ErrorText } from "../Helper/ErrorText";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import CommonPage from "../commonPage/CommonPage";
 import Logo from '../../assets/Logo1.png'
 import { SignUpUser } from "../../RTK/API/api";
@@ -21,9 +21,9 @@ const SignUp = () => {
     const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
-    const message = useSelector((state) => state.userRegister?.message)
-    const errorMessage = useSelector((state) => state.userRegister?.errorMessage)
-    const token = useSelector((state) => state.userRegister?.token)
+    // const message = useSelector((state) => state.userRegister?.message)
+    // const errorMessage = useSelector((state) => state.userRegister?.errorMessage)
+    // const token = useSelector((state) => state.userRegister?.token)
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);

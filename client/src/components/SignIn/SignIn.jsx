@@ -1,26 +1,41 @@
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Logo from '../../assets/Logo1.png'
 import CommonPage from '../commonPage/CommonPage';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { SignInNew } from '../../RTK/API/api'
+import ToastMessage from '../../ToastMessage/ToastMessage';
 export default function SignIn() {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        dispatch(SignInNew(data))
-            .then((response) => {
-                console.log("Sign in successful:", response);
-            })
-            .catch((error) => {
-                console.error("Sign in failed:", error);
-            });
+    const message = useSelector((state) => state.signInReducer?.message)
+    const isError = useSelector((state) => state.signInReducer?.isError)
+
+    const handleSubmit = async (event) => {
+        try {
+            event.preventDefault();
+            const data = new FormData(event.currentTarget);
+            if (data.get('email') && data.get('password')) {
+                const res = await dispatch(SignInNew({
+                    email: data.get('email'),
+                    password: data.get('password')
+                }))
+                console.log(res);
+                if (res.payload.status === "success") {
+                    ToastMessage({ message: message, type: "success" });
+                    navigate('/');
+                }
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+
     };
 
     return (

@@ -13,7 +13,13 @@ export const SignUpUser = createAsyncThunk(
                 }
             })
             console.log(res.data);
-            return res.data
+            if (res) {
+                const localStorageData = JSON.stringify({
+                    token: res?.data.Token
+                })
+                window.localStorage.setItem(storageKey, localStorageData)
+                return res.data
+            }
         } catch (error) {
             console.log(error);
             return rejectWithValue(error.response.data)
@@ -36,7 +42,7 @@ export const SignInNew = createAsyncThunk(
                     token: res?.data.Token
                 })
                 window.localStorage.setItem(storageKey, localStorageData)
-                res.data
+                return res.data
             }
         } catch (error) {
             console.log(error);
