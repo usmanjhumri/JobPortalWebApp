@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { Typography } from '@mui/material';
 import { toast } from 'react-toastify'
 
-const ToastMessage = (message, type) => {
+const ToastMessage = ({ message, type }) => {
     switch (type) {
         case "success":
             return toast.success(
@@ -21,6 +22,8 @@ const ToastMessage = (message, type) => {
                     </Typography>
                 </>
             )
+        default:
+            return null;
 
     }
 }

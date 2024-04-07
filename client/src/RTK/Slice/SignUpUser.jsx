@@ -7,7 +7,8 @@ const initialState = {
     success: false,
     message: "",
     token: "",
-    data: null
+    data: null,
+
 }
 
 const userRegister = createSlice({

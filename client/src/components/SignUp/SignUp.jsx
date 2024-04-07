@@ -22,6 +22,7 @@ const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
     const message = useSelector((state) => state.userRegister?.message)
+    const errorMessage = useSelector((state) => state.userRegister?.errorMessage)
     const token = useSelector((state) => state.userRegister?.token)
 
     const togglePasswordVisibility = () => {
@@ -45,13 +46,13 @@ const SignUp = () => {
         try {
             console.log(data, ' data');
             const result = await dispatch(SignUpUser(data));
-            console.log(result.payload.status);
+            console.log(result);
 
             if (result.payload.status === "success") {
-                ToastMessage(message, "success");
+                ToastMessage({ message: result.payload.message, type: "success" });
                 navigate('/login');
             } else {
-                ToastMessage(message, "error");
+                ToastMessage({ message: result.payload.message, type: "error" });
             }
         } catch (error) {
             console.log(error, ' something is wrong');
