@@ -7,14 +7,14 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Logo from '../../assets/Logo1.png'
 import CommonPage from '../commonPage/CommonPage';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { SignInNew } from '../../RTK/API/api'
 import ToastMessage from '../../ToastMessage/ToastMessage';
 export default function SignIn() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const message = useSelector((state) => state.signInReducer?.message)
-    const isError = useSelector((state) => state.signInReducer?.isError)
+    // const message = useSelector((state) => state.signInReducer?.message)
+    // const isError = useSelector((state) => state.signInReducer?.isError)
 
     const handleSubmit = async (event) => {
         try {
@@ -27,8 +27,13 @@ export default function SignIn() {
                 }))
                 console.log(res);
                 if (res.payload.status === "success") {
-                    ToastMessage({ message: message, type: "success" });
+                    ToastMessage({ message: res.payload.message, type: "success" });
                     navigate('/');
+                }
+                else {
+
+                    ToastMessage({ message: res.payload.message, type: "error" })
+
                 }
             }
 
@@ -37,6 +42,11 @@ export default function SignIn() {
         }
 
     };
+
+
+
+
+
 
     return (
         <>

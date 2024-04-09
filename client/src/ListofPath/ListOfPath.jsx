@@ -7,6 +7,7 @@ import SignIn from '../components/SignIn/SignIn'
 import SignUp from '../components/SignUp/SignUp'
 import JobDetail from '../Pages/JobDetail/JobDetail'
 import ApplicationForm from '../Pages/ApplicationForm/ApplicationForm'
+
 export const Path = [
     {
         path: '/',

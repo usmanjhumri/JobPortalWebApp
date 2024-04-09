@@ -6,9 +6,28 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useEffect, useState } from 'react';
 import ResponsiveDrawer from './Drawer/ResponsiveDrawer';
 import './Header.css'
+import { useSelector } from 'react-redux';
+import { storageKey } from '../../Const/Const';
 const Header = () => {
     const [mobileOpen, setMobileOpen] = useState(false)
     const [activeOffest, setActiveOffset] = useState(false)
+    const [userLoggedIn, setUserLoggedIn] = useState(false)
+    const isLoggedIn = useSelector((state) => state.signInReducer?.isLoggedIn)
+
+    useEffect(() => {
+        if (localStorage.getItem(storageKey)) {
+            setUserLoggedIn(true)
+        } else {
+            setUserLoggedIn(false)
+        }
+    }, [isLoggedIn, userLoggedIn])
+
+    const handleLogout = () => {
+        console.log("working.....")
+        localStorage.removeItem(storageKey)
+        setUserLoggedIn(false)
+    }
+
     useEffect(() => {
         const handleScroll = () => {
             const scrollYOffset = window.scrollY > 100;
@@ -67,12 +86,24 @@ const Header = () => {
                                         ContactUs
                                     </NavLink>
                                 </Typography>
-                                <Typography>
-                                    <NavLink to={"/login"}
-                                        style={{ textDecoration: "none", color: activeOffest ? "#000" : "#FFF" }}>
-                                        Login
-                                    </NavLink>
-                                </Typography>
+
+                                {
+                                    userLoggedIn ? (
+                                        <Typography>
+                                            <NavLink onClick={handleLogout} to={"/login"}
+                                                style={{ textDecoration: "none", color: activeOffest ? "#000" : "#FFF" }}>
+                                                Logout
+                                            </NavLink>
+                                        </Typography>
+                                    ) : (
+                                        <Typography>
+                                            <NavLink to={"/login"}
+                                                style={{ textDecoration: "none", color: activeOffest ? "#000" : "#FFF" }}>
+                                                Login
+                                            </NavLink>
+                                        </Typography>
+                                    )
+                                }
 
                             </Box>
                         </Hidden>

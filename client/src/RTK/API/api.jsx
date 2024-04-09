@@ -45,8 +45,10 @@ export const SignInNew = createAsyncThunk(
                 return res.data
             }
         } catch (error) {
-            console.log(error);
-            return rejectWithValue(error)
+            console.log(error.response.data);
+            return rejectWithValue(error.response.data)
         }
     }
 )
+
+
