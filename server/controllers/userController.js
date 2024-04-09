@@ -66,6 +66,7 @@ class UserController {
   };
 
   //loggin code
+
   static userLoggedIn = async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -85,17 +86,21 @@ class UserController {
               Token: token,
             });
           } else {
-            res.send({ status: "failed", message: "Email or password wrong" });
+            res
+              .status(400)
+              .send({ status: "failed", message: "Email or password wrong" });
           }
         } else {
-          res.send({ status: "failed", message: "User not Registered" });
+          res
+            .status(400)
+            .send({ status: "failed", message: "User not Registered" });
         }
       } else {
         res.send({ status: "failed", message: "All Feilds are Required" });
       }
     } catch (error) {
       console.log(error);
-      res.send({ status: "failed", message: "Unable to Login" });
+      res.status(500).send({ status: "failed", message: "Unable to Login" });
     }
   };
 
