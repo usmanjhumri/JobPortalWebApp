@@ -14,7 +14,6 @@ connectDB(DATABASE_URL);
 
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
-
 app.use("/user", UserRoutes);
 
 app.listen(port, () => {

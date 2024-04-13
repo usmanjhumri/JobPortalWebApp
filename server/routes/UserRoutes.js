@@ -11,9 +11,11 @@ router.use("/applied", checkUserAuth);
 router.use("/applied", upload.single([{ name: "assets", maxCount: 1 }]));
 router.post("/applied", UserController.appliedForJob);
 router.get("/userapplieddata", UserController.getuserAppliedData);
+
 // Public Route
 router.post("/register", UserController.userRigerstration);
 router.post("/login", UserController.userLoggedIn);
 router.post("/mail-sent", UserController.forgotPassword);
 router.post("/resetpassword/:id/:token", UserController.userPasswordReset);
+
 export default router;
