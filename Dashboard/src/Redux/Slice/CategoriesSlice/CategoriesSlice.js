@@ -1,9 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CategoriesData } from "../../../Resources/DummyCategiesData";
 import axiosInstance from "../../../Utils/AxiosInstance";
 
 const initialState = {
-  allCategories: CategoriesData,
+  allCategories: [],
   status: "idle", //loading, success, failure
 };
 
