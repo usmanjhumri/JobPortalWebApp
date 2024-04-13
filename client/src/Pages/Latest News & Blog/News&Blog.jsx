@@ -19,48 +19,73 @@ function NewsandBlogs() {
                         {
                             newsBlogArray.map((item, ind) => {
                                 return (
-                                    <>
-                                        <Grid key={ind} item xs={12} sm={6} md={4}>
-                                            <Box className="img-box" sx={{
-                                                border: "1px solid #667488",
-                                            }}>
-                                                <Box
-                                                    sx={{
-                                                        position: "relative"
-                                                    }}>
-                                                    <Box>
-                                                        <img className="img" src={item.img} style={{
-                                                            width: "100%"
-                                                        }} />
-                                                    </Box>
-                                                    <span style={newsBlogStyle.jobdate}>
-                                                        <Typography variant="h4" sx={newsBlogStyle.jobdatetime}>
-                                                            20
-                                                        </Typography>
-                                                        <span style={{
-                                                            color: "#FFF"
-                                                        }}>Jan</span>
-                                                    </span>
-                                                </Box>
-                                                <Box sx={{
-                                                    padding: "30px 35px"
-                                                }}>
-                                                    <Typography variant="h2" sx={newsBlogStyle.jobtitle}>
-                                                        {item.title}
-                                                    </Typography>
-                                                    <Typography sx={newsBlogStyle.jobdetail}>
-                                                        {item.subtitle}
-                                                    </Typography>
-                                                    <Box mt={4} textAlign="center">
-                                                        <Link to="/" className="readmorebtn">
-                                                            Read More
-                                                        </Link>
-                                                    </Box>
-                                                </Box>
-                                            </Box>
-                                        </Grid>
-                                    </>
-                                )
+                                  <>
+                                    <Grid key={ind} item xs={12} sm={6} md={4}>
+                                      <Box
+                                        className="img-box"
+                                        sx={{
+                                          border: "1px solid #e8e8e8",
+                                        }}
+                                      >
+                                        <Box
+                                          sx={{
+                                            position: "relative",
+                                          }}
+                                        >
+                                          <Box>
+                                            <img
+                                              className="img"
+                                              src={item.img}
+                                              style={{
+                                                width: "100%",
+                                              }}
+                                            />
+                                          </Box>
+                                          <span style={newsBlogStyle.jobdate}>
+                                            <Typography
+                                              variant="h4"
+                                              sx={newsBlogStyle.jobdatetime}
+                                            >
+                                              20
+                                            </Typography>
+                                            <span
+                                              style={{
+                                                color: "#FFF",
+                                              }}
+                                            >
+                                              Jan
+                                            </span>
+                                          </span>
+                                        </Box>
+                                        <Box
+                                          sx={{
+                                            padding: "30px 35px",
+                                          }}
+                                        >
+                                          <Typography
+                                            variant="h2"
+                                            sx={newsBlogStyle.jobtitle}
+                                          >
+                                            {item.title}
+                                          </Typography>
+                                          <Typography
+                                            sx={newsBlogStyle.jobdetail}
+                                          >
+                                            {item.subtitle}
+                                          </Typography>
+                                          <Box mt={4} textAlign="center">
+                                            <Link
+                                              to="/"
+                                              className="readmorebtn"
+                                            >
+                                              Read More
+                                            </Link>
+                                          </Box>
+                                        </Box>
+                                      </Box>
+                                    </Grid>
+                                  </>
+                                );
                             })
                         }
 
