@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f2f2f2 !important;
+}
+
+code {
+  font-family: 'Poppins', sans-serif !important;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+.settingBoxA:hover .settingBoxAhoverEffect{
+transform: scale(1);
+transition: 0.5s;
+height: auto;
+
+}
+.settingBoxA:hover {
+  background-color: #f2f2f2 !important
+}
