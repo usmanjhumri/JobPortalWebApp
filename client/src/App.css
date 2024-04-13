@@ -16,3 +16,19 @@
 body {
   background: #f5f7fc;
 }
+.cardcontain {
+  transition: 0.4s;
+  border-radius: 10px;
+}
+.cardcontain:hover {
+  background-color: #26ae61;
+  color: white;
+}
+.cardbtn {
+  background-color: #26ae61 !important;
+}
+.cardcontain:hover .cardbtn {
+  background-color: white !important;
+  color: rgb(7, 7, 7) !important;
+  font-weight: bold;
+}
