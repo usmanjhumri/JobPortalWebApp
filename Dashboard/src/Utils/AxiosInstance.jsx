@@ -2,7 +2,7 @@ import axios from "axios";
 let type = "local";
 const BaseUrl =
   type === "test"
-    ? "https://747a-154-192-133-44.in.ngrok.io/api"
+    ? ""
     : type === "local"
     ? "http://localhost:8000/"
     : "";
