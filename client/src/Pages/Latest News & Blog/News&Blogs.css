@@ -64,6 +64,8 @@
   border-radius: 30px;
   border: none;
   outline: none;
+  background-color: #26ae61 !important;
+  color: white !important;
 }
 .readmorebtn {
   background: #a5a5a5;
