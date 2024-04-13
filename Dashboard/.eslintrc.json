@@ -1,0 +1,44 @@
+{
+    "root": true, //Specify this file as a configuration file
+    "parser": "babel-eslint", //Use babel-eslint as its parser by default
+    "parserOptions": {
+      "ecmaVersion": 6, //Specify the ECMAScript version used
+      "sourceType": "module", // script (default) or module (if ECMAScript module)
+      "ecmaFeatures": {
+        "jsx": true //Enable JSX
+      }
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": [ "react" ,"prettier"],
+    "rules": {
+      // add rules
+      "semi": "error",
+      "react/jsx-uses-react": "error",
+      "react/jsx-uses-vars": "error",
+      "react/display-name": "off",
+      "prettier/prettier": "warn", //A warning will pop up when the prettier setting is not met
+      
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "react/react-in-jsx-scope": "off"
+
+    },
+    "env": {
+      //Specify the environment, each environment has its own preset defined global variables, you can specify multiple environments at the same time
+      "browser": true,
+      "jest": true,
+      "node": true,
+      "es6": true
+    },
+    "settings": {
+      "react": {
+        //Set React version
+        "pragma": "React",
+        "version": "detect"
+      }
+    }
+  }
+  
