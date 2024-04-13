@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Logo from '../../assets/Logo1.png'
 import CommonPage from '../commonPage/CommonPage';
 import { useDispatch } from 'react-redux'
-import { SignInNew } from '../../RTK/API/api'
+import { AdminLogin, SignInNew } from '../../RTK/API/api'
 import ToastMessage from '../../ToastMessage/ToastMessage';
 export default function SignIn() {
     const navigate = useNavigate()
@@ -19,6 +19,8 @@ export default function SignIn() {
     const handleSubmit = async (event) => {
         try {
             event.preventDefault();
+            const adminLogin = dispatch(AdminLogin())
+            console.log(adminLogin, ' adminlogin');
             const data = new FormData(event.currentTarget);
             if (data.get('email') && data.get('password')) {
                 const res = await dispatch(SignInNew({

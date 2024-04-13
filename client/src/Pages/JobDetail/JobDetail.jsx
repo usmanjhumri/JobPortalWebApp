@@ -6,10 +6,29 @@ import { VscLocation } from "react-icons/vsc"
 import { Button } from "@mui/joy"
 import { FaArrowRight } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from "react-redux"
+import Swal from 'sweetalert2'
 const JobDetail = () => {
+    const isLoggedIn = useSelector((state) => state.signInReducer?.isLoggedIn)
+    const message = useSelector((state) => state.signInReducer?.message)
+    console.log(message)
+
     const navigate = useNavigate()
-    const handelNavigate = () => {
-        navigate('/appilcation-form')
+    const handleApplyJob = () => {
+        if (isLoggedIn) {
+
+            navigate('/appilcation-form')
+
+        } else {
+            Swal.fire({
+                position: "ceneter",
+                icon: "error",
+                title: message,
+                showConfirmButton: false,
+                timer: 1500
+            });
+            navigate('/login')
+        }
     }
     return (
         <>
@@ -60,7 +79,7 @@ const JobDetail = () => {
                                 </Box>
                             </Box>
                             <Box>
-                                <Button onClick={handelNavigate} sx={{
+                                <Button onClick={handleApplyJob} sx={{
                                     background: "#26ae61",
                                     color: "#FFF",
                                     fontWeight: 700,
