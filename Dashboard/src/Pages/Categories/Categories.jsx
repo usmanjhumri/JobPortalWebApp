@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBlogState } from "../../Redux/Slice/BlogSlice/BlogSlice";
 import {
   DataGrid,
   gridClasses,
@@ -31,12 +30,11 @@ function CustomToolbar() {
   );
 }
 function Categories() {
-  const { blogs } = useSelector(getBlogState);
   const dispatch = useDispatch();
   const { setsnackBarData } = useContext(SnackBarContext);
   const { allCategories } = useSelector(getCategoriesStatus);
   const [loader, setLoader] = useState(false);
-  console.log(blogs);
+ 
   const [rows, setrows] = React.useState([]);
   useEffect(() => {
     dispatch(GetCategories());
@@ -45,7 +43,7 @@ function Categories() {
   const DeleteCat = async (data) => {
     console.log(data);
     setLoader(true);
-    const res = await DeleteCategories(data?.id);
+    const res = await DeleteCategories(data?._id);
     if (res?.data?.isSuccess) {
       setLoader(false);
       setsnackBarData(res?.snackBarData);
@@ -60,8 +58,8 @@ function Categories() {
     let rowData = [];
     allCategories?.map((data, i) => {
       rowData.push({
-        sr: i + 1,
-        id: data?._id,
+        id: i + 1,
+        _id: data?._id,
         name: data?.title,
       });
     });
@@ -69,7 +67,7 @@ function Categories() {
     setrows(rowData);
   }, [allCategories]);
   const columns = [
-    { field: "sr", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 90 },
     {
       field: "name",
       headerName: "Categories Name",
@@ -104,9 +102,9 @@ function Categories() {
           }}
         >
           <DataGrid
-            onPageSizeChange={(newPage) => {
-              setpagesize(newPage);
-            }}
+            // onPageSizeChange={(newPage) => {
+            //   setpagesize(newPage);
+            // }}
             rowsPerPageOptions={[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
             experimentalFeatures={{ newEditingApi: true }}
             components={{
