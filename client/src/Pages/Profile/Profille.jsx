@@ -1,12 +1,10 @@
-import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import CommonPage from '../../components/commonPage/CommonPage';
-import { storageKey } from '../../Const/Const';
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,19 +40,10 @@ function a11yProps(index) {
 }
 
 export default function Profille() {
-  const navigate = useNavigate()
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const handleLogout = () => {
-    localStorage.removeItem(storageKey)
-    navigate('/login')
-    console.log("working")
-  }
-
   return (
     <>
       <CommonPage value="Profile" />
@@ -75,7 +64,6 @@ export default function Profille() {
           <Tab label="Educations" {...a11yProps(2)} />
           <Tab label="Skills" {...a11yProps(3)} />
           <Tab label="Experience" {...a11yProps(4)} />
-          <Tab label="Logout" onClick={handleLogout} {...a11yProps(5)} />
         </Tabs>
         <TabPanel value={value} index={0}>
           Item One
@@ -92,8 +80,6 @@ export default function Profille() {
         <TabPanel value={value} index={4}>
           Item Five
         </TabPanel>
-
-
       </Box>
     </>
   );
