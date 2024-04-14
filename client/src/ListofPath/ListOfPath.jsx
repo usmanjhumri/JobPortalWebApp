@@ -53,22 +53,7 @@ export const Path = [
   },
   {
     path: "/profile",
-    component: <Profille activePage={<UserProfile />} />,
+    component: <Profille />,
   },
-  {
-    path: "/profile/personalinfo",
-    component: <Profille activePage={<PersonalInfo />} />,
-  },
-  {
-    path: "/profile/education",
-    component: <Profille activePage={<Education />} />,
-  },
-  {
-    path: "/profile/skills",
-    component: <Profille activePage={<Skills />} />,
-  },
-  {
-    path: "/profile/experience",
-    component: <Profille activePage={<Experience />} />,
-  },
+
 ];

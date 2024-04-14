@@ -38,6 +38,7 @@ const signInSlice = createSlice({
         console.log(state.isLoggedIn);
       })
       .addCase(resetSuccessSignin, (state) => {
+        state.isLoggedIn = ""
         state.success = false;
         state.isError = false;
       });

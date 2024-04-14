@@ -8,14 +8,15 @@ import ResponsiveDrawer from "./Drawer/ResponsiveDrawer";
 import "./Header.css";
 import { useSelector } from "react-redux";
 import { storageKey } from "../../Const/Const";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
-import { getUserSliceData } from "../../RTK/Slice/SignInSlice";
+import Useravatar from "./UserAvatar/UserAvatar";
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeOffest, setActiveOffset] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const isLoggedIn = useSelector((state) => state.signInReducer?.isLoggedIn);
+  console.log(isLoggedIn);
+
   const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.getItem(storageKey)) {
@@ -25,11 +26,14 @@ const Header = () => {
     }
   }, [isLoggedIn, userLoggedIn]);
 
-  // const handleLogout = () => {
-  //   console.log("working.....");
-  //   localStorage.removeItem(storageKey);
-  //   setUserLoggedIn(false);
-  // };
+  const [anchorElUser, setAnchorElUser] = useState(false);
+
+  const handleOpenUserMenu = () => {
+    setAnchorElUser(true);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,7 +49,7 @@ const Header = () => {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-  console.log(isLoggedIn);
+
   return (
     <>
       <Box
@@ -117,21 +121,19 @@ const Header = () => {
                   </NavLink>
                 </Typography>
 
-                {isLoggedIn ? (
-                  <Typography>
-                    <NavLink
-                      // onClick={handleLogout}
-                      to={isLoggedIn ? "/profile" : "/profile"}
-                      style={{
-                        textDecoration: "none",
-                        color: activeOffest
-                          ? "rgba(180,180,180,0.9)"
-                          : "rgba(180,180,180,0.9)",
-                      }}
-                    >
-                      <AccountCircleIcon sx={{ fontSize: "40px" }} />
-                    </NavLink>
-                  </Typography>
+                {userLoggedIn ? (
+                  <Box sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 2,
+                  }}>
+                    <Useravatar
+                      setUserLoggedIn={setUserLoggedIn}
+                      handleCloseUserMenu={handleCloseUserMenu}
+                      handleOpenUserMenu={handleOpenUserMenu}
+                      anchorElUser={anchorElUser}
+                    />
+                  </Box>
                 ) : (
                   <Typography
                     onClick={() => {
