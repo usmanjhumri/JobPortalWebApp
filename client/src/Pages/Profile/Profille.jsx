@@ -32,12 +32,12 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
-  };
-}
+// function a11yProps(index) {
+//   return {
+//     id: `vertical-tab-${index}`,
+//     'aria-controls': `vertical-tabpanel-${index}`,
+//   };
+// }
 
 export default function Profille() {
   const [value, setValue] = React.useState(0);
@@ -59,11 +59,11 @@ export default function Profille() {
           aria-label="Vertical tabs example"
           sx={{ borderRight: 1, borderColor: 'divider' }}
         >
-          <Tab label="Profile" {...a11yProps(0)} />
-          <Tab label="Personal Information" {...a11yProps(1)} />
-          <Tab label="Educations" {...a11yProps(2)} />
-          <Tab label="Skills" {...a11yProps(3)} />
-          <Tab label="Experience" {...a11yProps(4)} />
+          <Tab label="Profile" />
+          <Tab label="Personal Information" />
+          <Tab label="Educations" />
+          <Tab label="Skills" />
+          <Tab label="Experience" />
         </Tabs>
         <TabPanel value={value} index={0}>
           Item One
