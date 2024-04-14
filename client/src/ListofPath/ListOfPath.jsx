@@ -8,11 +8,6 @@ import SignUp from "../components/SignUp/SignUp";
 import JobDetail from "../Pages/JobDetail/JobDetail";
 import ApplicationForm from "../Pages/ApplicationForm/ApplicationForm";
 import Profille from "../Pages/Profile/Profille";
-import UserProfile from "../Pages/Profile/UserProfile";
-import PersonalInfo from "../Pages/Profile/PersonalInfo";
-import Education from "../Pages/Profile/Education";
-import Skills from "../Pages/Profile/Skills";
-import Experience from "../Pages/Profile/Experience";
 
 export const Path = [
   {
