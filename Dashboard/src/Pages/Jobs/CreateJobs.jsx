@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -6,6 +6,7 @@ import {
   // CircularProgress,
   FormControl,
   InputAdornment,
+  MenuItem,
   Paper,
   TextField,
   Typography,
@@ -22,6 +23,11 @@ import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  GetCategories,
+  getCategoriesStatus,
+} from "../../Redux/Slice/CategoriesSlice/CategoriesSlice";
 const useStyle = makeStyles(() => {
   return {
     container: {
@@ -56,17 +62,38 @@ const useStyle = makeStyles(() => {
 });
 function CreateJobs() {
   const { container, subContainer, formContainer, FieldInRow } = useStyle();
+  const { allCategories } = useSelector(getCategoriesStatus);
+  const [jobCategories, setJobCategories] = useState(null);
+  const [editorvalues, seteditorValues] = useState(null);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(GetCategories());
+  }, [dispatch]);
+  useEffect(() => {
+    setJobCategories(allCategories);
+  }, [allCategories]);
   const initialValues = {
     title: "",
   };
   const navigate = useNavigate();
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
 
-  const handleSubmit = async (values, resetForm, setSubmitting) => {
-    console.log(values);
-    console.log(editorState);
-    setSubmitting(false);
-    resetForm();
+  const handleEditorChange = (state) => {
+    setEditorState(state);
+    seteditorValues(draftToHtml(convertToRaw(state.getCurrentContent())));
+  };
+
+  const handleSubmit = async (values) => {
+    let obj = {
+      ...values,
+      desc: editorvalues,
+    };
+    console.log(obj);
+    // setSubmitting(false);
+    // resetForm();
   };
   const handleNavigate = () => {
     navigate(-1);
@@ -78,6 +105,7 @@ function CreateJobs() {
     salaryto: Yup.string().required("Please Enter Salary Range"),
     salaryfrom: Yup.string().required("Please Enter Salary Range"),
     experience: Yup.string().required("Please Enter experience"),
+    category: Yup.string().required("Please Select Job Category"),
   });
   const formik = useFormik({
     initialValues: initialValues,
@@ -87,17 +115,8 @@ function CreateJobs() {
     },
   });
 
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
-
-  const handleEditorChange = (state) => {
-    setEditorState(state);
-    console.log(typeof(draftToHtml(convertToRaw(state.getCurrentContent()))));
-  };
-
   // const sendContent = () => {
-  //   
+  //
   // };
 
   return (
@@ -247,6 +266,33 @@ function CreateJobs() {
                   }
                 />
               </FormControl>
+              <FormControl fullWidth>
+                <Typography>Select Job Category</Typography>
+                <TextField
+                  name="category"
+                  size={"small"}
+                  fullWidth
+                  defaultValue={jobCategories ? jobCategories[0]?.title : ""}
+                  select
+                  onChange={formik.handleChange}
+                  error={
+                    Boolean(formik.errors.category) &&
+                    Boolean(formik.touched.category)
+                  }
+                  helperText={
+                    Boolean(formik.errors.category) &&
+                    Boolean(formik.errors.category)
+                  }
+                >
+                  {jobCategories?.map((d, i) => {
+                    return (
+                      <MenuItem key={i} value={d?._id}>
+                        {d?.title}
+                      </MenuItem>
+                    );
+                  })}
+                </TextField>
+              </FormControl>
               <div>
                 <Editor
                   editorState={editorState}
@@ -255,7 +301,6 @@ function CreateJobs() {
                   editorClassName="editor-class"
                   toolbarClassName="toolbar-class"
                 />
-                
               </div>
               <Box
                 sx={{
