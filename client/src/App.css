@@ -55,7 +55,6 @@ body {
   text-transform: capitalize !important;
   font-size: 14px !important;
   transition: all 0.3s ease-in-out;
-  /* margin: 2rem 0px; */
 }
 .MuiTab-root:hover {
   background: #26ae61 !important;
@@ -69,4 +68,5 @@ body {
   padding: 0px 2.5rem !important;
   text-transform: capitalize !important;
   font-family: "Be Vietnam", sans-serif;
+  margin: 2rem 0;
 }
