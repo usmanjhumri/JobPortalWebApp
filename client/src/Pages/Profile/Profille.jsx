@@ -34,16 +34,13 @@ TabPanel.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
 };
-
-
-
 export default function Profille() {
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const handleNext = () => {
-    setValue((pre) => pre + 1)
+    setValue((pre) => (pre + 1) % 5)
   }
   return (
     <>
@@ -146,13 +143,121 @@ export default function Profille() {
             </Box>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            Item Three
+            <Box component="form">
+              <Box sx={contactStyle.fullNameEmail}>
+                <Input fullWidth sx={{ margin: "1rem 0" }}
+                  placeholder="Enter Your First Name"
+                  endDecorator={<FaRegUser style={contactStyle.inputicons} />}
+                />
+                <Input fullWidth sx={{ margin: "1rem 0" }}
+                  placeholder="Enter Your Last Name"
+                  endDecorator={<FaRegUser style={contactStyle.inputicons} />}
+                />
+              </Box>
+              <Box sx={contactStyle.fullNameEmail}>
+                <Input fullWidth sx={{ margin: "1rem 0" }}
+                  placeholder="Enter your Email Address"
+                  endDecorator={<MdOutlineEmail style={contactStyle.inputicons} />}
+                />
+                <Input fullWidth
+                  placeholder="Enter Your Phone Number"
+                  endDecorator={<AiOutlinePhone style={contactStyle.inputicons} />}
+                  sx={{ margin: "1rem 0" }}
+                />
+              </Box>
+              <Input fullWidth
+                placeholder="Enter Your Address"
+                endDecorator={<FaRegAddressCard style={contactStyle.inputicons} />}
+                sx={{ margin: "1rem 0" }}
+              />
+              <Box sx={contactStyle.fullNameEmail}>
+                <Button fullWidth sx={{ background: "#26ae61", margin: "1rem 0" }} type='submit' >
+                  Update
+                </Button>
+                <Button onClick={handleNext} fullWidth sx={{ background: "#26ae61", margin: "1rem 0" }}  >
+                  Next
+                </Button>
+              </Box>
+
+            </Box>
           </TabPanel>
           <TabPanel value={value} index={3}>
-            Item Four
+            <Box component="form">
+              <Box sx={contactStyle.fullNameEmail}>
+                <Input fullWidth sx={{ margin: "1rem 0" }}
+                  placeholder="Enter Your First Name"
+                  endDecorator={<FaRegUser style={contactStyle.inputicons} />}
+                />
+                <Input fullWidth sx={{ margin: "1rem 0" }}
+                  placeholder="Enter Your Last Name"
+                  endDecorator={<FaRegUser style={contactStyle.inputicons} />}
+                />
+              </Box>
+              <Box sx={contactStyle.fullNameEmail}>
+                <Input fullWidth sx={{ margin: "1rem 0" }}
+                  placeholder="Enter your Email Address"
+                  endDecorator={<MdOutlineEmail style={contactStyle.inputicons} />}
+                />
+                <Input fullWidth
+                  placeholder="Enter Your Phone Number"
+                  endDecorator={<AiOutlinePhone style={contactStyle.inputicons} />}
+                  sx={{ margin: "1rem 0" }}
+                />
+              </Box>
+              <Input fullWidth
+                placeholder="Enter Your Address"
+                endDecorator={<FaRegAddressCard style={contactStyle.inputicons} />}
+                sx={{ margin: "1rem 0" }}
+              />
+              <Box sx={contactStyle.fullNameEmail}>
+                <Button fullWidth sx={{ background: "#26ae61", margin: "1rem 0" }} type='submit' >
+                  Update
+                </Button>
+                <Button onClick={handleNext} fullWidth sx={{ background: "#26ae61", margin: "1rem 0" }}  >
+                  Next
+                </Button>
+              </Box>
+
+            </Box>
           </TabPanel>
           <TabPanel value={value} index={4}>
-            Item Five
+            <Box component="form">
+              <Box sx={contactStyle.fullNameEmail}>
+                <Input fullWidth sx={{ margin: "1rem 0" }}
+                  placeholder="Enter Your First Name"
+                  endDecorator={<FaRegUser style={contactStyle.inputicons} />}
+                />
+                <Input fullWidth sx={{ margin: "1rem 0" }}
+                  placeholder="Enter Your Last Name"
+                  endDecorator={<FaRegUser style={contactStyle.inputicons} />}
+                />
+              </Box>
+              <Box sx={contactStyle.fullNameEmail}>
+                <Input fullWidth sx={{ margin: "1rem 0" }}
+                  placeholder="Enter your Email Address"
+                  endDecorator={<MdOutlineEmail style={contactStyle.inputicons} />}
+                />
+                <Input fullWidth
+                  placeholder="Enter Your Phone Number"
+                  endDecorator={<AiOutlinePhone style={contactStyle.inputicons} />}
+                  sx={{ margin: "1rem 0" }}
+                />
+              </Box>
+              <Input fullWidth
+                placeholder="Enter Your Address"
+                endDecorator={<FaRegAddressCard style={contactStyle.inputicons} />}
+                sx={{ margin: "1rem 0" }}
+              />
+              <Box sx={contactStyle.fullNameEmail}>
+                <Button fullWidth sx={{ background: "#26ae61", margin: "1rem 0" }} type='submit' >
+                  Update
+                </Button>
+                <Button onClick={handleNext} fullWidth sx={{ background: "#26ae61", margin: "1rem 0" }}  >
+                  Next
+                </Button>
+              </Box>
+
+            </Box>
           </TabPanel>
         </Container>
 
