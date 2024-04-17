@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAsyncError } from "react-router-dom";
 import banner from "../../assets/banner.jpg";
 import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
