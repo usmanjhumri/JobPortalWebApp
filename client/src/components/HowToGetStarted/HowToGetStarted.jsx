@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useState } from "react";
@@ -10,8 +11,7 @@ const useStyle = makeStyles(() => {
       justifyContent: "center",
       alignItems: "center",
       padding: "20px",
-      
-      margin: "50px 0px",
+      marginTop: "1rem",
     },
     subContainer: {
       width: "100%",

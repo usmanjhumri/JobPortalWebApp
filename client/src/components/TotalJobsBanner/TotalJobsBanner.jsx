@@ -14,7 +14,7 @@ const useStyle = makeStyles(() => {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      margin: "20px 0px",
+      marginTop: "3rem",
       padding: "20px",
 
       backgroundImage: `url(${banner})`,
