@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -28,6 +28,8 @@ import {
   GetCategories,
   getCategoriesStatus,
 } from "../../Redux/Slice/CategoriesSlice/CategoriesSlice";
+import { CreateJobsApi } from "../../Api/Jobs/CreateJobsApi";
+import { SnackBarContext } from "../../Context/SnackBarContext/SnackBarContext";
 const useStyle = makeStyles(() => {
   return {
     container: {
@@ -66,7 +68,7 @@ function CreateJobs() {
   const [jobCategories, setJobCategories] = useState(null);
   const [editorvalues, seteditorValues] = useState(null);
   const dispatch = useDispatch();
-
+  const { setsnackBarData } = useContext(SnackBarContext);
   useEffect(() => {
     dispatch(GetCategories());
   }, [dispatch]);
@@ -86,14 +88,21 @@ function CreateJobs() {
     seteditorValues(draftToHtml(convertToRaw(state.getCurrentContent())));
   };
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, setSubmitting) => {
     let obj = {
       ...values,
       desc: editorvalues,
+      date: new Date().toLocaleDateString(),
     };
     console.log(obj);
-    // setSubmitting(false);
-    // resetForm();
+    let res = await CreateJobsApi(obj);
+    if (res?.data?.isSuccess) {
+      setsnackBarData(res?.snackBarData);
+      setSubmitting(false);
+      handleNavigate();
+    } else {
+      setSubmitting(false);
+    }
   };
   const handleNavigate = () => {
     navigate(-1);
@@ -111,7 +120,7 @@ function CreateJobs() {
     initialValues: initialValues,
     validationSchema: ValidationSchema,
     onSubmit: (values, { resetForm, setSubmitting }) => {
-      handleSubmit(values, resetForm, setSubmitting);
+      handleSubmit(values, setSubmitting);
     },
   });
 
