@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   DataGrid,
   gridClasses,
@@ -13,11 +13,11 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Box, IconButton } from "@mui/material";
 import Loader from "../../Components/Loader/Loader";
-import { GetAllJobs, GetJobStatus } from "../../Redux/Slice/JobSlice/JobSlice";
-import { SnackBarContext } from "../../Context/SnackBarContext/SnackBarContext";
+// import { GetAllJobs, GetJobStatus } from "../../Redux/Slice/JobSlice/JobSlice";
+// import { SnackBarContext } from "../../Context/SnackBarContext/SnackBarContext";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import JobDescModal from "../../Components/Jobs/JobDescModal";
-import { DeleteJobApi } from "../../Api/Jobs/DeleteJobApi";
+// import JobDescModal from "../../Components/Jobs/JobDescModal";
+// import { DeleteJobApi } from "../../Api/Jobs/DeleteJobApi";
 function CustomToolbar() {
   return (
     <GridToolbarContainer className={gridClasses.toolbarContainer}>
@@ -28,37 +28,39 @@ function CustomToolbar() {
     </GridToolbarContainer>
   );
 }
-function Jobs() {
+function Users() {
   const dispatch = useDispatch();
-  const { setsnackBarData } = useContext(SnackBarContext);
-  const { AllJobs } = useSelector(GetJobStatus);
-  const [loader, setLoader] = useState(false);
+  // const { setsnackBarData } = useContext(SnackBarContext);
+  // const { AllJobs } = useSelector(GetJobStatus);
+  const [loader] = useState(false);
   const [rows, setrows] = React.useState([]);
-  const [desc, setdesc] = useState(null);
-  const [open, setOpen] = useState(false);
+  // const [desc, setdesc] = useState(null);
+  // const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(GetAllJobs());
+    // dispatch(GetAllJobs());
   }, [dispatch]);
 
   React.useEffect(() => {
     let rowData = [];
-    AllJobs?.map((data, i) => {
-      rowData.push({
-        id: i + 1,
-        _id: data?._id,
-        title: data?.title,
-        experience: data?.experience,
-        salary: `${data?.salaryfrom}$ - ${data?.salaryto}$`,
-        date: data?.date,
-        location: data?.location,
-        category: data?.category?.title,
-        company: data?.company,
-        desc: data?.desc,
+    Array(20)
+      .fill("")
+      ?.map((data, i) => {
+        rowData.push({
+          id: i + 1,
+          _id: data?._id,
+          title: data?.title,
+          experience: data?.experience,
+          salary: `${data?.salaryfrom}$ - ${data?.salaryto}$`,
+          date: data?.date,
+          location: data?.location,
+          category: data?.category?.title,
+          company: data?.company,
+          desc: data?.desc,
+        });
       });
-    });
     setrows(rowData);
-  }, [AllJobs]);
+  }, []);
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
@@ -101,38 +103,42 @@ function Jobs() {
       field: "Action",
       headerName: "Action",
       width: 250,
-      renderCell: (cellVal) => {
-        return (
-          <Box>
-            <IconButton
-              onClick={() => {
-                setdesc(cellVal?.row?.desc);
-                setOpen(true);
-              }}
-            >
-              <VisibilityIcon />
-            </IconButton>
-            <IconButton onClick={() => DeleteJob(cellVal?.row?._id)}>
-              <DeleteIcon />
-            </IconButton>
-          </Box>
-        );
-      },
+      renderCell: () =>
+        // cellVal
+        {
+          return (
+            <Box>
+              <IconButton
+              // onClick={() => {
+              //   setdesc(cellVal?.row?.desc);
+              //   setOpen(true);
+              // }}
+              >
+                <VisibilityIcon />
+              </IconButton>
+              <IconButton
+              // onClick={() => DeleteJob(cellVal?.row?._id)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Box>
+          );
+        },
     },
   ];
 
-  const DeleteJob = async (data) => {
-    console.log(data);
-    setLoader(true);
-    let res = await DeleteJobApi(data);
-    if (res?.data?.isSuccess) {
-      setsnackBarData(res?.snackBarData);
-      dispatch(GetAllJobs());
-      setLoader(false);
-    } else {
-      setLoader(false);
-    }
-  };
+  // const DeleteJob = async (data) => {
+  //   console.log(data);
+  //   setLoader(true);
+  //   let res = await DeleteJobApi(data);
+  //   if (res?.data?.isSuccess) {
+  //     setsnackBarData(res?.snackBarData);
+  //     dispatch(GetAllJobs());
+  //     setLoader(false);
+  //   } else {
+  //     setLoader(false);
+  //   }
+  // };
 
   return (
     <Box>
@@ -159,9 +165,9 @@ function Jobs() {
           />
         </Box>
       )}
-      {open ? <JobDescModal open={open} setOpen={setOpen} desc={desc} /> : null}
+      {/* {open ? <JobDescModal open={open} setOpen={setOpen} desc={desc} /> : null} */}
     </Box>
   );
 }
 
-export default Jobs;
+export default Users;
