@@ -76,3 +76,24 @@ body {
   text-transform: capitalize !important;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(71%) sepia(22%) saturate(4397%) hue-rotate(340deg)
+    brightness(91%) contrast(88%);
+  cursor: pointer;
+}
+.custom-date-input {
+  position: relative;
+}
+
+.custom-date-input .placeholder {
+  position: absolute;
+  top: 50%;
+  left: 10px; /* Adjust the left position as needed */
+  transform: translateY(-50%);
+  color: #aaa; /* Customize the color of the placeholder */
+  pointer-events: none; /* Make the placeholder not clickable */
+}
+
+.custom-date-input input[type="date"]:not(:placeholder-shown) + .placeholder {
+  display: none; /* Hide the placeholder when input is not empty */
+}
