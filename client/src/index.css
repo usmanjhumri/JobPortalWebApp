@@ -3,3 +3,21 @@
   padding: 0;
   box-sizing: border-box;
 }
+.profilemenu {
+  position: relative;
+}
+.profileMenuItems {
+  background-color: white;
+  padding: 10px 10px 5px 10px;
+  border-radius: 5px;
+  width: 100px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  visibility: hidden;
+  transition: 0.2s;
+}
+.profilemenu:hover .profileMenuItems {
+  visibility: visible;
+}
