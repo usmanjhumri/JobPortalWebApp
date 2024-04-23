@@ -82,11 +82,12 @@ export default function Profile() {
             value={value}
             onChange={handleChange}
             scrollButtons
+            
             allowScrollButtonsMobile
             TabIndicatorProps={{ sx: { display: "none" } }}
           >
             {tabs.map((tab, index) => (
-              <Tab key={index} label={tab.label} />
+              <Tab key={index} label={tab.label} disabled />
             ))}
           </Tabs>
 

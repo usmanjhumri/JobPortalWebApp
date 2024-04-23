@@ -16,12 +16,19 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useState } from "react";
-import PersonIcon from "@mui/icons-material/Person";
+import React, { useEffect, useState } from "react";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import ApartmentIcon from "@mui/icons-material/Apartment";
-import FlagCircleIcon from "@mui/icons-material/FlagCircle";
-import AddRoadIcon from "@mui/icons-material/AddRoad";
+import ScoreIcon from "@mui/icons-material/Score";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import GradeIcon from "@mui/icons-material/Grade";
+
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  GetProfileDetails,
+  SetEducationDetails,
+} from "../../RTK/Slice/ProfileSlice";
 const useStyle = makeStyles(() => {
   return {
     MainContainer: {
@@ -78,7 +85,6 @@ const Education = ({ handleNext, index, handleBack }) => {
     sectionDevider,
     backbuttonStyle,
   } = useStyle();
-  console.log(index);
   const [values, setvalues] = useState([]);
   const [formvalues, setformvalues] = useState({
     degree: "",
@@ -88,17 +94,33 @@ const Education = ({ handleNext, index, handleBack }) => {
     grade: "",
     passingdate: "",
   });
-
+  const dispatch = useDispatch();
+  const { EducationDetails } = useSelector(GetProfileDetails);
+  useEffect(() => {
+    if (EducationDetails) {
+      setvalues(EducationDetails);
+    }
+  }, [EducationDetails]);
   const handleChange = (val) => {
     setformvalues({ ...formvalues, [val.target.name]: val.target.value });
   };
   const handleAddEducation = () => {
-    console.log(formvalues);
     setvalues([...values, formvalues]);
   };
-  const handleNextButton = () => {
-    console.log(values);
-    handleNext();
+
+  const removeValue = (ind) => {
+    const arr = JSON.parse(JSON.stringify(values));
+    arr.splice(ind, 1);
+    setvalues(arr);
+    dispatch(SetEducationDetails(arr));
+  };
+  const handleNextButton = (val) => {
+    dispatch(SetEducationDetails(values));
+    if (val === "next") {
+      handleNext();
+    } else {
+      handleBack();
+    }
   };
   return (
     <Grid container className={MainContainer} spacing={3}>
@@ -136,8 +158,8 @@ const Education = ({ handleNext, index, handleBack }) => {
                         </TableCell>
                       );
                     })}
-                    <TableCell>
-                      <IconButton>
+                    <TableCell align="right">
+                      <IconButton onClick={() => removeValue(i)}>
                         <DeleteForeverIcon sx={{ color: "#26ae61" }} />
                       </IconButton>
                     </TableCell>
@@ -164,7 +186,7 @@ const Education = ({ handleNext, index, handleBack }) => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <PersonIcon sx={{ color: "#26ae61" }} />
+                  <WorkspacePremiumIcon sx={{ color: "#26ae61" }} />
                 </InputAdornment>
               ),
             }}
@@ -183,7 +205,7 @@ const Education = ({ handleNext, index, handleBack }) => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <PersonIcon sx={{ color: "#26ae61" }} />
+                  <ApartmentIcon sx={{ color: "#26ae61" }} />
                 </InputAdornment>
               ),
             }}
@@ -195,11 +217,18 @@ const Education = ({ handleNext, index, handleBack }) => {
           <Typography>Ontained Marks:</Typography>
           <TextField
             size="small"
-            type="text"
+            type="number"
             name="ontained"
             value={formvalues?.ontained}
             onChange={handleChange}
             fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <ScoreIcon sx={{ color: "#26ae61" }} />
+                </InputAdornment>
+              ),
+            }}
           />
         </FormControl>
       </Grid>
@@ -208,7 +237,7 @@ const Education = ({ handleNext, index, handleBack }) => {
           <Typography>Total Marks:</Typography>
           <TextField
             size="small"
-            type="text"
+            type="number"
             name="total"
             value={formvalues?.total}
             onChange={handleChange}
@@ -216,7 +245,7 @@ const Education = ({ handleNext, index, handleBack }) => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <PersonIcon sx={{ color: "#26ae61" }} />
+                  <BookmarksIcon sx={{ color: "#26ae61" }} />
                 </InputAdornment>
               ),
             }}
@@ -235,7 +264,7 @@ const Education = ({ handleNext, index, handleBack }) => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <PersonIcon sx={{ color: "#26ae61" }} />
+                  <GradeIcon sx={{ color: "#26ae61" }} />
                 </InputAdornment>
               ),
             }}
@@ -260,7 +289,7 @@ const Education = ({ handleNext, index, handleBack }) => {
           variant=""
           className={backbuttonStyle}
           disabled={index === 0 ? true : false}
-          onClick={handleBack}
+          onClick={() => handleNextButton("back")}
         >
           Back
         </Button>
@@ -274,7 +303,7 @@ const Education = ({ handleNext, index, handleBack }) => {
         <Button
           variant=""
           className={nextButtonStyle}
-          onClick={handleNextButton}
+          onClick={() => handleNextButton("next")}
         >
           Next
         </Button>
