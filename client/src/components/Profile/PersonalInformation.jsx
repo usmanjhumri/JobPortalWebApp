@@ -8,11 +8,17 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import FlagCircleIcon from "@mui/icons-material/FlagCircle";
 import AddRoadIcon from "@mui/icons-material/AddRoad";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  GetProfileDetails,
+  SetEducationDetails,
+  SetPersonalInformation,
+} from "../../RTK/Slice/ProfileSlice";
 const useStyle = makeStyles(() => {
   return {
     MainContainer: {
@@ -60,20 +66,20 @@ const PersonalInformation = ({ handleNext, index, handleBack }) => {
     sectionDevider,
     backbuttonStyle,
   } = useStyle();
-  console.log(index);
-  const [values, setvalues] = useState({
-    uname: "",
-    fathername: "",
-    dob: "",
-    street: "",
-    city: "",
-    contry: "",
-  });
+  const dispatch = useDispatch();
+  const [values, setvalues] = useState(null);
+  const { personalInformations } = useSelector(GetProfileDetails);
+  useEffect(() => {
+    if (personalInformations) {
+      setvalues(personalInformations);
+    }
+  }, [personalInformations]);
   const handleChange = (val) => {
     setvalues({ ...values, [val.target.name]: val.target.value });
   };
   const handleNextButton = () => {
     console.log(values);
+    dispatch(SetPersonalInformation(values));
     handleNext();
   };
   return (
