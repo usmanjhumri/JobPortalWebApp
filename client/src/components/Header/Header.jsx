@@ -129,9 +129,7 @@ const Header = () => {
                   }}>
                     <Useravatar
                       setUserLoggedIn={setUserLoggedIn}
-                      handleCloseUserMenu={handleCloseUserMenu}
-                      handleOpenUserMenu={handleOpenUserMenu}
-                      anchorElUser={anchorElUser}
+                    
                     />
                   </Box>
                 ) : (

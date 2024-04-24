@@ -8,7 +8,7 @@ const initialState = {
 
 export const GetCategories = createAsyncThunk("/getcategories", async () => {
   const res = await axiosInstance.get("/category");
-  console.log(res.data);
+  
   return res.data;
 });
 
@@ -21,7 +21,7 @@ const CategoriesSlice = createSlice({
         state.status = "pending";
       })
       .addCase(GetCategories.fulfilled, (state, action) => {
-        console.log(action.payload.data);
+      
         state.allCategories = action.payload.data;
         state.status = "success";
       })

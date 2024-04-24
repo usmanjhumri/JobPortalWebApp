@@ -4,6 +4,10 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
+import WorkIcon from "@mui/icons-material/Work";
+import GradingIcon from "@mui/icons-material/Grading";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 export const AdminSideBarData = [
   {
     name: "Dashboard",
@@ -24,7 +28,31 @@ export const AdminSideBarData = [
   {
     name: "Jobs",
     path: "/jobs",
-    icon: <LeaderboardIcon fontSize="small" />,
+    icon: <WorkIcon fontSize="small" />,
+    iconClosed: <ArrowDropDownIcon />,
+    iconOpened: <ArrowDropUpIcon />,
+    subitems: [],
+  },
+  {
+    name: "Applications",
+    path: "/applications",
+    icon: <GradingIcon fontSize="small" />,
+    iconClosed: <ArrowDropDownIcon />,
+    iconOpened: <ArrowDropUpIcon />,
+    subitems: [],
+  },
+  {
+    name: "Users",
+    path: "/users",
+    icon: <PeopleAltIcon fontSize="small" />,
+    iconClosed: <ArrowDropDownIcon />,
+    iconOpened: <ArrowDropUpIcon />,
+    subitems: [],
+  },
+  {
+    name: "Signout",
+    path: "/signout",
+    icon: <ExitToAppIcon fontSize="small" />,
     iconClosed: <ArrowDropDownIcon />,
     iconOpened: <ArrowDropUpIcon />,
     subitems: [],
