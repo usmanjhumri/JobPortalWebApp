@@ -10,7 +10,7 @@ import {
   GridToolbarFilterButton,
 } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Box, IconButton } from "@mui/material";
+import { Box } from "@mui/material";
 import Loader from "../../Components/Loader/Loader";
 import {
   GetCategories,
@@ -86,17 +86,17 @@ function Categories() {
       headerName: "Experience",
       width: 150,
     },
-    
+
     {
       field: "Action",
       headerName: "Action",
       width: 250,
-      renderCell: (cellVal) => {
+      renderCell: () => {
         return (
           <Box>
-            <IconButton onClick={() => DeleteCat(cellVal?.row)}>
-              <DeleteIcon />
-            </IconButton>
+            {/* <IconButton onClick={() => DeleteCat(cellVal?.row)}> */}
+            <DeleteIcon />
+            {/* </IconButton> */}
           </Box>
         );
       },
@@ -117,7 +117,8 @@ function Categories() {
         >
           <DataGrid
             onPageSizeChange={(newPage) => {
-              setpagesize(newPage);
+              console.log(newPage);
+              // setpagesize(newPage);
             }}
             rowsPerPageOptions={[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
             experimentalFeatures={{ newEditingApi: true }}
