@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Box,
   Button,
@@ -16,7 +17,7 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import ScoreIcon from "@mui/icons-material/Score";
