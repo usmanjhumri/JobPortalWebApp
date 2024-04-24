@@ -104,11 +104,6 @@ function Jobs() {
       renderCell: () => {
         return (
           <Box>
-<<<<<<< HEAD
-            {/* <IconButton onClick={() => DeleteCat(cellVal?.row)}> */}
-            <DeleteIcon />
-            {/* </IconButton> */}
-=======
             <IconButton
               onClick={() => {
                 setdesc(cellVal?.row?.desc);
@@ -120,7 +115,6 @@ function Jobs() {
             <IconButton onClick={() => DeleteJob(cellVal?.row?._id)}>
               <DeleteIcon />
             </IconButton>
->>>>>>> d2aec48ca6c7a23a6e7d31c899e07b455e049abf
           </Box>
         );
       },
@@ -153,13 +147,6 @@ function Jobs() {
           }}
         >
           <DataGrid
-<<<<<<< HEAD
-            onPageSizeChange={(newPage) => {
-              console.log(newPage);
-              // setpagesize(newPage);
-            }}
-=======
->>>>>>> d2aec48ca6c7a23a6e7d31c899e07b455e049abf
             rowsPerPageOptions={[5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
             experimentalFeatures={{ newEditingApi: true }}
             components={{
