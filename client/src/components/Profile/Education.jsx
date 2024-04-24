@@ -106,6 +106,14 @@ const Education = ({ handleNext, index, handleBack }) => {
   };
   const handleAddEducation = () => {
     setvalues([...values, formvalues]);
+    setformvalues({
+      degree: "",
+      institude: "",
+      ontained: "",
+      total: "",
+      grade: "",
+      passingdate: "",
+    })
   };
 
   const removeValue = (ind) => {

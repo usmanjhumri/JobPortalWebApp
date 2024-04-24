@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { Box, Container, InputLabel, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import CommonPage from "../../components/commonPage/CommonPage";
 import { useState } from "react";
 import Education from "../../components/Profile/Education";
@@ -61,7 +61,7 @@ export default function Profile() {
     setValue((prevValue) => (prevValue + 1) % tabs.length);
   };
   const handleBack = () => {
-    setValue((prevValue) => (prevValue -1) % tabs.length);
+    setValue((prevValue) => (prevValue - 1) % tabs.length);
   };
 
   // Define your tabs as an array of objects
@@ -82,7 +82,7 @@ export default function Profile() {
             value={value}
             onChange={handleChange}
             scrollButtons
-            
+
             allowScrollButtonsMobile
             TabIndicatorProps={{ sx: { display: "none" } }}
           >
