@@ -11,7 +11,7 @@ import {
 } from "@mui/x-data-grid";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import Loader from "../../Components/Loader/Loader";
 import { GetAllJobs, GetJobStatus } from "../../Redux/Slice/JobSlice/JobSlice";
 import { SnackBarContext } from "../../Context/SnackBarContext/SnackBarContext";
@@ -105,14 +105,14 @@ function Jobs() {
         return (
           <Box>
             <IconButton
-              onClick={() => {
+              onClick={(cellVal) => {
                 setdesc(cellVal?.row?.desc);
                 setOpen(true);
               }}
             >
               <VisibilityIcon />
             </IconButton>
-            <IconButton onClick={() => DeleteJob(cellVal?.row?._id)}>
+            <IconButton onClick={(cellVal) => DeleteJob(cellVal?.row?._id)}>
               <DeleteIcon />
             </IconButton>
           </Box>
