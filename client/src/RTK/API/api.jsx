@@ -72,3 +72,16 @@ export const AdminLogin = createAsyncThunk(
 )
 
 
+export const GetJobs = createAsyncThunk(
+    "getjob/jobs",
+    async function (data, { rejectWithValue }) {
+        try {
+            const response = await axios.get('http://localhost:8000/jobs', data)
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
