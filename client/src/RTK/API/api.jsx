@@ -51,19 +51,23 @@ export const SignInNew = createAsyncThunk(
     }
 )
 
-export const AdminLogin = createAsyncThunk(
-    'adminlogin',
+
+
+
+export const UserData = createAsyncThunk(
+    "userData/userlogged",
     async function (data, { rejectWithValue }) {
         try {
-            if (data.email === 'usman@gmail.com' && data.password === 'Usman123@') {
-                const res = await axios.post('http://localhost:8000/admin/admin/login', data, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                })
-                console.log(res);
+            const token = JSON.parse(localStorage.getItem(storageKey)).user
+            console.log(token)
+            const headers = {
+                Authorization: `Bearer ${token}`
             }
-
+            const response = await axios.get('http://localhost:8000/user/userlogged', data, {
+                headers
+            })
+            console.log(response.data)
+            return response.data
         } catch (error) {
             console.log(error)
             return rejectWithValue(error.response.data)
