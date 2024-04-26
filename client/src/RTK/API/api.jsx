@@ -74,9 +74,10 @@ export const AdminLogin = createAsyncThunk(
 
 export const GetJobs = createAsyncThunk(
     "getjob/jobs",
-    async function (data, { rejectWithValue }) {
+    async function ({ rejectWithValue }) {
         try {
-            const response = await axios.get('http://localhost:8000/jobs', data)
+            console.log("working........")
+            const response = await axios.get('http://localhost:8000/jobs/')
             console.log(response);
         } catch (error) {
             console.log(error);

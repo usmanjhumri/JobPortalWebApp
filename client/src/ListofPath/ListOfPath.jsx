@@ -8,6 +8,7 @@ import SignUp from "../components/SignUp/SignUp";
 import JobDetail from "../Pages/JobDetail/JobDetail";
 import ApplicationForm from "../Pages/ApplicationForm/ApplicationForm";
 import Profille from "../Pages/Profile/Profille";
+import ForgotPassword from "../components/forgotPassword/ForgotPassword";
 
 export const Path = [
   {
@@ -50,5 +51,8 @@ export const Path = [
     path: "/profile",
     component: <Profille />,
   },
-
+  {
+    path: "/forget",
+    component: <ForgotPassword />,
+  },
 ];
