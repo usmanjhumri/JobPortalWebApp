@@ -58,7 +58,7 @@ export const UserData = createAsyncThunk(
     "userData/userlogged",
     async function (data, { rejectWithValue }) {
         try {
-            const token = JSON.parse(localStorage.getItem(storageKey)).user
+            const token = JSON.parse(localStorage.getItem(storageKey))
             console.log(token)
             const headers = {
                 Authorization: `Bearer ${token}`

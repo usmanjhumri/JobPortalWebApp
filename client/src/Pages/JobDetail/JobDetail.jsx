@@ -11,6 +11,7 @@ import Swal from 'sweetalert2'
 const JobDetail = () => {
     const isLoggedIn = useSelector((state) => state.signInReducer?.isLoggedIn)
     const message = useSelector((state) => state.signInReducer?.message)
+
     console.log(message)
 
     const navigate = useNavigate()
@@ -25,7 +26,8 @@ const JobDetail = () => {
                 icon: "error",
                 title: message,
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1500,
+                text: message
             });
             navigate('/login')
         }

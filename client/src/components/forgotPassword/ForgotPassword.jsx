@@ -3,16 +3,10 @@ import CommonPage from "../commonPage/CommonPage"
 import { Button, Input } from "@mui/joy"
 import { MdOutlineEmail } from "react-icons/md"
 import contactStyle from "../../Pages/ContactUs/contactStyle"
-import { useDispatch } from "react-redux"
-import { useEffect } from "react"
-import { UserData } from "../../RTK/API/api"
+
 
 const ForgotPassword = () => {
-    const dispatch = useDispatch()
-    useEffect(() => {
-        const userData = dispatch(UserData())
-        console.log(userData);
-    }, [dispatch])
+
     const handlemailsent = (e) => {
         e.preventDefault()
         console.log('working........');
