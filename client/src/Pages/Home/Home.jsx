@@ -16,7 +16,15 @@ import CommonJobs from "../../components/commonJobs/CommonJobs";
 import Text from "../../components/commonJobs/Text";
 import TotalJobsBanner from "../../components/TotalJobsBanner/TotalJobsBanner";
 import HowToGetStarted from "../../components/HowToGetStarted/HowToGetStarted";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { GetJobs } from "../../RTK/API/api";
 const Home = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const res = dispatch(GetJobs())
+    console.log(res)
+  }, [dispatch])
   return (
     <>
       <Box sx={HomeStyle.mainBox}>

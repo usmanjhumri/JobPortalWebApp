@@ -78,11 +78,10 @@ export const UserData = createAsyncThunk(
 
 export const GetJobs = createAsyncThunk(
     "getjob/jobs",
-    async function ({ rejectWithValue }) {
+    async function (data, { rejectWithValue }) {
         try {
-            console.log("working........")
-            const response = await axios.get('http://localhost:8000/jobs/')
-            console.log(response);
+            const response = await axios.get('http://localhost:8000/jobs/', data)
+            console.log(response.data.data);
         } catch (error) {
             console.log(error);
             return rejectWithValue(error.response.data)

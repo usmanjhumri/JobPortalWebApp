@@ -8,13 +8,16 @@ import { FaArrowRight } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from "react-redux"
 import Swal from 'sweetalert2'
+import { useState } from "react"
 const JobDetail = () => {
     const isLoggedIn = useSelector((state) => state.signInReducer?.isLoggedIn)
+    console.log(isLoggedIn);
     const message = useSelector((state) => state.signInReducer?.message)
-
+    const [userlogged, setUserLogged] = useState(false)
     console.log(message)
 
     const navigate = useNavigate()
+
     const handleApplyJob = () => {
         if (isLoggedIn) {
 
@@ -22,12 +25,21 @@ const JobDetail = () => {
 
         } else {
             Swal.fire({
-                position: "ceneter",
-                icon: "error",
-                title: message,
-                showConfirmButton: false,
-                timer: 1500,
-                text: message
+                title: "User not loggedin",
+                showClass: {
+                    popup: `
+                    animate__animated
+                    animate__fadeInUp
+                    animate__faster
+                  `
+                },
+                hideClass: {
+                    popup: `
+                    animate__animated
+                    animate__fadeOutDown
+                    animate__faster
+                  `
+                }
             });
             navigate('/login')
         }
