@@ -25,7 +25,7 @@ const Useravatar = ({
         setUserLoggedIn(false);
         dispatch(resetSuccessSignin());
         navigate("/login");
-        localStorage.removeItem(storageKey);
+        sessionStorage.removeItem(storageKey);
         break;
     }
   };

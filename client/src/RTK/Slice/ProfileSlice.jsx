@@ -1,4 +1,5 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axiosInstance from "../../Const/AxiosInstance";
 
 export const resetSuccessSignin = createAction("signInReducer/resetLogin");
 const initialState = {
@@ -8,6 +9,15 @@ const initialState = {
   SkillDetails: [],
   status: "idle", //loading success failure
 };
+
+export const GetUserProfile = createAsyncThunk("/userprofile", async () => {
+  let userid = JSON.parse(sessionStorage.getItem("user"));
+
+  let res = await axiosInstance.get(`/profile/${userid?.userID}`);
+  console.log(res?.data);
+  return res.data;
+});
+
 
 const ProfileSlice = createSlice({
   name: "ProfileSlice",
@@ -25,6 +35,23 @@ const ProfileSlice = createSlice({
     SetExperienceDetails: (state, action) => {
       state.ExperienceDetails = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(GetUserProfile.pending, (state, action) => {
+        state.status = "pending";
+      })
+      .addCase(GetUserProfile.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.status = "success";
+        state.EducationDetails = action.payload.data?.education;
+        state.personalInformations = action.payload.data?.personalInformation;
+        state.ExperienceDetails = action.payload.data?.experience;
+        state.SkillDetails = action.payload.data?.skills;
+      })
+      .addCase(GetUserProfile.rejected, (state) => {
+        state.status = "failed";
+      });
   },
 });
 export const GetProfileDetails = (state) => state.ProfileSlice;

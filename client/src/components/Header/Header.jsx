@@ -19,7 +19,7 @@ const Header = () => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (localStorage.getItem(storageKey)) {
+    if (sessionStorage.getItem(storageKey)) {
       setUserLoggedIn(true);
     } else {
       setUserLoggedIn(false);

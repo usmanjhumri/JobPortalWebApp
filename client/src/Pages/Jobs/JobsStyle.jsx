@@ -48,7 +48,8 @@ const jobsStyle = {
     },
     jobSearchInput: {
         padding: "0.7rem 1rem",
-        margin: "0.7rem 0"
+        margin: "0.7rem 0",
+        width:'100%'
     },
 }
 export default jobsStyle

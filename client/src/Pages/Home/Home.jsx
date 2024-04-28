@@ -2,9 +2,7 @@ import { Container, Grid, Typography, Box } from "@mui/material";
 import HomeStyle from "./HomeStyle";
 import Popular from "../PopularCategory/PopularCategory";
 import NewsandBlogs from "../Latest News & Blog/News&Blog";
-import Select from "@mui/joy/Select";
-import Option from "@mui/joy/Option";
-import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
+
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import LocationOn from "@mui/icons-material/LocationOn";
@@ -41,7 +39,7 @@ const Home = () => {
     setvalues({ ...values, [e.target.name]: e.target.value });
   };
   const handleNavigate = () => {
-    navigate("/jobs", { state: values });
+    navigate("/jobs", { state: { values: values, path: "search" } });
   };
   return (
     <>

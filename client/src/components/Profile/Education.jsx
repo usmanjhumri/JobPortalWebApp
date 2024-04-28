@@ -114,7 +114,7 @@ const Education = ({ handleNext, index, handleBack }) => {
       total: "",
       grade: "",
       passingdate: "",
-    })
+    });
   };
 
   const removeValue = (ind) => {
@@ -161,11 +161,11 @@ const Education = ({ handleNext, index, handleBack }) => {
                   <TableRow key={i}>
                     <TableCell>{i + 1}</TableCell>
                     {Object.keys(val)?.map((k, ind) => {
-                      return (
+                      return k !== "_id" ? (
                         <TableCell key={ind} align={"right"}>
                           {val[k]}
                         </TableCell>
-                      );
+                      ) : null;
                     })}
                     <TableCell align="right">
                       <IconButton onClick={() => removeValue(i)}>

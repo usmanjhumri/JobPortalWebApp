@@ -1,6 +1,5 @@
 import { Box, Container } from "@mui/material";
 import { Button, Input, Option, Select } from "@mui/joy";
-import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import LocationOn from "@mui/icons-material/LocationOn";
 import jobsStyle from "./JobsStyle";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -12,13 +11,19 @@ import { GetJobDetails } from "../../RTK/Slice/JobSlice";
 import { useEffect, useState } from "react";
 import { GetJobs } from "../../RTK/API/api";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import { GetCategoryStatus } from "../../RTK/Slice/CategoriesSlice";
 
 const Jobs = () => {
   const { state } = useLocation();
   const dispatch = useDispatch();
   const { jobs } = useSelector(GetJobDetails);
+  const { Categories } = useSelector(GetCategoryStatus);
   const [alljobs, setalljobs] = useState(null);
-  const [values, setvalues] = useState({ title: "", location: "" });
+  const [values, setvalues] = useState({
+    title: "",
+    location: "",
+    category: "",
+  });
 
   useEffect(() => {
     if (!jobs) {
@@ -31,13 +36,22 @@ const Jobs = () => {
     }
   }, [jobs]);
   useEffect(() => {
-    if (state) {
-      setvalues(state);
+    if (state?.path === "search") {
+      setvalues(state?.values);
       let filvalues = jobs?.filter(
         (f) =>
-          f?.title?.toLowerCase()?.includes(state?.title?.toLowerCase()) &&
-          f?.location?.toLowerCase()?.includes(state?.location?.toLowerCase())
+          f?.title
+            ?.toLowerCase()
+            ?.includes(state?.values?.title?.toLowerCase()) &&
+          f?.location
+            ?.toLowerCase()
+            ?.includes(state?.values?.location?.toLowerCase())
       );
+      setalljobs(filvalues);
+    } else if (state?.path === "category") {
+      setvalues({ ...values, category: state?.title });
+      let filvalues = jobs?.filter((f) => f.category?.title === state?.title);
+      console.log(filvalues);
       setalljobs(filvalues);
     }
   }, [state]);
@@ -49,7 +63,10 @@ const Jobs = () => {
     let filvalues = jobs?.filter(
       (f) =>
         f?.title?.toLowerCase()?.includes(values?.title?.toLowerCase()) &&
-        f?.location?.toLowerCase()?.includes(values?.location?.toLowerCase())
+        f?.location?.toLowerCase()?.includes(values?.location?.toLowerCase()) &&
+        f?.category?.title
+          ?.toLowerCase()
+          ?.includes(values?.category?.toLowerCase())
     );
     setalljobs(filvalues);
   };
@@ -82,6 +99,29 @@ const Jobs = () => {
               }
               sx={jobsStyle.jobSearchInput}
             />
+            <Select
+              fullWidth
+              placeholder="Job Category"
+              value={values?.category}
+              name="category"
+              select
+              onChange={(e, value) =>
+                handleChange({ target: { name: "category", value: value } })
+              }
+              endDecorator={
+                <LocationOn sx={{ color: "#26ae61", fontSize: "18px" }} />
+              }
+              sx={jobsStyle.jobSearchInput}
+            >
+              <Option value={""}>Select Category</Option>
+              {Categories?.map((d, i) => {
+                return (
+                  <Option key={i} value={d?.title}>
+                    {d?.title}
+                  </Option>
+                );
+              })}
+            </Select>
             <Button
               fullWidth
               sx={{
