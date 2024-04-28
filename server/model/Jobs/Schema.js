@@ -34,6 +34,16 @@ const JobSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  lastdate: {
+    type: String,
+    required: true,
+  },
+  jobtype: {
+    type: String,
+    required: true,
+    default: "full time",
+  },
+
   desc: {
     type: String,
     required: true,

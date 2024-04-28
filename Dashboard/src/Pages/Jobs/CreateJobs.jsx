@@ -115,6 +115,8 @@ function CreateJobs() {
     salaryfrom: Yup.string().required("Please Enter Salary Range"),
     experience: Yup.string().required("Please Enter experience"),
     category: Yup.string().required("Please Select Job Category"),
+    lastdate: Yup.string().required("Please Select Last Date To Apply"),
+    jobtype: Yup.string().required("Please Select Job Type"),
   });
   const formik = useFormik({
     initialValues: initialValues,
@@ -301,6 +303,47 @@ function CreateJobs() {
                     );
                   })}
                 </TextField>
+              </FormControl>
+              <FormControl fullWidth>
+                <Typography>Select Job Type</Typography>
+                <TextField
+                  name="jobtype"
+                  size={"small"}
+                  fullWidth
+                  select
+                  onChange={formik.handleChange}
+                  error={
+                    Boolean(formik.errors.jobtype) &&
+                    Boolean(formik.touched.jobtype)
+                  }
+                  helperText={
+                    Boolean(formik.errors.jobtype) &&
+                    Boolean(formik.errors.jobtype)
+                  }
+                >
+                  <MenuItem value={"part time"}>Full Time</MenuItem>
+                  <MenuItem value={"full time"}>Part Time</MenuItem>
+                  <MenuItem value={"permanent"}>Permanent</MenuItem>
+                  <MenuItem value={"contractual"}>Contractual</MenuItem>
+                </TextField>
+              </FormControl>
+              <FormControl fullWidth>
+                <Typography>Last Date To Apply</Typography>
+                <TextField
+                  name="lastdate"
+                  size={"small"}
+                  fullWidth
+                  type="date"
+                  onChange={formik.handleChange}
+                  error={
+                    Boolean(formik.errors.lastdate) &&
+                    Boolean(formik.touched.lastdate)
+                  }
+                  helperText={
+                    Boolean(formik.errors.lastdate) &&
+                    Boolean(formik.errors.lastdate)
+                  }
+                />
               </FormControl>
               <div>
                 <Editor

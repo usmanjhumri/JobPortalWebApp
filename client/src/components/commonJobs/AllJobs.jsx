@@ -11,15 +11,9 @@ import { useEffect, useState } from "react";
 import { GetJobDetails } from "../../RTK/Slice/JobSlice";
 import moment from "moment";
 
-const CommonJobs = () => {
-  const { jobs } = useSelector(GetJobDetails);
-  const [alljobs, setalljobs] = useState(null);
+const AllJobs = ({ alljobs }) => {
   const navigate = useNavigate();
-  useEffect(() => {
-    if (jobs !== null) {
-      setalljobs(jobs?.slice(0, 4));
-    }
-  }, [jobs]);
+
   const handleNavigate = (JobId) => {
     console.log(JobId);
     navigate("/jobdetail", { state: { jobId: JobId } });
@@ -137,4 +131,4 @@ const CommonJobs = () => {
   );
 };
 
-export default CommonJobs;
+export default AllJobs;

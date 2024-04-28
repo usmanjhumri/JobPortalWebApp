@@ -41,8 +41,22 @@ function Jobs() {
     dispatch(GetAllJobs());
   }, [dispatch]);
 
+  const DeleteJob = async (data) => {
+    console.log(data);
+    setLoader(true);
+    let res = await DeleteJobApi(data);
+    if (res?.data?.isSuccess) {
+      setsnackBarData(res?.snackBarData);
+      dispatch(GetAllJobs());
+      setLoader(false);
+    } else {
+      setLoader(false);
+    }
+  };
+
   React.useEffect(() => {
     let rowData = [];
+    console.log(AllJobs);
     AllJobs?.map((data, i) => {
       rowData.push({
         id: i + 1,
@@ -54,13 +68,15 @@ function Jobs() {
         location: data?.location,
         category: data?.category?.title,
         company: data?.company,
+        lastdate: data?.lastdate,
+        jobtype: data?.jobtype,
         desc: data?.desc,
       });
     });
     setrows(rowData);
   }, [AllJobs]);
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 50 },
     {
       field: "title",
       headerName: "Title",
@@ -69,12 +85,17 @@ function Jobs() {
     {
       field: "category",
       headerName: "Category",
-      width: 150,
+      width: 100,
+    },
+    {
+      field: "jobtype",
+      headerName: "Job Type",
+      width: 100,
     },
     {
       field: "company",
       headerName: "Company",
-      width: 150,
+      width: 120,
     },
     {
       field: "location",
@@ -84,6 +105,11 @@ function Jobs() {
     {
       field: "date",
       headerName: "Posted On",
+      width: 150,
+    },
+    {
+      field: "lastdate",
+      headerName: "Last Date",
       width: 150,
     },
     {
@@ -101,18 +127,23 @@ function Jobs() {
       field: "Action",
       headerName: "Action",
       width: 250,
-      renderCell: () => {
+      renderCell: (cellVal) => {
         return (
           <Box>
             <IconButton
-              onClick={(cellVal) => {
+              onClick={() => {
                 setdesc(cellVal?.row?.desc);
                 setOpen(true);
               }}
             >
               <VisibilityIcon />
             </IconButton>
-            <IconButton onClick={(cellVal) => DeleteJob(cellVal?.row?._id)}>
+            <IconButton
+              onClick={() => {
+                console.log(cellVal?.row);
+                DeleteJob(cellVal?.row?._id);
+              }}
+            >
               <DeleteIcon />
             </IconButton>
           </Box>
@@ -120,19 +151,6 @@ function Jobs() {
       },
     },
   ];
-
-  const DeleteJob = async (data) => {
-    console.log(data);
-    setLoader(true);
-    let res = await DeleteJobApi(data);
-    if (res?.data?.isSuccess) {
-      setsnackBarData(res?.snackBarData);
-      dispatch(GetAllJobs());
-      setLoader(false);
-    } else {
-      setLoader(false);
-    }
-  };
 
   return (
     <Box>
