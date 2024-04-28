@@ -8,6 +8,7 @@ const initialState = {
   success: false,
   message: "",
   token: "",
+  userID: "",
 };
 
 const signInSlice = createSlice({
@@ -25,9 +26,7 @@ const signInSlice = createSlice({
         state.isLoggedIn = true;
         state.token = action.payload.Token;
         state.message = action.payload.message;
-        console.log(state.token);
-        console.log(state.message);
-        console.log(state.isLoggedIn);
+        state.userID=action.payload.userID
       })
       .addCase(SignInNew.rejected, (state, action) => {
         state.isError = true;
@@ -38,7 +37,7 @@ const signInSlice = createSlice({
         console.log(state.isLoggedIn);
       })
       .addCase(resetSuccessSignin, (state) => {
-        state.isLoggedIn = ""
+        state.isLoggedIn = "";
         state.success = false;
         state.isError = false;
       });

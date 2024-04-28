@@ -17,7 +17,7 @@ export const SignUpUser = createAsyncThunk(
         const localStorageData = JSON.stringify({
           token: res?.data.Token,
         });
-        window.localStorage.setItem(storageKey, localStorageData);
+        window.sessionStorage.setItem(storageKey, localStorageData);
         return res.data;
       }
     } catch (error) {
@@ -40,8 +40,9 @@ export const SignInNew = createAsyncThunk(
       if (res) {
         const localStorageData = JSON.stringify({
           token: res?.data.Token,
+          userID: res?.data?.userID,
         });
-        window.localStorage.setItem(storageKey, localStorageData);
+        window.sessionStorage.setItem(storageKey, localStorageData);
         return res.data;
       }
     } catch (error) {
@@ -55,7 +56,7 @@ export const UserData = createAsyncThunk(
   "userData/userlogged",
   async function (data, { rejectWithValue }) {
     try {
-      const token = JSON.parse(localStorage.getItem(storageKey));
+      const token = JSON.parse(sessionStorage.getItem(storageKey));
       console.log(token);
       const headers = {
         Authorization: `Bearer ${token}`,

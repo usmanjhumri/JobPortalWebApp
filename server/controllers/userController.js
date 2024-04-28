@@ -72,6 +72,7 @@ class UserController {
       const { email, password } = req.body;
       if (email && password) {
         const user = await UserModel.findOne({ email: email });
+        console.log(user);
         if (user !== null) {
           const isMatchPassword = await bcrypt.compare(password, user.password);
           if (user.email === email && isMatchPassword) {
@@ -84,6 +85,7 @@ class UserController {
               status: "success",
               message: "User LoggedIn Successfully",
               Token: token,
+              userID: user?._id,
             });
           } else {
             res
@@ -171,6 +173,7 @@ class UserController {
   };
 
   static userLoggedData = async (req, res) => {
+    console.log(req);
     res.send({ user: req.user });
   };
 

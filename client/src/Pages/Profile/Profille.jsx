@@ -4,12 +4,18 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Box, Container, Typography } from "@mui/material";
 import CommonPage from "../../components/commonPage/CommonPage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Education from "../../components/Profile/Education";
 import PersonalInformation from "../../components/Profile/PersonalInformation";
 import Skills from "../../components/Profile/Skills";
 import Experience from "../../components/Profile/Experience";
 import { makeStyles } from "@mui/styles";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  GetProfileDetails,
+  GetUserProfile,
+} from "../../RTK/Slice/ProfileSlice";
+import ReactLoading from "react-loading";
 
 const useStyle = makeStyles(() => {
   return {
@@ -53,10 +59,15 @@ TabPanel.propTypes = {
 export default function Profile() {
   const [value, setValue] = useState(0);
   const { container, subContainer } = useStyle();
+  const { status } = useSelector(GetProfileDetails);
+  const dispatch = useDispatch();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  useEffect(() => {
+    dispatch(GetUserProfile());
+  }, [dispatch]);
   const handleNext = () => {
     setValue((prevValue) => (prevValue + 1) % tabs.length);
   };
@@ -82,7 +93,6 @@ export default function Profile() {
             value={value}
             onChange={handleChange}
             scrollButtons
-
             allowScrollButtonsMobile
             TabIndicatorProps={{ sx: { display: "none" } }}
           >
@@ -91,40 +101,59 @@ export default function Profile() {
             ))}
           </Tabs>
 
-          <Container>
-            {tabs.map((tab, index) => (
-              <TabPanel key={index} value={value} index={index}>
-                {index === 0 && (
-                  <PersonalInformation
-                    handleNext={handleNext}
-                    index={index}
-                    handleBack={handleBack}
-                  />
-                )}
-                {index === 1 && (
-                  <Education
-                    handleNext={handleNext}
-                    index={index}
-                    handleBack={handleBack}
-                  />
-                )}
-                {index === 2 && (
-                  <Skills
-                    handleNext={handleNext}
-                    index={index}
-                    handleBack={handleBack}
-                  />
-                )}
-                {index === 3 && (
-                  <Experience
-                    handleNext={handleNext}
-                    index={index}
-                    handleBack={handleBack}
-                  />
-                )}
-              </TabPanel>
-            ))}
-          </Container>
+          {status === "pending" ? (
+            <Box
+              sx={{
+                height: "50vh",
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <ReactLoading
+                type={"bars"}
+                color={"#26ab5f"}
+                height={"40px"}
+                width={"50px"}
+              />
+            </Box>
+          ) : (
+            <Container>
+              {tabs.map((tab, index) => (
+                <TabPanel key={index} value={value} index={index}>
+                  {index === 0 && (
+                    <PersonalInformation
+                      handleNext={handleNext}
+                      index={index}
+                      handleBack={handleBack}
+                    />
+                  )}
+                  {index === 1 && (
+                    <Education
+                      handleNext={handleNext}
+                      index={index}
+                      handleBack={handleBack}
+                    />
+                  )}
+                  {index === 2 && (
+                    <Skills
+                      handleNext={handleNext}
+                      index={index}
+                      handleBack={handleBack}
+                    />
+                  )}
+                  {index === 3 && (
+                    <Experience
+                      handleNext={handleNext}
+                      index={index}
+                      handleBack={handleBack}
+                    />
+                  )}
+                </TabPanel>
+              ))}
+            </Container>
+          )}
         </Box>
       </Box>
     </>

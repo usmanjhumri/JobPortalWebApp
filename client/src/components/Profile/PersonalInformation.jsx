@@ -93,8 +93,8 @@ const PersonalInformation = ({ handleNext, index, handleBack }) => {
           <TextField
             size="small"
             type="text"
-            name="uname"
-            value={values?.uname}
+            name="name"
+            value={values?.name}
             onChange={handleChange}
             fullWidth
             InputProps={{
@@ -186,8 +186,8 @@ const PersonalInformation = ({ handleNext, index, handleBack }) => {
           <TextField
             size="small"
             fullWidth
-            name="contry"
-            value={values?.contry}
+            name="country"
+            value={values?.country}
             onChange={handleChange}
             InputProps={{
               endAdornment: (

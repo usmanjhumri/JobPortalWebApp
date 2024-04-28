@@ -25,6 +25,9 @@ import {
   GetProfileDetails,
   SetExperienceDetails,
 } from "../../RTK/Slice/ProfileSlice";
+import axiosInstance from "../../Const/AxiosInstance";
+import ReactLoading from "react-loading";
+
 const useStyle = makeStyles(() => {
   return {
     MainContainer: {
@@ -80,14 +83,20 @@ const Experience = ({ handleNext, index, handleBack }) => {
     backbuttonStyle,
   } = useStyle();
   const [values, setvalues] = useState([]);
+  const [loading, setloading] = useState(false);
   const [formvalues, setformvalues] = useState({
-    Job: "",
+    job: "",
     institude: "",
     startingyear: "",
     endingyear: "",
   });
   const dispatch = useDispatch();
-  const { ExperienceDetails } = useSelector(GetProfileDetails);
+  const {
+    ExperienceDetails,
+    SkillDetails,
+    EducationDetails,
+    personalInformations,
+  } = useSelector(GetProfileDetails);
   useEffect(() => {
     if (ExperienceDetails) {
       setvalues(ExperienceDetails);
@@ -113,10 +122,32 @@ const Experience = ({ handleNext, index, handleBack }) => {
     dispatch(SetExperienceDetails(values));
     if (val === "next") {
       handleNext();
-    } else {
+    } else if (val === "back") {
       handleBack();
+    } else {
+      handleSave();
     }
   };
+
+  const handleSave = async () => {
+    let userid = JSON.parse(sessionStorage.getItem("user"));
+    const obj = {
+      userID: userid?.userID,
+      education: EducationDetails,
+      personalInformation: personalInformations,
+      skills: SkillDetails,
+      experience: values,
+    };
+    setloading(true);
+    let res = await axiosInstance.post("/profile/create", obj);
+    console.log(res.data);
+    if (res.data.isSuccess) {
+      setloading(false);
+      dispatch(GetUserProfile());
+    }
+    setloading(false);
+  };
+
   return (
     <Grid container className={MainContainer} spacing={3}>
       <Box className={sectionDevider}>
@@ -147,11 +178,11 @@ const Experience = ({ handleNext, index, handleBack }) => {
                   <TableRow key={i}>
                     <TableCell>{i + 1}</TableCell>
                     {Object.keys(val)?.map((k, ind) => {
-                      return (
+                      return k !== "_id" ? (
                         <TableCell key={ind} align={"right"}>
                           {val[k]}
                         </TableCell>
-                      );
+                      ) : null;
                     })}
                     <TableCell align="right">
                       <IconButton onClick={() => removeValue(i)}>
@@ -174,8 +205,8 @@ const Experience = ({ handleNext, index, handleBack }) => {
           <TextField
             size="small"
             type="text"
-            name="Job"
-            value={formvalues?.Job}
+            name="job"
+            value={formvalues?.job}
             onChange={handleChange}
             fullWidth
             InputProps={{
@@ -234,30 +265,41 @@ const Experience = ({ handleNext, index, handleBack }) => {
           />
         </FormControl>
       </Grid>
-      <Box className={nextButtonContainer}>
-        <Button
-          variant=""
-          className={backbuttonStyle}
-          disabled={index === 0 ? true : false}
-          onClick={() => handleNextButton("back")}
-        >
-          Back
-        </Button>
-        <Button
-          variant=""
-          className={nextButtonStyle}
-          onClick={handleAddEducation}
-        >
-          Add Experience
-        </Button>
-        <Button
-          variant=""
-          className={nextButtonStyle}
-          onClick={() => handleNextButton("save")}
-        >
-          Save
-        </Button>
-      </Box>
+      {loading ? (
+        <Box className={nextButtonContainer}>
+          <ReactLoading
+            type={"bars"}
+            color={"#26ab5f"}
+            height={"40px"}
+            width={"50px"}
+          />
+        </Box>
+      ) : (
+        <Box className={nextButtonContainer}>
+          <Button
+            variant=""
+            className={backbuttonStyle}
+            disabled={index === 0 ? true : false}
+            onClick={() => handleNextButton("back")}
+          >
+            Back
+          </Button>
+          <Button
+            variant=""
+            className={nextButtonStyle}
+            onClick={handleAddEducation}
+          >
+            Add Experience
+          </Button>
+          <Button
+            variant=""
+            className={nextButtonStyle}
+            onClick={() => handleNextButton("save")}
+          >
+            Save
+          </Button>
+        </Box>
+      )}
     </Grid>
   );
 };
