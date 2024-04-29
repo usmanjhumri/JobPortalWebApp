@@ -13,7 +13,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import parse from "html-react-parser";
-
+import Swal from 'sweetalert2'
 import moment from "moment";
 const useStyle = makeStyles(() => {
   return {
@@ -79,6 +79,30 @@ const JobDetail = () => {
   } = useStyle();
   const [selectedJob, setSelectedJob] = useState(null);
   const { jobs } = useSelector(GetJobDetails);
+  const isLoggedIn = useSelector((state) => state.signInReducer.isLoggedIn)
+  const handleApply = () => {
+    if (isLoggedIn) {
+      console.log('applied successfully')
+    } else {
+      Swal.fire({
+        title: "User not Registered",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      });
+    }
+  }
   useEffect(() => {
     if (jobs) {
       const val = jobs.find((f) => f._id === state?.jobId);
@@ -151,6 +175,7 @@ const JobDetail = () => {
                 <FavoriteBorderIcon sx={{ color: "#26ae61" }} />
               </Button>
               <Button
+                onClick={handleApply}
                 variant="contained"
                 sx={{
                   padding: "10px 20px",

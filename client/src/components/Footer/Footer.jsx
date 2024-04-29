@@ -68,9 +68,7 @@ const Footer = () => {
                                 <Typography sx={{ margin: "0.5rem 0" }}>
                                     <Link className='f-links' to='/'>Digital Marketing</Link>
                                 </Typography>
-                                <Typography sx={{ margin: "0.5rem 0" }}>
-                                    <Link className='f-links' to='/'>Senior Manager</Link>
-                                </Typography>
+
 
                             </Box>
                         </Grid>
@@ -85,9 +83,7 @@ const Footer = () => {
                             </Typography>
                         </Box>
                         <Box sx={FooterStyle.iconsdisplay}>
-                            <a href="http://" target='_blank'>
-                                <BsFacebook />
-                            </a>
+                            <BsFacebook />
                             <BsYoutube />
                             <BsLinkedin />
                         </Box>
