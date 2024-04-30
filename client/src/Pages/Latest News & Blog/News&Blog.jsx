@@ -6,9 +6,8 @@ import newsBlogArray from "./NewsBlogArray";
 
 function NewsandBlogs() {
   const navigate = useNavigate()
-  const handleReadmore = (BlogId) => {
-    console.log(BlogId);
-    navigate('/blog', { state: { BlogId: BlogId } })
+  const handleReadmore = () => {
+    navigate('/blog')
   };
   return (
     <>

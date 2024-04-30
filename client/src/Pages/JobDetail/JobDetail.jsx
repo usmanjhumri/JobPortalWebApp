@@ -21,7 +21,6 @@ const useStyle = makeStyles(() => {
       display: "flex",
       alignItems: "top",
       justifyContent: "center",
-
       padding: "20px",
     },
     subContainer: {
