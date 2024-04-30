@@ -15,8 +15,6 @@ const Header = () => {
   const [activeOffest, setActiveOffset] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const isLoggedIn = useSelector((state) => state.signInReducer?.isLoggedIn);
-  console.log(isLoggedIn);
-
   const navigate = useNavigate();
   useEffect(() => {
     if (sessionStorage.getItem(storageKey)) {
@@ -25,15 +23,6 @@ const Header = () => {
       setUserLoggedIn(false);
     }
   }, [isLoggedIn, userLoggedIn]);
-
-  const [anchorElUser, setAnchorElUser] = useState(false);
-
-  const handleOpenUserMenu = () => {
-    setAnchorElUser(true);
-  };
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(false);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -129,7 +118,7 @@ const Header = () => {
                   }}>
                     <Useravatar
                       setUserLoggedIn={setUserLoggedIn}
-                    
+
                     />
                   </Box>
                 ) : (
