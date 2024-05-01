@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import UIUX from '../../assets/uiuxDesigner.jpeg'
 import SE from '../../assets/jobsIMG.jpg'
 import DS from '../../assets/jobsIMGDataScience.jpg'
@@ -45,7 +46,6 @@ const newsBlogArray = [
         img: DS,
         title: "Data Scientist",
         subtitle: "Join our innovative team at Data Insights Co. as a Data Scientist and contribute to cutting-edge projects.",
-        // description: "Are you fascinated by the power of data? Data Insights Co. is looking for talented Data Scientists to join our innovative team. As a Data Scientist with us, you'll have the opportunity to work on groundbreaking projects that leverage data to drive insights and inform decision-making. From developing predictive models to uncovering actionable insights, you'll be at the forefront of data-driven innovation. Join us and be part of a team that's shaping the future of data analytics."
         description: (
             <div style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6', maxWidth: '800px', margin: '0 auto' }}>
                 <h1 style={{ color: '#333', textAlign: 'center', marginBottom: '30px' }}>Join Us as a Data Scientist at Shape Solutions</h1>
@@ -62,7 +62,6 @@ const newsBlogArray = [
                         <li>Develop and implement advanced data analytics and machine learning algorithms.</li>
                         <li>Extract, clean, and analyze large datasets to uncover valuable insights.</li>
                         <li>Collaborate with cross-functional teams to translate data into actionable strategies.</li>
-                        {/* Add more responsibilities as list items */}
                     </ul>
                     <h2 style={{ color: '#333', marginBottom: '20px' }}>What We Offer:</h2>
                     <p style={{ color: '#666', fontSize: '18px', marginBottom: '20px' }}>
@@ -83,7 +82,6 @@ const newsBlogArray = [
         img: UIUX,
         title: "UX/UI Designer",
         subtitle: "Creative Designs Studio is seeking a talented UX/UI Designer to enhance user experiences for our clients.",
-        // description: "Are you passionate about creating exceptional user experiences? Creative Designs Studio is looking for talented UX/UI Designers to join our team. As a UX/UI Designer with us, you'll have the opportunity to work on exciting projects that blend creativity with functionality. From crafting intuitive interfaces to optimizing user interactions, you'll be at the forefront of UX/UI design. Join us and be part of a team that's shaping the future of user experience."
         description: (
             <div style={{ fontFamily: 'Arial, sans-serif', lineHeight: '1.6', maxWidth: '800px', margin: '0 auto' }}>
                 <h1 style={{ color: '#333', textAlign: 'center', marginBottom: '30px' }}>Join Us as a UX/UI Designer at Shape Solutions</h1>
@@ -100,7 +98,6 @@ const newsBlogArray = [
                         <li>Create intuitive and visually appealing user interfaces for web and mobile applications.</li>
                         <li>Collaborate with stakeholders to understand user needs and business requirements.</li>
                         <li>Conduct user research and usability testing to inform design decisions.</li>
-                        {/* Add more responsibilities as list items */}
                     </ul>
                     <h2 style={{ color: '#333', marginBottom: '20px' }}>What We Offer:</h2>
                     <p style={{ color: '#666', fontSize: '18px', marginBottom: '20px' }}>
