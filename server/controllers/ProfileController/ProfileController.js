@@ -19,13 +19,7 @@ const GetProfile = async (req, res) => {
 
 const UpdateProfile = async (req, res) => {
   try {
-    // const saveJobs = new ProfileModal(req.body);
-    // const result = await saveJobs.save();
-    // res.send({
-    //   isSuccess: true,
-    //   message: "Data Saved Successfully",
-    //   data: result,
-    // });
+
     let found = await ProfileModal.findOne({ userID: req.body.userID });
     if (!found) {
       const saveProfile = new ProfileModal(req.body);
