@@ -128,5 +128,4 @@ const SavedJobs = ({ sevedJobs }) => {
         </>
     )
 }
-
 export default SavedJobs

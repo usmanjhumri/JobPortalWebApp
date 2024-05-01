@@ -79,8 +79,14 @@ const JobDetail = () => {
   const [sevedJobs, setSevedJobs] = useState([])
   console.log(sevedJobs)
   const { jobs } = useSelector(GetJobDetails);
-  console.log(jobs)
   const isLoggedIn = useSelector((state) => state.signInReducer.isLoggedIn)
+  const handleSaveJobs = () => {
+    if (jobs) {
+      const jobVal = jobs.find((f) => f._id === state?.jobId)
+      setSevedJobs([jobVal])
+    }
+    console.log("working......")
+  }
   const handleApply = () => {
     if (isLoggedIn) {
       console.log('applied successfully')
@@ -102,13 +108,7 @@ const JobDetail = () => {
       });
     }
   }
-  const handleSaveJobs = () => {
-    if (jobs) {
-      const jobVal = jobs.find((f) => f._id === state?.jobId)
-      setSevedJobs([jobVal])
-    }
-    console.log("working......")
-  }
+
   useEffect(() => {
     if (jobs) {
       const val = jobs.find((f) => f._id === state?.jobId);
