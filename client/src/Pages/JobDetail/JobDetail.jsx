@@ -1,7 +1,6 @@
-import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import CommonPage from "../../components/commonPage/CommonPage";
-
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { GetJobDetails } from "../../RTK/Slice/JobSlice";
@@ -78,6 +77,7 @@ const JobDetail = () => {
   } = useStyle();
   const [selectedJob, setSelectedJob] = useState(null);
   const { jobs } = useSelector(GetJobDetails);
+  console.log(jobs)
   const isLoggedIn = useSelector((state) => state.signInReducer.isLoggedIn)
   const handleApply = () => {
     if (isLoggedIn) {
@@ -99,6 +99,9 @@ const JobDetail = () => {
           `}
       });
     }
+  }
+  const handleSaveJobs = () => {
+    console.log("working......")
   }
   useEffect(() => {
     if (jobs) {
@@ -168,7 +171,7 @@ const JobDetail = () => {
               </Box>
             </Box>
             <Box className={ItemsInRow}>
-              <Button variant="outlined">
+              <Button variant="outlined" onClick={handleSaveJobs}>
                 <FavoriteBorderIcon sx={{ color: "#26ae61" }} />
               </Button>
               <Button

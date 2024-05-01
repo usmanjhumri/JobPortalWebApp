@@ -5,6 +5,7 @@ const SavedJobs = () => {
     return (
         <>
             <CommonPage value="Saved Jobs" />
+
         </>
     )
 }
