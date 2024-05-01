@@ -1,14 +1,13 @@
+/* eslint-disable react/prop-types */
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { BsArrowRightShort } from "react-icons/bs";
 import { IoBriefcaseOutline } from "react-icons/io5";
 import { MdHistory } from "react-icons/md";
 import { RiCalendar2Line } from "react-icons/ri";
 import { VscLocation } from "react-icons/vsc";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CommonJobsStyle from "./styles";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { GetJobDetails } from "../../RTK/Slice/JobSlice";
+// import { GetJobDetails } from "../../RTK/Slice/JobSlice";
 import moment from "moment";
 
 const AllJobs = ({ alljobs }) => {
