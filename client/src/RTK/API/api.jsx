@@ -12,7 +12,6 @@ export const SignUpUser = createAsyncThunk(
           "Content-Type": "application/json",
         },
       });
-      console.log(res.data);
       if (res) {
         const localStorageData = JSON.stringify({
           token: res?.data.Token,
@@ -21,7 +20,6 @@ export const SignUpUser = createAsyncThunk(
         return res.data;
       }
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.response.data);
     }
   }
@@ -36,7 +34,6 @@ export const SignInNew = createAsyncThunk(
           "Content-Type": "application/json",
         },
       });
-      console.log(res);
       if (res) {
         const localStorageData = JSON.stringify({
           token: res?.data.Token,
@@ -46,7 +43,6 @@ export const SignInNew = createAsyncThunk(
         return res.data;
       }
     } catch (error) {
-      console.log(error.response.data);
       return rejectWithValue(error.response.data);
     }
   }
@@ -54,21 +50,13 @@ export const SignInNew = createAsyncThunk(
 
 export const UserData = createAsyncThunk(
   "userData/userlogged",
-  async function (data, { rejectWithValue }) {
+  async function () {
     try {
-      const token = JSON.parse(sessionStorage.getItem(storageKey));
-      console.log(token);
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-      const response = await axiosInstance.get("/user/userlogged", data, {
-        headers,
-      });
-      console.log(response.data);
+      const response = await axiosInstance.get("/user/userlogged");
+      
       return response.data;
     } catch (error) {
-      console.log(error);
-      return rejectWithValue(error.response.data);
+      return error
     }
   }
 );
@@ -78,7 +66,13 @@ export const GetJobs = createAsyncThunk("getjob/jobs", async () => {
     const response = await axiosInstance.get("/jobs/");
     return response.data;
   } catch (error) {
-    console.log(error);
+  }
+});
+export const GetSaveJobs = createAsyncThunk("getjob/saved", async ({ id }) => {
+  try {
+    const response = await axiosInstance.get(`/savejobs/${id}`);
+    return response.data;
+  } catch (error) {
   }
 });
 export const GetCategory = createAsyncThunk("/categories", async () => {
@@ -86,6 +80,5 @@ export const GetCategory = createAsyncThunk("/categories", async () => {
     const response = await axiosInstance.get("/category/");
     return response.data;
   } catch (error) {
-    console.log(error);
   }
 });

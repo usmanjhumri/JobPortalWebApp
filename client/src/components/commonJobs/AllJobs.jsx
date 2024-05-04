@@ -14,7 +14,6 @@ const AllJobs = ({ alljobs }) => {
   const navigate = useNavigate();
 
   const handleNavigate = (JobId) => {
-    console.log(JobId);
     navigate("/jobdetail", { state: { jobId: JobId } });
   };
   return (

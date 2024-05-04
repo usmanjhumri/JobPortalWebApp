@@ -106,15 +106,12 @@ const Experience = ({ handleNext, index, handleBack }) => {
     setformvalues({ ...formvalues, [val.target.name]: val.target.value });
   };
   const handleAddEducation = () => {
-    console.log(formvalues);
     setvalues([...values, formvalues]);
   };
 
   const removeValue = (ind) => {
-    console.log(ind);
     const arr = JSON.parse(JSON.stringify(values));
     arr.splice(ind, 1);
-    console.log(arr);
     setvalues(arr);
     dispatch(SetExperienceDetails(arr));
   };
@@ -140,7 +137,7 @@ const Experience = ({ handleNext, index, handleBack }) => {
     };
     setloading(true);
     let res = await axiosInstance.post("/profile/create", obj);
-    console.log(res.data);
+    
     if (res.data.isSuccess) {
       setloading(false);
       dispatch(GetUserProfile());

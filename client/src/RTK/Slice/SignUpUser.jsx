@@ -24,17 +24,15 @@ const userRegister = createSlice({
                 state.isError = false
                 state.success = true
                 state.data = action.payload
-                console.log(state.data)
+            
                 state.message = action.payload?.message
                 state.token = action.payload?.Token
-                console.log(state.message);
-                console.log(state.token)
+              
             })
             .addCase(SignUpUser.rejected, (state, action) => {
                 state.isLoading = false
                 state.message = action.payload?.message
-                console.log(state.message)
-                console.log(action.payload);
+              
             })
     }
 })

@@ -15,7 +15,7 @@ const JobSlice = createSlice({
         state.JobStatus = "pending";
       })
       .addCase(GetJobs.fulfilled, (state, action) => {
-        console.log(action.payload);
+       
         state.jobs = action.payload.data;
         state.JobStatus = "success";
       })
