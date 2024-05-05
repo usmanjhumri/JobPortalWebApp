@@ -1,36 +1,56 @@
 import { Box, Typography } from "@mui/material";
 import AllJobs from "../../components/commonJobs/AllJobs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommonPage from "../../components/commonPage/CommonPage";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUserSliceData } from "../../RTK/Slice/SignInSlice";
+import { Link } from "react-router-dom";
+import { GetSavedJobsDetails } from "../../RTK/Slice/SavedJobSlice";
+import { GetSaveJobs } from "../../RTK/API/api";
+import Loader from "../../components/Loader/Loader";
 
 const Jobs = () => {
-  //   const { state } = useLocation();
-  //   const dispatch = useDispatch();
-  //   const { jobs } = useSelector(GetJobDetails);
+  const dispatch = useDispatch();
   const [alljobs, setalljobs] = useState([]);
   const { isLoggedIn } = useSelector(getUserSliceData);
-  //   useEffect(() => {
-  //     if (!jobs) {
-  //       dispatch(GetJobs());
-  //     }
-  //   }, [dispatch]);
-  //   useEffect(() => {
-  //     if (jobs !== null) {
-  //       setalljobs(jobs);
-  //     }
-  //   }, [jobs]);
+  const { saved, stat } = useSelector(GetSavedJobsDetails);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(GetSaveJobs());
+    }
+  }, [dispatch]);
+  useEffect(() => {
+    console.log(saved);
+    if (saved?.jobs) {
+      setalljobs(saved?.jobs);
+    }
+  }, [saved]);
   return (
     <>
       <CommonPage value="Saved Jobs" />
-      <Box mt={6}>
-        {!isLoggedIn ? (
-          <Typography variant="h6">You need to Login first.</Typography>
-        ) : (
-          <AllJobs alljobs={alljobs} />
-        )}
-      </Box>
+      {stat === "pending" ? (
+        <Loader />
+      ) : (
+        <Box mt={6}>
+          {!isLoggedIn ? (
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Typography variant="h6">
+                You need to Login first. <Link to={"/login"}>Go To Login</Link>
+              </Typography>
+            </Box>
+          ) : (
+            <AllJobs alljobs={alljobs} />
+          )}
+        </Box>
+      )}
     </>
   );
 };

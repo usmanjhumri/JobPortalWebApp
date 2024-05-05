@@ -37,7 +37,7 @@ const Jobs = () => {
   }, [jobs]);
   useEffect(() => {
     if (state?.path === "search") {
-      setvalues(state?.values);
+      setvalues({ ...values, ...state?.values });
       let filvalues = jobs?.filter(
         (f) =>
           f?.title
@@ -51,7 +51,6 @@ const Jobs = () => {
     } else if (state?.path === "category") {
       setvalues({ ...values, category: state?.title });
       let filvalues = jobs?.filter((f) => f.category?.title === state?.title);
-   
       setalljobs(filvalues);
     }
   }, [state]);

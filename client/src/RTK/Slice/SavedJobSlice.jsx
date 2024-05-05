@@ -3,7 +3,7 @@ import { GetSaveJobs } from "../API/api";
 
 const initialState = {
   saved: null,
-  JobStatus: "idle", //loading success failure
+  stat: "idle", //loading success failure
 };
 
 const SaveJobSlice = createSlice({
@@ -12,15 +12,15 @@ const SaveJobSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(GetSaveJobs.pending, (state, action) => {
-        state.JobStatus = "pending";
+        state.stat = "pending";
       })
       .addCase(GetSaveJobs.fulfilled, (state, action) => {
      
         state.saved = action.payload.data;
-        state.JobStatus = "success";
+        state.stat = "success";
       })
       .addCase(GetSaveJobs.rejected, (state) => {
-        state.JobStatus = "rejected";
+        state.stat = "rejected";
       });
   },
 });

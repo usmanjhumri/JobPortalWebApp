@@ -53,10 +53,10 @@ export const UserData = createAsyncThunk(
   async function () {
     try {
       const response = await axiosInstance.get("/user/userlogged");
-      
+      console.log(response.data);
       return response.data;
     } catch (error) {
-      return error
+      return error;
     }
   }
 );
@@ -65,20 +65,18 @@ export const GetJobs = createAsyncThunk("getjob/jobs", async () => {
   try {
     const response = await axiosInstance.get("/jobs/");
     return response.data;
-  } catch (error) {
-  }
+  } catch (error) {}
 });
-export const GetSaveJobs = createAsyncThunk("getjob/saved", async ({ id }) => {
+export const GetSaveJobs = createAsyncThunk("getjob/saved", async () => {
   try {
-    const response = await axiosInstance.get(`/savejobs/${id}`);
+    const val = JSON.parse(sessionStorage.getItem(storageKey));
+    const response = await axiosInstance.get(`/savejobs/${val?.userID}`);
     return response.data;
-  } catch (error) {
-  }
+  } catch (error) {}
 });
 export const GetCategory = createAsyncThunk("/categories", async () => {
   try {
     const response = await axiosInstance.get("/category/");
     return response.data;
-  } catch (error) {
-  }
+  } catch (error) {}
 });
