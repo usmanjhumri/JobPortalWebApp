@@ -121,7 +121,7 @@ function CreateJobs() {
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: ValidationSchema,
-    onSubmit: (values, { resetForm, setSubmitting }) => {
+    onSubmit: (values, { setSubmitting }) => {
       handleSubmit(values, setSubmitting);
     },
   });
