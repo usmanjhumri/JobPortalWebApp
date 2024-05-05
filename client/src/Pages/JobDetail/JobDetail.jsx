@@ -76,15 +76,9 @@ const JobDetail = () => {
     ItemsInRow,
   } = useStyle();
   const [selectedJob, setSelectedJob] = useState(null);
-  const [sevedJobs, setSevedJobs] = useState([])
-  console.log(sevedJobs)
   const { jobs } = useSelector(GetJobDetails);
   const isLoggedIn = useSelector((state) => state.signInReducer.isLoggedIn)
   const handleSaveJobs = () => {
-    if (jobs) {
-      const jobVal = jobs.find((f) => f._id === state?.jobId)
-      setSevedJobs([jobVal])
-    }
     console.log("working......")
   }
   const handleApply = () => {

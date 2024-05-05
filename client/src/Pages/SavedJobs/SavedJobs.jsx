@@ -1,16 +1,16 @@
 /* eslint-disable react/prop-types */
 import { Box, Container, Grid, Typography } from "@mui/material";
-import { BsArrowRightShort } from 'react-icons/bs';
+// import { BsArrowRightShort } from 'react-icons/bs';
 import CommonPage from '../../components/commonPage/CommonPage';
-import { IoBriefcaseOutline } from "react-icons/io5";
-import { MdHistory } from "react-icons/md";
-import { RiCalendar2Line } from "react-icons/ri";
-import { VscLocation } from "react-icons/vsc";
-import { useNavigate } from "react-router-dom";
-import moment from "moment";
-import CommonJobsStyle from "../../components/commonJobs/styles";
-const SavedJobs = ({ sevedJobs }) => {
-    const navigate = useNavigate();
+// import { IoBriefcaseOutline } from "react-icons/io5";
+// import { MdHistory } from "react-icons/md";
+// import { RiCalendar2Line } from "react-icons/ri";
+// import { VscLocation } from "react-icons/vsc";
+// import { useNavigate } from "react-router-dom";
+// import moment from "moment";
+// import CommonJobsStyle from "../../components/commonJobs/styles";
+const SavedJobs = () => {
+    // const navigate = useNavigate();
     const handleNavigate = (JobId) => {
         console.log(JobId);
         navigate("/jobdetail", { state: { jobId: JobId } });
@@ -20,7 +20,7 @@ const SavedJobs = ({ sevedJobs }) => {
             <CommonPage value="Saved Jobs" />
             <Box mt={4}>
                 <Container>
-                    <Grid container spacing={3}>
+                    {/* <Grid container spacing={3}>
                         {sevedJobs?.map((item, ind) => {
                             return (
                                 <>
@@ -122,7 +122,7 @@ const SavedJobs = ({ sevedJobs }) => {
                                 </>
                             );
                         })}
-                    </Grid>
+                    </Grid> */}
                 </Container>
             </Box>
         </>
