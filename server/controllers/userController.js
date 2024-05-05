@@ -119,13 +119,13 @@ class UserController {
         const link = `http://localhost:3000/user/reset/${user._id}/${token}`;
         console.log(link);
         // // Send Email
-        // let info = await transporter.sendMail({
-        //   from: process.env.EMAIL_FROM,
-        //   to: user.email,
-        //   subject: "GeekShop - Password Reset Link",
-        //   html: `<a href=${link}>Click Here</a> to Reset Your Password`,
-        // });
-        // console.log(info);
+        let info = await transporter.sendMail({
+          from: process.env.EMAIL_FROM,
+          to: user.email,
+          subject: "GeekShop - Password Reset Link",
+          html: `<a href=${link}>Click Here</a> to Reset Your Password`,
+        });
+        console.log(info);
         res.send({
           status: "success",
           message: "Password Reset Email Sent... Please Check Your Email",
