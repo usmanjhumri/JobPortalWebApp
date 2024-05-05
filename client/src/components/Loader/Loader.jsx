@@ -7,7 +7,7 @@ const useStyle = makeStyles(() => {
     container: {
       height: "100vh",
       width: "100%",
-      backgroundColor: "black",
+      backgroundColor: "rgba(250,250,250,0.9)",
       position: "absolute",
       top: 0,
       zIndex: 100,
@@ -24,7 +24,7 @@ const Loader = () => {
     <Box className={container}>
       <ReactLoading
         type={"bars"}
-        color={"white"}
+        color={"#26ae61"}
         height={"40px"}
         width={"50px"}
       />

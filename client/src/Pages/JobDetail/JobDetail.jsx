@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import CommonPage from "../../components/commonPage/CommonPage";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { GetJobDetails } from "../../RTK/Slice/JobSlice";
@@ -11,9 +11,12 @@ import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import parse from "html-react-parser";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import moment from "moment";
+import { GetSavedJobsDetails } from "../../RTK/Slice/SavedJobSlice";
+import axiosInstance from "../../Const/AxiosInstance";
 const useStyle = makeStyles(() => {
   return {
     containerStyle: {
@@ -76,16 +79,23 @@ const JobDetail = () => {
     ItemsInRow,
   } = useStyle();
   const [selectedJob, setSelectedJob] = useState(null);
-  const [sevedJobs, setSevedJobs] = useState([])
-
+  const navigate = useNavigate();
   const { jobs } = useSelector(GetJobDetails);
-  const isLoggedIn = useSelector((state) => state.signInReducer.isLoggedIn)
-  const handleSaveJobs = () => {
-    if (jobs) {
-      const jobVal = jobs.find((f) => f._id === state?.jobId)
-      setSevedJobs([jobVal])
+  const { saved } = useSelector(GetSavedJobsDetails);
+  const userID = JSON.parse(sessionStorage.getItem("user")).userID;
+  const isLoggedIn = useSelector((state) => state.signInReducer.isLoggedIn);
+  const handleSaveJobs = async () => {
+    const obj = {
+      jobs: selectedJob?._id,
+      userID: userID,
+    };
+    let path = selectedJob?.isSaved ? "/savejobs/remove" : "/savejobs/create";
+    let res = await axiosInstance.post(path, obj);
+    if (res.data.isSuccess) {
+      navigate("/savedjobs");
     }
-  }
+  };
+
   const handleApply = () => {
     if (isLoggedIn) {
     } else {
@@ -96,24 +106,32 @@ const JobDetail = () => {
             animate__animated
             animate__fadeInUp
             animate__faster
-          `},
+          `,
+        },
         hideClass: {
           popup: `
             animate__animated
             animate__fadeOutDown
             animate__faster
-          `}
+          `,
+        },
       });
     }
-  }
+  };
 
   useEffect(() => {
     if (jobs) {
       const val = jobs.find((f) => f._id === state?.jobId);
-      setSelectedJob(val);
+      let found = saved?.jobs?.find((f) =>
+        f?._id === val?._id ? true : false
+      );
+      if (found) {
+        setSelectedJob({ ...val, isSaved: true });
+      } else {
+        setSelectedJob({ ...val, isSaved: false });
+      }
     }
   }, [state?.jobId]);
-
   return (
     <>
       <CommonPage value="Job Detail" />
@@ -176,7 +194,11 @@ const JobDetail = () => {
             </Box>
             <Box className={ItemsInRow}>
               <Button variant="outlined" onClick={handleSaveJobs}>
-                <FavoriteBorderIcon sx={{ color: "#26ae61" }} />
+                {selectedJob?.isSaved ? (
+                  <FavoriteIcon sx={{ color: "#26ae61" }} />
+                ) : (
+                  <FavoriteBorderIcon sx={{ color: "#26ae61" }} />
+                )}
               </Button>
               <Button
                 onClick={handleApply}

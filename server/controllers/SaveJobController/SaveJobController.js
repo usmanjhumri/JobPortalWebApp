@@ -4,9 +4,7 @@ const GetSavedJobs = async (req, res) => {
   try {
     const id = req.params.id;
     console.log(id);
-    const result = await SaveJobModals.find({ userID: id });
-    //   .populate("userID")
-    //   .populate("jobs");
+    const result = await SaveJobModals.findOne({ userID: id }).populate("jobs");
     console.log(result);
     res.send({
       isSuccess: true,
@@ -52,7 +50,7 @@ const RemoveSavedJobs = async (req, res) => {
   try {
     let result = await SaveJobModals.updateOne(
       { userID: req.body.userID },
-      { $pull: { jobs: req.body.jobs } } , // item(s) to match from array you want to pull/remove
+      { $pull: { jobs: req.body.jobs } }, // item(s) to match from array you want to pull/remove
       { multi: true }
     );
     res.send({

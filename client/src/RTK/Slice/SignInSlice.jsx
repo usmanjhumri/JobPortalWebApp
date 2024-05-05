@@ -34,16 +34,16 @@ const signInSlice = createSlice({
         state.isLoading = false;
         state.isLoggedIn = false;
         state.message = action.payload.message;
-      
-       
       })
       .addCase(resetSuccessSignin, (state) => {
         state.isLoggedIn = "";
         state.success = false;
         state.isError = false;
       })
-      .addCase(UserData.fulfilled, (state) => {
-        state.isLoggedIn = true;
+      .addCase(UserData.fulfilled, (state, action) => {
+        if (action.payload?.user) {
+          state.isLoggedIn = true;
+        }
       });
   },
 });
