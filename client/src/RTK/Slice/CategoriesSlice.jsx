@@ -15,7 +15,7 @@ const CategoriesSlice = createSlice({
         state.categoryStatus = "pending";
       })
       .addCase(GetCategory.fulfilled, (state, action) => {
-        console.log(action.payload);
+     
         state.Categories = action.payload.data;
         state.categoryStatus = "success";
       })

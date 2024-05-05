@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
   baseURL: BaseUrl,
   headers: {
     "Content-Type": "application/json",
-    // Authorization: `Bearer ${cookies.get("token")}`,
+    Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("user"))?.token}`,
   },
 });
 
@@ -21,7 +21,9 @@ axiosInstance.interceptors.request.use(
     ...config,
     headers: {
       ...config.headers,
-      // Authorization: `Bearer ${cookies.get("token")}`,
+      Authorization: `Bearer ${
+        JSON.parse(sessionStorage.getItem("user"))?.token
+      }`,
     },
   }),
   null,

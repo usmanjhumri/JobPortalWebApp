@@ -26,7 +26,6 @@ const ResponsiveDrawer = ({ mobileOpen, setMobileOpen }) => {
     };
 
     const handleSearchBtn = () => {
-        console.log("working");
         handleCloseDrawer();
     };
 

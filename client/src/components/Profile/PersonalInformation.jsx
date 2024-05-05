@@ -78,7 +78,7 @@ const PersonalInformation = ({ handleNext, index, handleBack }) => {
     setvalues({ ...values, [val.target.name]: val.target.value });
   };
   const handleNextButton = () => {
-    console.log(values);
+    
     dispatch(SetPersonalInformation(values));
     handleNext();
   };

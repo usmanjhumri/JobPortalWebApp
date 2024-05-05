@@ -51,7 +51,7 @@ const Jobs = () => {
     } else if (state?.path === "category") {
       setvalues({ ...values, category: state?.title });
       let filvalues = jobs?.filter((f) => f.category?.title === state?.title);
-      console.log(filvalues);
+   
       setalljobs(filvalues);
     }
   }, [state]);

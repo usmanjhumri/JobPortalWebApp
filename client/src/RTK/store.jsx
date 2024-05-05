@@ -4,6 +4,7 @@ import signInReducer from "./Slice/SignInSlice";
 import ProfileSlice from "./Slice/ProfileSlice";
 import JobSlice from "./Slice/JobSlice";
 import CategoriesSlice from "./Slice/CategoriesSlice";
+import SavedJobSlice from "./Slice/SavedJobSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     ProfileSlice: ProfileSlice,
     JobSlice: JobSlice,
     CategoriesSlice: CategoriesSlice,
+    SaveJobSlice: SavedJobSlice,
   },
 });

@@ -14,7 +14,7 @@ export const GetUserProfile = createAsyncThunk("/userprofile", async () => {
   let userid = JSON.parse(sessionStorage.getItem("user"));
 
   let res = await axiosInstance.get(`/profile/${userid?.userID}`);
-  console.log(res?.data);
+ 
   return res.data;
 });
 
@@ -42,7 +42,7 @@ const ProfileSlice = createSlice({
         state.status = "pending";
       })
       .addCase(GetUserProfile.fulfilled, (state, action) => {
-        console.log(action.payload);
+       
         state.status = "success";
         state.EducationDetails = action.payload.data?.education;
         state.personalInformations = action.payload.data?.personalInformation;

@@ -9,7 +9,6 @@ const ForgotPassword = () => {
 
     const handlemailsent = (e) => {
         e.preventDefault()
-        console.log('working........');
     }
     return (
         <>

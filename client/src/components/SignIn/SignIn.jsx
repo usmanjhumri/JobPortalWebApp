@@ -27,7 +27,7 @@ export default function SignIn() {
             password: data.get("password"),
           })
         );
-        console.log(res);
+       
         if (res.payload.status === "success") {
           ToastMessage({ message: res.payload.message, type: "success" });
           navigate("/");
@@ -36,7 +36,7 @@ export default function SignIn() {
         }
       }
     } catch (error) {
-      console.log(error);
+      return error
     }
   };
 

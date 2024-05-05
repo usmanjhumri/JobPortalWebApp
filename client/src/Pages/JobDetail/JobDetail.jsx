@@ -76,14 +76,18 @@ const JobDetail = () => {
     ItemsInRow,
   } = useStyle();
   const [selectedJob, setSelectedJob] = useState(null);
+  const [sevedJobs, setSevedJobs] = useState([])
+
   const { jobs } = useSelector(GetJobDetails);
   const isLoggedIn = useSelector((state) => state.signInReducer.isLoggedIn)
   const handleSaveJobs = () => {
-    console.log("working......")
+    if (jobs) {
+      const jobVal = jobs.find((f) => f._id === state?.jobId)
+      setSevedJobs([jobVal])
+    }
   }
   const handleApply = () => {
     if (isLoggedIn) {
-      console.log('applied successfully')
     } else {
       Swal.fire({
         title: "User not LoggedIn",

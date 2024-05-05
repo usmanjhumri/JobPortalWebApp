@@ -43,9 +43,8 @@ const SignUp = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data, " data");
       const result = await dispatch(SignUpUser(data));
-      console.log(result);
+      
 
       if (result.payload.status === "success") {
         ToastMessage({ message: result.payload.message, type: "success" });
@@ -54,7 +53,6 @@ const SignUp = () => {
         ToastMessage({ message: result.payload.message, type: "error" });
       }
     } catch (error) {
-      console.log(error, " something is wrong");
     }
   };
 
