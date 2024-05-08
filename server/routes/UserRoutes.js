@@ -15,7 +15,7 @@ router.get("/userapplieddata", UserController.getuserAppliedData);
 // Public Route
 router.post("/register", UserController.userRigerstration);
 router.post("/login", UserController.userLoggedIn);
-router.post("/mail-sent", UserController.forgotPassword);
+router.post("/send-reset-password-email", UserController.forgotPassword);
 router.post("/resetpassword/:id/:token", UserController.userPasswordReset);
 
 export default router;
