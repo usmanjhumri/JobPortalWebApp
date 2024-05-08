@@ -61,22 +61,45 @@ export const UserData = createAsyncThunk(
   }
 );
 
+export const ForGotPassword = createAsyncThunk("forgotpassword/sentmail", async (data, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.post("/user/send-reset-password-email", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    console.log(error)
+    return rejectWithValue(error.response.data)
+  }
+})
+
 export const GetJobs = createAsyncThunk("getjob/jobs", async () => {
   try {
     const response = await axiosInstance.get("/jobs/");
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 });
 export const GetSaveJobs = createAsyncThunk("getjob/saved", async () => {
   try {
     const val = JSON.parse(sessionStorage.getItem(storageKey));
     const response = await axiosInstance.get(`/savejobs/${val?.userID}`);
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+
+  }
 });
 export const GetCategory = createAsyncThunk("/categories", async () => {
   try {
     const response = await axiosInstance.get("/category/");
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+
+  }
 });

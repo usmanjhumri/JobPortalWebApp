@@ -82,12 +82,13 @@ const JobDetail = () => {
   const navigate = useNavigate();
   const { jobs } = useSelector(GetJobDetails);
   const { saved } = useSelector(GetSavedJobsDetails);
-  const userID = JSON.parse(sessionStorage.getItem("user")).userID;
+  // const userID = JSON.parse(sessionStorage.getItem("user")).userID;
+  // console.log(userID)
   const isLoggedIn = useSelector((state) => state.signInReducer.isLoggedIn);
   const handleSaveJobs = async () => {
     const obj = {
       jobs: selectedJob?._id,
-      userID: userID,
+      // userID: userID,
     };
     let path = selectedJob?.isSaved ? "/savejobs/remove" : "/savejobs/create";
     let res = await axiosInstance.post(path, obj);
@@ -98,6 +99,7 @@ const JobDetail = () => {
 
   const handleApply = () => {
     if (isLoggedIn) {
+      console.log('workgin');
     } else {
       Swal.fire({
         title: "User not LoggedIn",
