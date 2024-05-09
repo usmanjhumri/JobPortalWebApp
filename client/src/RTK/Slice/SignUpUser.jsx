@@ -9,6 +9,7 @@ const initialState = {
     token: "",
     data: null,
 
+
 }
 
 const userRegister = createSlice({
@@ -24,15 +25,15 @@ const userRegister = createSlice({
                 state.isError = false
                 state.success = true
                 state.data = action.payload
-            
                 state.message = action.payload?.message
                 state.token = action.payload?.Token
-              
+
+
             })
             .addCase(SignUpUser.rejected, (state, action) => {
                 state.isLoading = false
                 state.message = action.payload?.message
-              
+
             })
     }
 })

@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
 import { storageKey } from "../../Const/Const";
 import axiosInstance from "../../Const/AxiosInstance";
 
@@ -75,6 +74,29 @@ export const ForGotPassword = createAsyncThunk("forgotpassword/sentmail", async 
     return rejectWithValue(error.response.data)
   }
 })
+
+export const userResetPassword = createAsyncThunk(
+  "resetPassword/setpassword",
+  async ({ id, token, data }, { rejectWithValue }) => {
+    try {
+      console.log("Resetting password for id:", id, "with token:", token);
+      const response = await axiosInstance.post(
+        `/user/resetpassword/${id}/${token}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const GetJobs = createAsyncThunk("getjob/jobs", async () => {
   try {
