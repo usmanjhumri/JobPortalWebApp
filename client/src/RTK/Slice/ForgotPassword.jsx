@@ -4,7 +4,8 @@ import { ForGotPassword } from "../API/api";
 
 const initialState = {
     isLoading: false,
-    message: "",
+    sMessage: "",
+    eMessage: "",
 }
 
 const ForgotPasswordSlice = createSlice({
@@ -17,11 +18,12 @@ const ForgotPasswordSlice = createSlice({
             .addCase(ForGotPassword.fulfilled, (state, action) => {
                 console.log(action.payload)
                 state.isLoading = false
-                state.message = action.payload.message
-                console.log(state.message)
+                state.sMessage = action.payload.message
+
             })
-            .addCase(ForGotPassword.rejected, (state) => {
+            .addCase(ForGotPassword.rejected, (state, action) => {
                 state.isLoading = false
+                state.eMessage = action.payload.message
             })
     }
 })

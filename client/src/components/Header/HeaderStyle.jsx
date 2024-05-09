@@ -48,7 +48,7 @@ const HeaderStyle = {
     right: 0,
     top: 0,
     opacity: 9,
-    padding: "10px",
+    // padding: "10px",
   },
   HeaderItem: {
     display: "flex",

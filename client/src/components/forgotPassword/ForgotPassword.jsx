@@ -9,51 +9,51 @@ import Swal from "sweetalert2"
 import { useNavigate } from "react-router-dom"
 
 const ForgotPassword = () => {
-    const message = useSelector((state) => state.forgotReducer.message)
-    console.log(message)
+    const isLoading = useSelector((state) => state.forgotReducer.isLoading)
     const disptach = useDispatch()
     const navigate = useNavigate()
     const handlemailsent = async (e) => {
         e.preventDefault()
         const data = new FormData(e.currentTarget)
         const response = await disptach(ForGotPassword({ email: data.get('email') }))
-        console.log(response.payload.status, ' sss')
         let res = response.payload.status
+        let message = response.payload.message
         if (res === 'success') {
             Swal.fire({
                 title: message,
                 showClass: {
                     popup: `
-                    animate__animated
-                    animate__fadeInUp
-                    animate__faster
-                  `,
+                   animate__animated
+                   animate__fadeInUp
+                   animate__faster
+                 `,
                 },
                 hideClass: {
                     popup: `
-                    animate__animated
-                    animate__fadeOutDown
-                    animate__faster
-                  `,
+                   animate__animated
+                   animate__fadeOutDown
+                   animate__faster
+                 `,
                 },
             });
             navigate('/login')
-        } else {
+        } else if (res === 'failed') {
+            let eMessage = response.payload.message
             Swal.fire({
-                title: "Something went Wrong",
+                title: eMessage,
                 showClass: {
                     popup: `
-                    animate__animated
-                    animate__fadeInUp
-                    animate__faster
-                  `,
+                   animate__animated
+                   animate__fadeInUp
+                   animate__faster
+                 `,
                 },
                 hideClass: {
                     popup: `
-                    animate__animated
-                    animate__fadeOutDown
-                    animate__faster
-                  `,
+                   animate__animated
+                   animate__fadeOutDown
+                   animate__faster
+                 `,
                 },
             });
         }
@@ -66,13 +66,14 @@ const ForgotPassword = () => {
                     <Box component='form' onSubmit={handlemailsent}>
                         <Typography>Enter Your Email</Typography>
                         <Input fullWidth sx={{ margin: "1rem 0" }}
+                            disabled={isLoading}
                             name="email"
                             id="email"
                             placeholder="Enter your Email Address"
                             endDecorator={<MdOutlineEmail style={contactStyle.inputicons} />}
                         />
                         <Button fullWidth sx={{ background: "#26ae61", margin: "1rem 0" }} type='submit'>
-                            Send Message
+                            {isLoading ? 'sending email' : 'send email'}
                         </Button>
                     </Box>
                 </Container>
