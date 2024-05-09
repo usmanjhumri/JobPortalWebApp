@@ -116,7 +116,7 @@ class UserController {
         const token = jwt.sign({ userID: user._id }, secret, {
           expiresIn: "15m",
         });
-        const link = `http://localhost:3000/resetpassword/${user._id}/${token}`;
+        const link = `http://localhost:5173/resetpassword/${user._id}/${token}`;
         console.log(link);
         // // Send Email
         let info = await transporter.sendMail({
