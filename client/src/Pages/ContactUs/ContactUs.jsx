@@ -63,20 +63,24 @@ const ContactUs = () => {
                                 <Box sx={contactStyle.fullNameEmail}>
                                     <Input fullWidth sx={{ margin: "1rem 0" }}
                                         placeholder="Enter Your Full Name"
+                                        name='fullname'
                                         endDecorator={<FaRegUser style={contactStyle.inputicons} />}
                                     />
                                     <Input fullWidth sx={{ margin: "1rem 0" }}
                                         placeholder="Enter your Email Address"
+                                        name='email'
                                         endDecorator={<MdOutlineEmail style={contactStyle.inputicons} />}
                                     />
                                 </Box>
                                 <Input
                                     placeholder="Enter Your Phone Number"
+                                    name='phoneNumber'
                                     endDecorator={<AiOutlinePhone style={contactStyle.inputicons} />}
                                     sx={{ margin: "1rem 0" }}
                                 />
                                 <Textarea
                                     placeholder="Write Your Message"
+                                    name='message'
                                     startDecorator={<LiaPenAltSolid style={contactStyle.textArea} />}
                                     minRows={6}
                                 />
