@@ -114,7 +114,7 @@ class UserController {
       if (user) {
         const secret = user._id + process.env.JWT_SECRET_KEY;
         const token = jwt.sign({ userID: user._id }, secret, {
-          expiresIn: "15m",
+          expiresIn: "1d",
         });
         const link = `http://localhost:5173/resetpassword/${user._id}/${token}`;
         console.log(link);
