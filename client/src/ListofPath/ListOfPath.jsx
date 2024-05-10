@@ -10,6 +10,7 @@ import ApplicationForm from "../Pages/ApplicationForm/ApplicationForm";
 import Profille from "../Pages/Profile/Profille";
 import ForgotPassword from "../components/forgotPassword/ForgotPassword";
 import Blog from "../Pages/Latest News & Blog/Blog";
+import ResetPassword from "../Pages/ResetPassword/ResetPassword";
 
 export const Path = [
   {
@@ -59,6 +60,10 @@ export const Path = [
   {
     path: "/blog/:id",
     component: <Blog />,
+  },
+  {
+    path: "/resetpassword/:id/:token",
+    component: <ResetPassword />,
   },
 
 ];

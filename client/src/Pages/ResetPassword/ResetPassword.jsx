@@ -1,124 +1,111 @@
-import { Box, Container, Grid, TextField, Typography } from "@mui/material"
-import { userResetPassword } from "../../RTK/API/api"
-import CommonPage from "../../components/commonPage/CommonPage"
-import { FaEyeSlash, FaRegEye } from "react-icons/fa"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { ErrorText } from "../../components/Helper/ErrorText"
-import { Button } from "@mui/joy"
-import { useParams } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { Box, Container, Typography } from "@mui/material";
+import { Button, Input } from "@mui/joy";
+import { MdOutlineEmail } from "react-icons/md";
+import contactStyle from "../../Pages/ContactUs/contactStyle";
+import { useDispatch } from 'react-redux';
+import { userResetPassword } from "../../RTK/API/api";
+import Swal from "sweetalert2";
+import { useNavigate, useParams } from "react-router-dom";
+import CommonPage from "../../components/commonPage/CommonPage";
 
 const ResetPassword = () => {
     const { id, token } = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const {
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors },
-    } = useForm();
-    const [showPassword, setShowPassword] = useState(false)
-    const [showPassword2, setShowPassword2] = useState(false);
+    const handleResetPassword = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const password = formData.get('password');
+        const confirm_password = formData.get('confirm_password');
 
-    const dispatch = useDispatch()
+        if (!password || !confirm_password) {
+            console.error("Password and Confirm Password are required.");
+            return;
+        }
 
-    const handleResetPassword = async (data) => {
-        console.log('working.....')
-        const res = await dispatch(userResetPassword({ ...data, id, token }))
-        console.log(res)
+        try {
+            const response = await dispatch(userResetPassword({ id, token, data: { password, confirm_password } }));
+            console.log(response.payload.status);
+            let result = response.payload.status
+            let message = response.payload.message
+            if (result === "success") {
+                Swal.fire({
+                    title: "Success",
+                    text: message,
+                    showClass: {
+                        popup: `
+                       animate__animated
+                       animate__fadeInUp
+                       animate__faster
+                     `,
+                    },
+                    hideClass: {
+                        popup: `
+                       animate__animated
+                       animate__fadeOutDown
+                       animate__faster
+                     `,
+                    },
+                });
+                navigate('/login')
+            } else if (result === "failed") {
+                let eMessage = response.payload.message
+                Swal.fire({
+                    title: "Error",
+                    text: eMessage,
+                    showClass: {
+                        popup: `
+                       animate__animated
+                       animate__fadeInUp
+                       animate__faster
+                     `,
+                    },
+                    hideClass: {
+                        popup: `
+                       animate__animated
+                       animate__fadeOutDown
+                       animate__faster
+                     `,
+                    },
+                });
+            }
+        } catch (error) {
+            console.error("Error:", error);
+
+        }
     }
-    const togglePasswordVisibility = () => {
-        console.log('working')
-        setShowPassword(!showPassword)
-    }
-    const togglePasswordVisibility2 = () => {
-        setShowPassword2(!showPassword2);
-    };
+
+
     return (
         <>
-
             <CommonPage value="Reset Password" />
-            <Box>
+            <Box mt={12}>
                 <Container>
-                    <Typography sx={{
-                        textAlign: "center",
-                        marginTop: "1rem",
-                        fontSize: "2rem"
-                    }}>
-                        Rest Password
-                    </Typography>
-                    <Box mt={4} component='form' onSubmit={handleSubmit(handleResetPassword)}>
-                        <Grid item xs={12}>
-                            <TextField sx={{ marginBottom: "1rem" }}
-                                size="small"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Password"
-                                name="password"
-                                type={showPassword ? "text" : "password"}
-                                autoComplete="password"
-                                error={errors.password}
-                                {...register("password", { required: true, minLength: 8 })}
-                                InputProps={{
-                                    endAdornment: (
-                                        <span
-                                            style={{ cursor: "pointer" }}
-                                            onClick={togglePasswordVisibility}
-                                        >
-                                            {showPassword ? <FaRegEye /> : <FaEyeSlash />}
-                                        </span>
-                                    ),
-                                }}
-                            />
-                            {errors.password && (
-                                <>
-                                    {errors.password.type === "password"
-                                        ? ErrorText("Minimum Length 8 Characters")
-                                        : ErrorText("Password is Requird")}
-                                </>
-                            )}
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField sx={{ margin: "1rem 0" }}
-                                size="small"
-                                required
-                                fullWidth
-                                id="email"
-                                type={showPassword2 ? "text" : "password"}
-                                label="Confirm-Password"
-                                name="confirm_password"
-                                autoComplete="password"
-                                error={errors.confirm_password}
-                                {...register("confirm_password", {
-                                    required: true,
-                                    validate: (val) => {
-                                        if (watch("password") != val) {
-                                            return "Passwords and confirm password not matched";
-                                        }
-                                    },
-                                })}
-                                InputProps={{
-                                    endAdornment: (
-                                        <span
-                                            style={{ cursor: "pointer" }}
-                                            onClick={togglePasswordVisibility2}
-                                        >
-                                            {showPassword2 ? <FaRegEye /> : <FaEyeSlash />}
-                                        </span>
-                                    ),
-                                }}
-                            />
-                        </Grid>
-                        <Button sx={{ margin: "1rem 0" }} type="submit" fullWidth>
+                    <form onSubmit={handleResetPassword}>
+                        <Typography>Reset Your Password</Typography>
+                        <Input fullWidth sx={{ margin: "1rem 0" }}
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            endDecorator={<MdOutlineEmail style={contactStyle.inputicons} />}
+                        />
+                        <Input fullWidth sx={{ margin: "1rem 0" }}
+                            type="password"
+                            name="confirm_password"
+                            id="confirm_password"
+                            placeholder="Confirm your password"
+                            endDecorator={<MdOutlineEmail style={contactStyle.inputicons} />}
+                        />
+                        <Button fullWidth sx={{ background: "#26ae61", margin: "1rem 0" }} type='submit'>
                             Reset Password
                         </Button>
-                    </Box>
+                    </form>
                 </Container>
             </Box>
         </>
-    )
+    );
 }
 
-export default ResetPassword
+export default ResetPassword;

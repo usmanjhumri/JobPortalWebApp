@@ -79,7 +79,6 @@ export const userResetPassword = createAsyncThunk(
   "resetPassword/setpassword",
   async ({ id, token, data }, { rejectWithValue }) => {
     try {
-      console.log("Resetting password for id:", id, "with token:", token);
       const response = await axiosInstance.post(
         `/user/resetpassword/${id}/${token}`,
         data,
@@ -89,7 +88,7 @@ export const userResetPassword = createAsyncThunk(
           },
         }
       );
-      console.log(response);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error);
