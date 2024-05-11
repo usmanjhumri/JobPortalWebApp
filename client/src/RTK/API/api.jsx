@@ -97,6 +97,24 @@ export const userResetPassword = createAsyncThunk(
   }
 );
 
+
+export const ContactFormReducer = createAsyncThunk("contactForm/contacus", async (data, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.post('/user/contact-us', data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    console.log(response);
+    return response.data
+  } catch (error) {
+    console.log(error)
+    return rejectWithValue(error.response.data)
+
+  }
+})
+
+
 export const GetJobs = createAsyncThunk("getjob/jobs", async () => {
   try {
     const response = await axiosInstance.get("/jobs/");

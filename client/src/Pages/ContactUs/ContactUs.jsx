@@ -11,8 +11,64 @@ import { LiaPenAltSolid } from "react-icons/lia";
 import { Button } from '@mui/joy';
 import './contactus.css'
 import CommonPage from '../../components/commonPage/CommonPage';
+import { useDispatch } from 'react-redux';
+import { ContactFormReducer } from '../../RTK/API/api';
+import Swal from 'sweetalert2';
 
 const ContactUs = () => {
+    const dispatch = useDispatch()
+    const handleformSubmit = async (event) => {
+        event.preventDefault()
+        const data = new FormData(event.currentTarget)
+        const fullname = data.get('fullname')
+        const email = data.get('email')
+        const phoneNumber = data.get('phoneNumber')
+        const message = data.get('message')
+        const response = await dispatch(ContactFormReducer({ fullname, email, phoneNumber, message }))
+        console.log(response)
+        let res = response.payload.status
+        let sMessage = response.payload.message
+        if (res === "success") {
+            Swal.fire({
+                title: "Success",
+                text: sMessage,
+                showClass: {
+                    popup: `
+                   animate__animated
+                   animate__fadeInUp
+                   animate__faster
+                 `,
+                },
+                hideClass: {
+                    popup: `
+                   animate__animated
+                   animate__fadeOutDown
+                   animate__faster
+                 `,
+                },
+            });
+        } else if (res === 'failed') {
+            let eMessage = response.payload.message
+            Swal.fire({
+                title: "Error",
+                text: eMessage,
+                showClass: {
+                    popup: `
+                       animate__animated
+                       animate__fadeInUp
+                       animate__faster
+                     `,
+                },
+                hideClass: {
+                    popup: `
+                       animate__animated
+                       animate__fadeOutDown
+                       animate__faster
+                     `,
+                },
+            });
+        }
+    }
     return (
         <>
             <CommonPage value="Contact Us" />
@@ -59,7 +115,7 @@ const ContactUs = () => {
 
                         </Grid>
                         <Grid item xs={12} md={8}>
-                            <Box component="form">
+                            <Box component="form" onSubmit={handleformSubmit}>
                                 <Box sx={contactStyle.fullNameEmail}>
                                     <Input fullWidth sx={{ margin: "1rem 0" }}
                                         placeholder="Enter Your Full Name"
