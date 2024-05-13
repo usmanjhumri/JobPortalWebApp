@@ -10,6 +10,7 @@ import CommonPage from "../commonPage/CommonPage";
 import { useDispatch } from "react-redux";
 import { SignInNew } from "../../RTK/API/api";
 import ToastMessage from "../../ToastMessage/ToastMessage";
+import { GetUserProfile } from "../../RTK/Slice/ProfileSlice";
 export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,16 +28,18 @@ export default function SignIn() {
             password: data.get("password"),
           })
         );
-       
+
         if (res.payload.status === "success") {
           ToastMessage({ message: res.payload.message, type: "success" });
+          dispatch(GetUserProfile());
+
           navigate("/");
         } else {
           ToastMessage({ message: res.payload.message, type: "error" });
         }
       }
     } catch (error) {
-      return error
+      return error;
     }
   };
 

@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import CommonPage from "../../components/commonPage/CommonPage";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { GetJobDetails } from "../../RTK/Slice/JobSlice";
 import { makeStyles } from "@mui/styles";
@@ -17,6 +17,11 @@ import Swal from "sweetalert2";
 import moment from "moment";
 import { GetSavedJobsDetails } from "../../RTK/Slice/SavedJobSlice";
 import axiosInstance from "../../Const/AxiosInstance";
+import {
+  GetProfileDetails,
+  GetUserProfile,
+} from "../../RTK/Slice/ProfileSlice";
+import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal";
 const useStyle = makeStyles(() => {
   return {
     containerStyle: {
@@ -79,16 +84,17 @@ const JobDetail = () => {
     ItemsInRow,
   } = useStyle();
   const [selectedJob, setSelectedJob] = useState(null);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const { jobs } = useSelector(GetJobDetails);
   const { saved } = useSelector(GetSavedJobsDetails);
-  // const userID = JSON.parse(sessionStorage.getItem("user")).userID;
-  // console.log(userID)
+  const dispatch = useDispatch();
+  const userID = JSON.parse(sessionStorage.getItem("user"))?.userID;
   const isLoggedIn = useSelector((state) => state.signInReducer.isLoggedIn);
   const handleSaveJobs = async () => {
     const obj = {
       jobs: selectedJob?._id,
-      // userID: userID,
+      userID: userID,
     };
     let path = selectedJob?.isSaved ? "/savejobs/remove" : "/savejobs/create";
     let res = await axiosInstance.post(path, obj);
@@ -97,9 +103,24 @@ const JobDetail = () => {
     }
   };
 
+  useEffect(() => {
+    dispatch(GetUserProfile());
+    if (jobs) {
+      const val = jobs.find((f) => f._id === state?.jobId);
+      let found = saved?.jobs?.find((f) =>
+        f?._id === val?._id ? true : false
+      );
+      if (found) {
+        setSelectedJob({ ...val, isSaved: true });
+      } else {
+        setSelectedJob({ ...val, isSaved: false });
+      }
+    }
+  }, [state?.jobId]);
+
   const handleApply = () => {
     if (isLoggedIn) {
-      console.log('workgin');
+      setOpen(true);
     } else {
       Swal.fire({
         title: "User not LoggedIn",
@@ -121,19 +142,6 @@ const JobDetail = () => {
     }
   };
 
-  useEffect(() => {
-    if (jobs) {
-      const val = jobs.find((f) => f._id === state?.jobId);
-      let found = saved?.jobs?.find((f) =>
-        f?._id === val?._id ? true : false
-      );
-      if (found) {
-        setSelectedJob({ ...val, isSaved: true });
-      } else {
-        setSelectedJob({ ...val, isSaved: false });
-      }
-    }
-  }, [state?.jobId]);
   return (
     <>
       <CommonPage value="Job Detail" />
@@ -229,6 +237,13 @@ const JobDetail = () => {
           </Box>
         </Box>
       </Box>
+      {open ? (
+        <ConfirmationModal
+          open={open}
+          setOpen={setOpen}
+          jobId={selectedJob?._id}
+        />
+      ) : null}
     </>
   );
 };
