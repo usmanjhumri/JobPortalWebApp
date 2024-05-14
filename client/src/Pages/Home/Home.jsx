@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { Container, Grid, Typography, Box } from "@mui/material";
 import HomeStyle from "./HomeStyle";
 import Popular from "../PopularCategory/PopularCategory";
