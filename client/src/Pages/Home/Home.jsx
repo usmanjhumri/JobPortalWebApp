@@ -20,14 +20,17 @@ import { GetCategory, GetJobs } from "../../RTK/API/api";
 import { GetJobDetails } from "../../RTK/Slice/JobSlice";
 import Loader from "../../components/Loader/Loader";
 import { GetCategoryStatus } from "../../RTK/Slice/CategoriesSlice";
-import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+// import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import { useNavigate } from "react-router-dom";
-
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import { MdKeyboardVoice } from "react-icons/md";
+import { IoStopCircleOutline } from "react-icons/io5";
 const Home = () => {
   const dispatch = useDispatch();
   const { JobStatus, jobs } = useSelector(GetJobDetails);
   const { categoryStatus, Categories } = useSelector(GetCategoryStatus);
   const [values, setvalues] = useState({ title: "", location: "" });
+  const [isListening, setIsListening] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     if (!jobs || !Categories) {
@@ -39,8 +42,30 @@ const Home = () => {
     setvalues({ ...values, [e.target.name]: e.target.value });
   };
   const handleNavigate = () => {
-    navigate("/jobs", { state: { values: values, path: "search" } });
+    const searchVal = { state: { values: values, path: "search" } }
+    if (searchVal) {
+      navigate("/jobs");
+    }
   };
+  const { transcript, browserSupportsSpeechRecognition, resetTranscript } = useSpeechRecognition();
+  if (!browserSupportsSpeechRecognition) {
+    return <span>Browser does not support speech recognition.</span>;
+  }
+
+  const StartListening = () => {
+    SpeechRecognition.startListening();
+    console.log('first')
+    resetTranscript()
+    setIsListening(true)
+  };
+
+  const stopListening = () => {
+    SpeechRecognition.stopListening();
+    setIsListening(false);
+  };
+
+  const combineVal = values?.title || transcript
+
   return (
     <>
       {JobStatus == "pending" || categoryStatus == "pending" ? (
@@ -79,13 +104,30 @@ const Home = () => {
                       />
                       <Input
                         placeholder="Job Title"
-                        value={values?.title}
+                        // value={values?.title}
+                        value={combineVal}
                         name="title"
                         onChange={handleChange}
+
                         endDecorator={
-                          <WorkOutlineIcon
-                            sx={{ color: "#fe9703", fontSize: "18px" }}
-                          />
+                          // <MdKeyboardVoice
+                          //   onClick={StartListening}
+                          //   style={{ color: '#fe9703', fontSize: '18px', cursor: "pointer" }}
+                          // />
+
+                          isListening ? (
+                            <IoStopCircleOutline
+                              onClick={StartListening}
+                              style={{ color: '#fe9703', fontSize: '18px', cursor: "pointer" }}
+                            />
+                          ) : (
+
+                            <MdKeyboardVoice
+                              onClick={stopListening}
+                              style={{ color: '#fe9703', fontSize: '18px', cursor: "pointer" }}
+                            />
+                          )
+
                         }
                         sx={HomeStyle.searchInput}
                       />

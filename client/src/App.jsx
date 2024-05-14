@@ -6,7 +6,6 @@ import { Path } from "./ListofPath/ListOfPath";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { UserData } from "./RTK/API/api";
-
 function App() {
   const dispatch = useDispatch();
   // const { id, token } = useParams();
