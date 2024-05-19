@@ -35,6 +35,7 @@ class UserController {
             });
             await userRigester.save();
             const saved_user = await UserModel.findOne({ email: email });
+            console.log(saved_user);
             const token = jwt.sign(
               { userID: saved_user._id },
               process.env.JWT_SECRET_KEY,
@@ -70,9 +71,10 @@ class UserController {
   static userLoggedIn = async (req, res) => {
     try {
       const { email, password } = req.body;
+      console.log(res.body)
       if (email && password) {
         const user = await UserModel.findOne({ email: email });
-        console.log(user);
+        console.log('user matched',user);
         if (user !== null) {
           const isMatchPassword = await bcrypt.compare(password, user.password);
           if (user.email === email && isMatchPassword) {
@@ -83,7 +85,7 @@ class UserController {
             );
             res.send({
               status: "success",
-              message: "User LoggedIn Successfully",
+              message: "User login Successfully",
               Token: token,
               userID: user?._id,
             });

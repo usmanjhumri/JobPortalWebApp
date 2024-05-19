@@ -1,10 +1,15 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { getLoginValue, setloginIn } from "../../Redux/Slice/LoginSlice/LoginSlice";
+import {
+  getLoginValue,
+  setloginIn,
+} from "../../Redux/Slice/LoginSlice/LoginSlice";
+import axiosInstance from "../../Utils/AxiosInstance";
+import { SnackBarContext } from "../../Context/SnackBarContext/SnackBarContext";
+import { CheckUserAuth } from "../../Api/UserAuth/CheckUserAuth";
 
 const useStyle = makeStyles(() => {
   return {
@@ -30,6 +35,7 @@ const useStyle = makeStyles(() => {
 const Login = () => {
   const { container, subContainer } = useStyle();
   const [value, setvalues] = useState({});
+  const { setsnackBarData } = useContext(SnackBarContext);
   const handleChange = (e) => {
     setvalues({ ...value, [e.target.name]: e.target.value });
   };
@@ -40,15 +46,45 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(value);
-    const respone = await axios.post("/users/auth/login", value);
+    const respone = await axiosInstance.post("/user/login", value);
     console.log(respone);
-    if (respone.data.isSuccess) {
-      alert(respone.data.message);
+    if (respone.data.status) {
+      sessionStorage.setItem(
+        "user",
+        JSON.stringify({
+          token: respone.data.Token,
+          userID: respone.data.userID,
+        })
+      );
+      setsnackBarData({
+        type: respone.data.status,
+        message: respone.data.message,
+        openToast: true,
+      });
       dispatch(setloginIn(respone.data));
-
-      navigate("/");
+      navigate("/dashboard");
     } else {
-      alert("something went wrong");
+      setsnackBarData({
+        type: "error",
+        message: "something went wrong",
+        openToast: true,
+      });
+    }
+  };
+
+  useEffect(() => {
+    checkloginuser();
+  }, [isLogedin]);
+  const checkloginuser = async () => {
+    if (isLogedin) {
+      navigate("/dashboard");
+    } else {
+      let res = await CheckUserAuth();
+      if (res.data?.user?.usertype === "admin") {
+        dispatch(setloginIn());
+        navigate("/dashboard");
+      }
+      setsnackBarData(res.data?.snackBarData);
     }
   };
   return (
@@ -88,7 +124,6 @@ const Login = () => {
             Signin
           </Button>
         </Box>
-        
       </form>
     </Box>
   );

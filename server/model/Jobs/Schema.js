@@ -43,10 +43,16 @@ const JobSchema = new mongoose.Schema({
     required: true,
     default: "full time",
   },
-
   desc: {
     type: String,
     required: true,
   },
+  applications: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "profile",
+      unique: true,
+    },
+  ],
 });
 export default JobSchema;

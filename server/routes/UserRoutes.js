@@ -14,6 +14,7 @@ router.post("/applied", UserController.appliedForJob);
 router.get("/userapplieddata", UserController.getuserAppliedData);
 
 // Public Route
+
 router.post("/register", UserController.userRigerstration);
 router.post("/login", UserController.userLoggedIn);
 router.post("/send-reset-password-email", UserController.forgotPassword);

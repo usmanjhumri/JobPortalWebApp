@@ -10,17 +10,18 @@ import CommonPage from "../commonPage/CommonPage";
 import { useDispatch } from "react-redux";
 import { SignInNew } from "../../RTK/API/api";
 import ToastMessage from "../../ToastMessage/ToastMessage";
+import { GetUserProfile } from "../../RTK/Slice/ProfileSlice";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { useState } from "react";
 export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
   // const message = useSelector((state) => state.signInReducer?.message)
   // const isError = useSelector((state) => state.signInReducer?.isError)
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
@@ -35,13 +36,15 @@ export default function SignIn() {
 
         if (res.payload.status === "success") {
           ToastMessage({ message: res.payload.message, type: "success" });
+          dispatch(GetUserProfile());
+
           navigate("/");
         } else {
           ToastMessage({ message: res.payload.message, type: "error" });
         }
       }
     } catch (error) {
-      return error
+      return error;
     }
   };
 

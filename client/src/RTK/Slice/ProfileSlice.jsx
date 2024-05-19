@@ -7,6 +7,7 @@ const initialState = {
   EducationDetails: [],
   ExperienceDetails: [],
   SkillDetails: [],
+  profileID: null,
   status: "idle", //loading success failure
 };
 
@@ -14,10 +15,9 @@ export const GetUserProfile = createAsyncThunk("/userprofile", async () => {
   let userid = JSON.parse(sessionStorage.getItem("user"));
 
   let res = await axiosInstance.get(`/profile/${userid?.userID}`);
- 
+
   return res.data;
 });
-
 
 const ProfileSlice = createSlice({
   name: "ProfileSlice",
@@ -48,6 +48,7 @@ const ProfileSlice = createSlice({
         state.personalInformations = action.payload.data?.personalInformation;
         state.ExperienceDetails = action.payload.data?.experience;
         state.SkillDetails = action.payload.data?.skills;
+        state.profileID = action.payload.data?._id;
       })
       .addCase(GetUserProfile.rejected, (state) => {
         state.status = "failed";

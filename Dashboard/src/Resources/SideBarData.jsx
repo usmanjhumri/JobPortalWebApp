@@ -6,7 +6,6 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import WorkIcon from "@mui/icons-material/Work";
 import GradingIcon from "@mui/icons-material/Grading";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 export const AdminSideBarData = [
   {
@@ -41,14 +40,7 @@ export const AdminSideBarData = [
     iconOpened: <ArrowDropUpIcon />,
     subitems: [],
   },
-  {
-    name: "Users",
-    path: "/users",
-    icon: <PeopleAltIcon fontSize="small" />,
-    iconClosed: <ArrowDropDownIcon />,
-    iconOpened: <ArrowDropUpIcon />,
-    subitems: [],
-  },
+
   {
     name: "Signout",
     path: "/signout",

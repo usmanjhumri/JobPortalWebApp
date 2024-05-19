@@ -19,7 +19,7 @@ const Jobs = () => {
     if (isLoggedIn) {
       dispatch(GetSaveJobs());
     }
-  }, [dispatch]);
+  }, [dispatch,isLoggedIn]);
   useEffect(() => {
     console.log(saved);
     if (saved?.jobs) {
