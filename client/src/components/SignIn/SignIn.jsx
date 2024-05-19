@@ -11,12 +11,17 @@ import { useDispatch } from "react-redux";
 import { SignInNew } from "../../RTK/API/api";
 import ToastMessage from "../../ToastMessage/ToastMessage";
 import { GetUserProfile } from "../../RTK/Slice/ProfileSlice";
+import { FaEyeSlash, FaRegEye } from "react-icons/fa";
+import { useState } from "react";
 export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
   // const message = useSelector((state) => state.signInReducer?.message)
   // const isError = useSelector((state) => state.signInReducer?.isError)
-
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
@@ -108,9 +113,19 @@ export default function SignIn() {
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 autoComplete="current-password"
+                InputProps={{
+                  endAdornment: (
+                    <span
+                      style={{ cursor: "pointer" }}
+                      onClick={togglePasswordVisibility}
+                    >
+                      {showPassword ? <FaRegEye /> : <FaEyeSlash />}
+                    </span>
+                  ),
+                }}
               />
 
               <Button

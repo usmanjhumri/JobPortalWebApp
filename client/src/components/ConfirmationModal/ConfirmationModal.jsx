@@ -19,10 +19,26 @@ const style = {
 };
 
 const ConfirmationModal = ({ open, setOpen, jobId }) => {
-  const { profileID } = useSelector(GetProfileDetails);
+  const { profileID, personalInformations, EducationDetails, SkillDetails } =
+    useSelector(GetProfileDetails);
   const [loading, setloading] = useState(false);
   const handleClose = () => setOpen(false);
+  console.log(personalInformations);
+  console.log(EducationDetails);
+  console.log(SkillDetails);
   const handleApplyJob = async () => {
+    if (
+      personalInformations?.name?.length < 1 ||
+      personalInformations?.fathername?.length < 1 ||
+      EducationDetails?.length < 1 ||
+      SkillDetails?.length < 1
+    ) {
+      ToastMessage({
+        message: "Please update you profile first...!",
+        type: "error",
+      });
+      return;
+    }
     setloading(true);
     const obj = {
       jobId: jobId,

@@ -58,6 +58,23 @@ const ApplyJob = async (req, res) => {
   }
 };
 
+const GetJobApplications = async (req, res) => {
+  try {
+    console.log(req.params.id);
+    const result = await JobModal.findOne({ _id: req.params.id }).populate(
+      "applications"
+    );
+    res.send({
+      isSuccess: true,
+      message: "data fetched successfully",
+      status: "success",
+      data: result?.applications,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const DeleteJobs = async (req, res) => {
   try {
     const id = req.params.id;
@@ -79,5 +96,6 @@ const JobController = {
   DeleteJobs,
   PostJobs,
   ApplyJob,
+  GetJobApplications,
 };
 export default JobController;

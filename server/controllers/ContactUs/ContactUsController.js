@@ -11,7 +11,7 @@ const ContactUsController = async (req, res) => {
     }
     const mailSend = {
       from: email,
-      to: process.env.EMAIL_USER,
+      to: "usmanwaris1999@gmail.com",
       subject: "Message",
       html: `<p>Name: ${fullname}</p>
              <p>Email: ${email}</p>
