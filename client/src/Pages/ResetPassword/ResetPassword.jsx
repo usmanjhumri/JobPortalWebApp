@@ -1,18 +1,26 @@
 import { Box, Container, Typography } from "@mui/material";
 import { Button, Input } from "@mui/joy";
-import { MdOutlineEmail } from "react-icons/md";
-import contactStyle from "../../Pages/ContactUs/contactStyle";
 import { useDispatch } from 'react-redux';
 import { userResetPassword } from "../../RTK/API/api";
 import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
 import CommonPage from "../../components/commonPage/CommonPage";
+import { FaEyeSlash, FaRegEye } from "react-icons/fa";
+import { useState } from "react";
 
 const ResetPassword = () => {
     const { id, token } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false)
+    const [showPassword2, setShowPassword2] = useState(false)
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword)
+    }
+    const togglePasswordVisibility2 = () => {
+        setShowPassword2(!showPassword2)
+    }
     const handleResetPassword = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -85,18 +93,28 @@ const ResetPassword = () => {
                     <form onSubmit={handleResetPassword}>
                         <Typography>Reset Your Password</Typography>
                         <Input fullWidth sx={{ margin: "1rem 0" }}
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             name="password"
                             id="password"
                             placeholder="Enter your password"
-                            endDecorator={<MdOutlineEmail style={contactStyle.inputicons} />}
+                            endDecorator={<span
+                                style={{ cursor: "pointer" }}
+                                onClick={togglePasswordVisibility}
+                            >
+                                {showPassword ? <FaRegEye /> : <FaEyeSlash />}
+                            </span>}
                         />
                         <Input fullWidth sx={{ margin: "1rem 0" }}
-                            type="password"
+                            type={showPassword2 ? "text" : "password"}
                             name="confirm_password"
                             id="confirm_password"
                             placeholder="Confirm your password"
-                            endDecorator={<MdOutlineEmail style={contactStyle.inputicons} />}
+                            endDecorator={<span
+                                style={{ cursor: "pointer" }}
+                                onClick={togglePasswordVisibility2}
+                            >
+                                {showPassword2 ? <FaRegEye /> : <FaEyeSlash />}
+                            </span>}
                         />
                         <Button fullWidth sx={{ background: "#26ae61", margin: "1rem 0" }} type='submit'>
                             Reset Password
