@@ -45,7 +45,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(value);
+    console.log(value, 'values');
     const respone = await axiosInstance.post("/user/login", value);
     console.log(respone);
     if (respone.data.status) {
@@ -88,44 +88,46 @@ const Login = () => {
     }
   };
   return (
-    <Box className={container}>
-      <form onSubmit={handleSubmit} className={subContainer}>
-        <Box>
-          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-            Login
-          </Typography>
-        </Box>
-        <Box>
-          <Typography>Email</Typography>
-          <TextField
-            name="email"
-            required
-            fullWidth
-            type="email"
-            placeholder="Email"
-            size="small"
-            onChange={handleChange}
-          />
-        </Box>
-        <Box>
-          <Typography>Password</Typography>
-          <TextField
-            name="password"
-            required
-            fullWidth
-            type="password"
-            placeholder="Password"
-            size="small"
-            onChange={handleChange}
-          />
-        </Box>
-        <Box>
-          <Button type="submit" fullWidth variant={"contained"} size={"small"}>
-            Signin
-          </Button>
-        </Box>
-      </form>
-    </Box>
+    <>
+      <Box className={container}>
+        <form onSubmit={handleSubmit} className={subContainer}>
+          <Box>
+            <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+              Login
+            </Typography>
+          </Box>
+          <Box>
+            <Typography>Email</Typography>
+            <TextField
+              name="email"
+              required
+              fullWidth
+              type="email"
+              placeholder="Email"
+              size="small"
+              onChange={handleChange}
+            />
+          </Box>
+          <Box>
+            <Typography>Password</Typography>
+            <TextField
+              name="password"
+              required
+              fullWidth
+              type="password"
+              placeholder="Password"
+              size="small"
+              onChange={handleChange}
+            />
+          </Box>
+          <Box>
+            <Button type="submit" fullWidth variant={"contained"} size={"small"}>
+              Signin
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </>
   );
 };
 
