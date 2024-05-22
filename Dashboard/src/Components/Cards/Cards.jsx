@@ -23,17 +23,17 @@ const useStyle = makeStyles(() => {
   };
 });
 
-const Cards = ({ values }) => {
+const Cards = ({ values, title }) => {
   const { cards, cardsheading } = useStyle();
 
   return (
     <Box className={`${cards}`} sx={{ maxWidth: { md: "300px", xs: "100%" } }}>
       <Typography className={cardsheading} color={"primary"}>
-        {values?.title}
+        {title}
       </Typography>
       <Typography variant="h3" sx={{ fontWeight: "bolder" }}>
         {" "}
-        {values?.value}
+        {values}
       </Typography>
     </Box>
   );
@@ -42,4 +42,5 @@ const Cards = ({ values }) => {
 export default Cards;
 Cards.propTypes = {
   values: PropTypes.any,
+  title: PropTypes.any,
 };

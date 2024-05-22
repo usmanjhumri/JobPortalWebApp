@@ -1,5 +1,7 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
+import PropTypes from "prop-types";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -18,7 +20,8 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const BarChart = () => {
+const BarChart = ({ graphvalues }) => {
+  console.log(graphvalues);
   const options = {
     responsive: true,
     plugins: {
@@ -27,32 +30,19 @@ const BarChart = () => {
       },
       title: {
         display: true,
-        text: "Chart.js Bar Chart",
+        text: "APPLICATIONS PER JOBS",
       },
     },
   };
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
+  const labels = graphvalues?.map((d) => d?.title);
 
   const data = {
     labels,
     datasets: [
       {
-        label: "Dataset 1",
-        data: [1, 2, 3, 4,3,5,2,6,8,3,4],
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "Dataset 2",
-        data: [1, 2, 3, 4, 5],
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        label: "total applications per job",
+        data: graphvalues?.map((d) => d?.applications),
+        backgroundColor: "#277e28",
       },
     ],
   };
@@ -61,3 +51,6 @@ const BarChart = () => {
 };
 
 export default BarChart;
+BarChart.propTypes = {
+  graphvalues: PropTypes.any,
+};

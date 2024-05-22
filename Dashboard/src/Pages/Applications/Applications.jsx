@@ -26,6 +26,7 @@ import {
   GetAllApplications,
   getApplicationData,
 } from "../../Redux/Slice/ApplicationSlice/ApplicationSlice";
+import ViewProfileModal from "../../Components/ViewProfileModal/ViewProfileModal";
 
 function CustomToolbar() {
   return (
@@ -41,7 +42,9 @@ function Applications() {
   // const { setsnackBarData } = useContext(SnackBarContext);
   const { AllJobs } = useSelector(GetJobStatus);
   const { allApplications } = useSelector(getApplicationData);
-  console.log(allApplications);
+  const [open, setOpen] = useState(false);
+  const [selectedID, setselectedId] = useState(null);
+  
   const dispatch = useDispatch();
 
   const [loader] = useState(false);
@@ -97,22 +100,20 @@ function Applications() {
       field: "Action",
       headerName: "Action",
       width: 250,
-      renderCell: () =>
-        // cellVal
-        {
-          return (
-            <Box>
-              <IconButton
-              // onClick={() => {
-              //   setdesc(cellVal?.row?.desc);
-              //   setOpen(true);
-              // }}
-              >
-                <VisibilityIcon />
-              </IconButton>
-            </Box>
-          );
-        },
+      renderCell: (cellVal) => {
+        return (
+          <Box>
+            <IconButton
+              onClick={() => {
+                setselectedId(cellVal?.row?._id);
+                setOpen(true);
+              }}
+            >
+              <VisibilityIcon />
+            </IconButton>
+          </Box>
+        );
+      },
     },
   ];
 
@@ -179,7 +180,9 @@ function Applications() {
           />
         </Box>
       )}
-      {/* {open ? <JobDescModal open={open} setOpen={setOpen} desc={desc} /> : null} */}
+      {open ? (
+        <ViewProfileModal open={open} setOpen={setOpen} id={selectedID} />
+      ) : null}
     </Box>
   );
 }
