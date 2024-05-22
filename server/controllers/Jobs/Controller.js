@@ -1,4 +1,6 @@
 import JobModal from "../../model/Jobs/Modal.js";
+import CategoryModal from "../../model/Category/Modal.js";
+import UserModel from "../../model/UserModel.js";
 
 const GetJobs = async (req, res) => {
   try {
@@ -91,11 +93,46 @@ const DeleteJobs = async (req, res) => {
   }
 };
 
+const GetDashboardData = async (req, res) => {
+  try {
+    const cat = await CategoryModal.find();
+    const jobs = await JobModal.find();
+    const users = await UserModel.find();
+    let application = 0;
+    let perjobapplication = [];
+    jobs?.map((d) => {
+      application += +d?.applications?.length;
+      perjobapplication.push({
+        title: d?.title,
+        applications: d?.applications?.length,
+      });
+    });
+    console.log(application, jobs);
+    const totalcat = cat?.length;
+    const totaljob = jobs?.length;
+    const totaluser = users?.length;
+    res.send({
+      isSuccess: true,
+      message: "Data fetched Successfully",
+      data: {
+        totalcategories: totalcat,
+        totaljobs: totaljob,
+        totalusers: totaluser,
+        totalapplications: application,
+        perjobapplication: perjobapplication,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const JobController = {
   GetJobs,
   DeleteJobs,
   PostJobs,
   ApplyJob,
   GetJobApplications,
+  GetDashboardData,
 };
 export default JobController;

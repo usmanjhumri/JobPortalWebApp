@@ -6,7 +6,12 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import BarChart from "../../Components/Charts/BarChart";
 import { GetAllJobs } from "../../Redux/Slice/JobSlice/JobSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  GetDashboardData,
+  getDashboardState,
+} from "../../Redux/Slice/DashboardSlice/DashboardSlice";
+import Loader from "../../Components/Loader/Loader";
 const useStyle = makeStyles(() => {
   return {
     container: {
@@ -65,45 +70,44 @@ export default function Dashboard() {
     calanderstyle,
   } = useStyle();
   const dispatch = useDispatch();
-  const [data] = useState([
-    {
-      title: "categories",
-      value: "10",
-    },
-    {
-      title: "total jobs",
-      value: "100",
-    },
-    {
-      title: "total applications",
-      value: "10",
-    },
-    {
-      title: "total users",
-      value: "10",
-    },
-  ]);
+  const { DashboardData, status } = useSelector(getDashboardState);
+
+  const [data, setdata] = useState();
   useEffect(() => {
     dispatch(GetAllJobs());
+    dispatch(GetDashboardData());
   }, []);
+  useEffect(() => {
+    setdata(DashboardData);
+  }, [DashboardData]);
   return (
-    <Box className={container}>
-      <Box
-        className={cardContainer}
-        sx={{ flexWrap: { md: "nowrap", xs: "wrap" } }}
-      >
-        {data?.map((d, i) => {
-          return <Cards key={i} values={d} />;
-        })}
-      </Box>
-      <Box className={graphCalanderContainer}>
-        <Box className={calandercontainer}>
-          <Calendar className={calanderstyle} />
+    <>
+      {status === "pending" ? (
+        <Loader />
+      ) : (
+        <Box className={container}>
+          <Box
+            className={cardContainer}
+            sx={{ flexWrap: { md: "nowrap", xs: "wrap" } }}
+          >
+            <Cards title="Total Categories" values={data?.totalcategories} />
+            <Cards title="Total Jobs" values={data?.totaljobs} />
+            <Cards
+              title="Total Applications"
+              values={data?.totalapplications}
+            />
+            <Cards title="Total Users" values={data?.totalusers} />
+          </Box>
+          <Box className={graphCalanderContainer}>
+            <Box className={calandercontainer}>
+              <Calendar className={calanderstyle} />
+            </Box>
+            <Box className={graphContainer}>
+              <BarChart graphvalues={data?.perjobapplication} />
+            </Box>
+          </Box>
         </Box>
-        <Box className={graphContainer}>
-          <BarChart />
-        </Box>
-      </Box>
-    </Box>
+      )}
+    </>
   );
 }
