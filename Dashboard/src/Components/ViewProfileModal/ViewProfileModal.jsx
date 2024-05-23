@@ -48,10 +48,10 @@ const ViewProfileModal = ({ open, setOpen, id }) => {
           <Box>
             usman
             {/* {
-              profiledata?.map((item, ind) => {
+              profiledata?.personalInformation?.map((item, ind) => {
                 return (
                   <>
-                    <Typography key={ind} variant="h4">{item.personalInformation.name} {item.personalInformation.fathername}</Typography>
+                    <Typography key={ind} variant="h4">{item.name} {item.fathername}</Typography>
                     <Divider mt={2} />
                     <Box mt={2}
                       sx={{
@@ -60,8 +60,8 @@ const ViewProfileModal = ({ open, setOpen, id }) => {
                         alignItems: "center",
                       }}
                     >
-                      <Typography>{item.personalInformation.country}</Typography>
-                      <Typography>{item.personalInformation.street}</Typography>
+                      <Typography>{item.country}</Typography>
+                      <Typography>{item.street}</Typography>
                     </Box>
                   </>
                 );
