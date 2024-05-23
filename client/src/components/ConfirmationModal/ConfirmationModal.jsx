@@ -28,10 +28,15 @@ const ConfirmationModal = ({ open, setOpen, jobId }) => {
   console.log(SkillDetails);
   const handleApplyJob = async () => {
     if (
+      !personalInformations ||
       personalInformations?.name?.length < 1 ||
       personalInformations?.fathername?.length < 1 ||
-      EducationDetails?.length < 1 ||
-      SkillDetails?.length < 1
+      personalInformations?.city?.length < 1 ||
+      personalInformations?.country?.length < 1 ||
+      !EducationDetails ||
+      EducationDetails.length < 1 ||
+      !SkillDetails ||
+      SkillDetails.length < 1
     ) {
       ToastMessage({
         message: "Please update you profile first...!",
