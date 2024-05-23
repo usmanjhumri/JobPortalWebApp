@@ -11,7 +11,7 @@ import CreateJobs from "../Pages/Jobs/CreateJobs";
 import Categories from "../Pages/Categories/Categories";
 import Applications from "../Pages/Applications/Applications";
 
-import Signout from "../Pages/SignOut/Signout";
+// import Signout from "../Pages/SignOut/Signout";
 export const AdminRoutes = [
   {
     path: "/",
@@ -81,22 +81,22 @@ export const AdminRoutes = [
     component: (
       <UseContainer
         activePage={<Applications />}
-        
+
         headerTitle={"Applications"}
         buttons={[]}
       />
     ),
   },
-  
-  {
-    path: "/signout",
-    component: (
-      <UseContainer
-        activePage={<Signout />}
-        
-        headerTitle={"Signout"}
-        buttons={[]}
-      />
-    ),
-  },
+
+  // {
+  //   path: "/signout",
+  //   component: (
+  //     <UseContainer
+  //       activePage={<Signout />}
+
+  //       headerTitle={"Signout"}
+  //       buttons={[]}
+  //     />
+  //   ),
+  // },
 ];

@@ -44,7 +44,7 @@ function Applications() {
   const { allApplications } = useSelector(getApplicationData);
   const [open, setOpen] = useState(false);
   const [selectedID, setselectedId] = useState(null);
-  
+
   const dispatch = useDispatch();
 
   const [loader] = useState(false);
@@ -175,7 +175,6 @@ function Applications() {
             }}
             rows={rows}
             columns={columns}
-            // checkboxSelection
             disableSelectionOnClick
           />
         </Box>
